@@ -6,10 +6,12 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.util.Objects;
 
 import com.avatarduel.model.Element;
 import com.avatarduel.model.Land;
@@ -29,14 +31,13 @@ public class AvatarDuel extends Application {
   }
 
   @Override
-  public void start(Stage stage) {
+  public void start(Stage stage) throws IOException {
     Text text = new Text();
     text.setText("Loading...");
     text.setX(50);
     text.setY(50);
 
-    Group root = new Group();
-    root.getChildren().add(text);
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("gameplay.fxml")));
 
     Scene scene = new Scene(root, 1280, 720);
 
