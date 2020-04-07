@@ -6,7 +6,7 @@ class Karakter extends Kartu {
 
     public Karakter(String nama, Element Element, String desc, String path, int atk, int def, int pow) {
         this.nama = nama;
-        this.Element = Element;
+        this.element = Element;
         this.description = desc;
         this.pathGambar = path;
         this.attack = atk;

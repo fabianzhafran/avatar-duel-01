@@ -2,7 +2,7 @@ abstract class Kartu {
 
     protected String nama;
     protected Element element;
-    protected String deskripsi;
+    protected String description;
     protected String pathGambar;
 
 
@@ -16,7 +16,7 @@ abstract class Kartu {
     }
 
     public String getDeskripsi() {
-        return deskripsi;
+        return description;
     }
 
     public String pathGambar() {

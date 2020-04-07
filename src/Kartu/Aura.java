@@ -6,7 +6,7 @@ class Aura extends Skill {
 
     public Aura(String nama, Element elemen, String desc, String path, int pow, int atk, int def) {
         this.nama = nama;
-        this.Element = Element;
+        this.element = element;
         this.description = desc;
         this.pathGambar = path;
         this.attack = atk;
