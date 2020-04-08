@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="350.0" prefWidth="275.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.CardController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="250.0" layoutX="13.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="13.0" layoutY="17.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
+      <Label fx:id="nameLabel" layoutX="23.0" layoutY="22.0" text="Name" />
+      <Label fx:id="pwrLabel" layoutX="62.0" layoutY="320.0" text="PWR :" />
+      <Label fx:id="attLabel" layoutX="128.0" layoutY="320.0" text="ATT: " />
+      <Label fx:id="defLabel" layoutX="182.0" layoutY="320.0" text="DEF:" />
+   </children>
+</AnchorPane>

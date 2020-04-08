@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<Group xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle fill="WHITE" height="80.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+      <Ellipse fill="WHITE" layoutX="50.0" layoutY="40.0" radiusX="43.0" radiusY="26.0" stroke="BLACK" strokeType="INSIDE" />
+   </children>
+</Group>

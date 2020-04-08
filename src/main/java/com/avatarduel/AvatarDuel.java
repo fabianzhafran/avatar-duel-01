@@ -37,7 +37,7 @@ public class AvatarDuel extends Application {
     text.setX(50);
     text.setY(50);
 
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("gameplay.fxml")));
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("Gameplay.fxml")));
 
     Scene scene = new Scene(root, 1280, 720);
 
