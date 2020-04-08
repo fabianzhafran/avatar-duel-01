@@ -1,3 +1,5 @@
+package com.avatarduel.card;
+
 abstract class Card {
 
     protected String name;
