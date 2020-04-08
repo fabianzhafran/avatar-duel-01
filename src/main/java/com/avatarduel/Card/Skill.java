@@ -1,3 +1,5 @@
+package com.avatarduel.card;
+
 abstract class Skill extends Card {
 
     protected int power;
