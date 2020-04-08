@@ -1,3 +1,5 @@
+package com.avatarduel.card;
+
 class PowerUp extends Skill {
 
     public PowerUp(String name, Element element, String path, String desc, int pow) {
