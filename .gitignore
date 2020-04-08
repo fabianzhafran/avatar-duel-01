@@ -28,6 +28,7 @@ hs_err_pid*
 
 ### Gradle ###
 *.gradle
+build.gradle
 build/
 
 # Ignore Gradle GUI config
@@ -44,6 +45,17 @@ gradle-app.setting
 
 ### Gradle Patch ###
 **/build/
+
+### Others ###
+./.gradle
+./.idea
+./bin
+./build
+./gradle
+./Spek
+./gradlew
+./gradlew.bat
+./settings.gradle
 
 # End of https://www.gitignore.io/api/java,gradle
 

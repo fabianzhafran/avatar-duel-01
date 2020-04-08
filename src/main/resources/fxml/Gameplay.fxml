@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.GameplayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.fxmlController.GameplayController">
     <children>
         <AnchorPane onMouseClicked="#btnPressed" prefHeight="420.0" prefWidth="307.0" style="-fx-border-width: 1; -fx-border-color: transparent; -fx-padding: 0;">
          <children>
@@ -421,7 +421,7 @@
                                     <children>
                                         <ImageView layoutY="1.0">
                                             <image>
-                                                <Image url="@assets/fire.png" />
+                                                <Image url="@../assets/fire.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="23.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
@@ -435,7 +435,7 @@
                                     <children>
                                         <ImageView layoutY="1.0">
                                             <image>
-                                                <Image url="@assets/drop.png" />
+                                                <Image url="@../assets/drop.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="25.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
@@ -449,7 +449,7 @@
                                     <children>
                                         <ImageView>
                                             <image>
-                                                <Image url="@assets/rocks.png" />
+                                                <Image url="@../assets/rocks.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="25.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" wrappingWidth="13.0">
@@ -463,7 +463,7 @@
                                     <children>
                                         <ImageView>
                                             <image>
-                                                <Image url="@assets/wind.png" />
+                                                <Image url="@../assets/wind.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="25.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
@@ -507,7 +507,7 @@
                                     <children>
                                         <ImageView layoutY="1.0">
                                             <image>
-                                                <Image url="@assets/fire.png" />
+                                                <Image url="@../assets/fire.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="23.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
@@ -521,7 +521,7 @@
                                     <children>
                                         <ImageView layoutY="1.0">
                                             <image>
-                                                <Image url="@assets/drop.png" />
+                                                <Image url="@../assets/drop.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="25.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
@@ -535,7 +535,7 @@
                                     <children>
                                         <ImageView>
                                             <image>
-                                                <Image url="@assets/rocks.png" />
+                                                <Image url="@../assets/rocks.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="25.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" wrappingWidth="13.0">
@@ -549,7 +549,7 @@
                                     <children>
                                         <ImageView>
                                             <image>
-                                                <Image url="@assets/wind.png" />
+                                                <Image url="@../assets/wind.png" />
                                             </image>
                                         </ImageView>
                                         <Text layoutX="25.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">

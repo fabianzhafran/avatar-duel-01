@@ -1,7 +1,5 @@
-package com.avatarduel;
+package com.avatarduel.fxmlController;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;

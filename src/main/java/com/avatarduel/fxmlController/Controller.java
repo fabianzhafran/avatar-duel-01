@@ -1,4 +1,4 @@
-package com.avatarduel;
+package com.avatarduel.fxmlController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
