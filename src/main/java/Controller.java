@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class Controller {
-
     public void btnPressed(Event event) {
         System.out.println("Button pressed!");
     }
