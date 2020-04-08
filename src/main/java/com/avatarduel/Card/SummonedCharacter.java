@@ -5,8 +5,8 @@ class SummonedCharacter implements ISummoned {
     boolean isAttackPos;
 
 
-    public SummonedCharacter(Character kar, boolean faceUp, boolean attackPos) {
-        this.Character = kar;
+    public SummonedCharacter(Character chara, boolean faceUp, boolean attackPos) {
+        this.character = chara;
         this.isFaceUp = faceUp;
         this.isAttackPos = attackPos;
     }
@@ -27,10 +27,10 @@ class SummonedCharacter implements ISummoned {
 
     public int getPositionValue() {
         if (this.isAttackPos) {
-            return this.Character.getAttackValue();
+            return this.character.getAttackValue();
         }
         else {
-            return this.Character.getDefenseValue();
+            return this.character.getDefenseValue();
         }
     }
  

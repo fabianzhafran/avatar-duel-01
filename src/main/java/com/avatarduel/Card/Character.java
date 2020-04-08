@@ -4,7 +4,7 @@ class Character extends Card {
     protected int defense;
     protected int power;
 
-    public Karakter(String name, Element Element, String desc, String path, int atk, int def, int pow) {
+    public Character(String name, Element Element, String desc, String path, int atk, int def, int pow) {
         this.name = name;
         this.element = Element;
         this.description = desc;
