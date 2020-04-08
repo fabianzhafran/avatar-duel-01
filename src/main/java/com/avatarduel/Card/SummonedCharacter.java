@@ -1,3 +1,5 @@
+package com.avatarduel.card;
+
 class SummonedCharacter implements ISummoned {
     
     Character character;
