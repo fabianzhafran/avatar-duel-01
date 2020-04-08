@@ -1,3 +1,5 @@
+package com.avatarduel.card;
+
 class Aura extends Skill {
 
     private int attack;
