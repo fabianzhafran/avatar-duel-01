@@ -1,3 +1,5 @@
+package com.avatarduel.card;
+
 class Character extends Card {
 
     protected int attack;
