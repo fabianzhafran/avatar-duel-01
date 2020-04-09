@@ -17,17 +17,15 @@ public class HandController {
     @FXML private AnchorPane card3;
     @FXML private AnchorPane card4;
     @FXML private AnchorPane card5;
-//    @FXML private AnchorPane card6;
-//    @FXML private AnchorPane card7;
-//    @FXML private AnchorPane card8;
+    @FXML private AnchorPane card6;
+    @FXML private AnchorPane card7;
+    @FXML private AnchorPane card8;
 
+    @FXML private FieldController fieldController;
 
-
-    private GameplayController gameplayController;
-
-    public void init(GameplayController g) {
-        System.out.println("HandController Linked!");
-        this.gameplayController = g;
+    public void init(FieldController f) {
+        System.out.println("FieldController Linked!");
+        this.fieldController = f;
     }
 
     public void cardClicked(Event evt) {
@@ -40,8 +38,9 @@ public class HandController {
                 ret += conv.getText() + " ";
             }
         }
-        gameplayController.setDescCard(ret);
-        System.out.println("Source gotten successfully");
+        System.out.println("Sending to field...");
+        fieldController.setDescCard(ret);
+        System.out.println("Source delivered successfully");
     }
 
 

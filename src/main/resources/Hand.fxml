@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -235,5 +236,143 @@
             </Text>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="card6" onMouseClicked="#cardClicked" prefHeight="120.0" prefWidth="110.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="110.0" layoutX="15.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="15.0" layoutX="20.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="20.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" layoutX="20.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Label layoutX="22.0" layoutY="10.0" text="Sokka" />
+            <ImageView fitHeight="50.0" fitWidth="70.0" layoutX="20.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="43.0" layoutY="80.0" text="2">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="43.0" layoutY="92.0" text="5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="77.0" layoutY="80.0" text="5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="55.0" layoutY="93.0" text="ELMT">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Text layoutX="22.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pwr:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="22.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Att:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="55.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Def:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="card7" onMouseClicked="#cardClicked" prefHeight="120.0" prefWidth="110.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="110.0" layoutX="15.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="15.0" layoutX="20.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="20.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" layoutX="20.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Label layoutX="22.0" layoutY="10.0" text="Sokka" />
+            <ImageView fitHeight="50.0" fitWidth="70.0" layoutX="20.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="43.0" layoutY="80.0" text="2">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="43.0" layoutY="92.0" text="5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="77.0" layoutY="80.0" text="5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="55.0" layoutY="93.0" text="ELMT">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Text layoutX="22.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pwr:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="22.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Att:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="55.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Def:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="card8" onMouseClicked="#cardClicked" prefHeight="120.0" prefWidth="110.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="110.0" layoutX="15.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="15.0" layoutX="20.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="20.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" layoutX="20.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+            <Label layoutX="22.0" layoutY="10.0" text="Sokka" />
+            <ImageView fitHeight="50.0" fitWidth="70.0" layoutX="20.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="43.0" layoutY="80.0" text="2">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="43.0" layoutY="92.0" text="5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="77.0" layoutY="80.0" text="5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="55.0" layoutY="93.0" text="ELMT">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Text layoutX="22.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pwr:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="22.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Att:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="55.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Def:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
    </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </HBox>

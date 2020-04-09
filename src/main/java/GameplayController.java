@@ -11,12 +11,14 @@ import javafx.scene.control.TextField;
 public class GameplayController {
 
     @FXML private CardController cardController;
-    @FXML private HandController handController;
+    @FXML private P1FieldController p1FieldController;
 
     @FXML public void initialize() {
         System.out.println("App started");
+        System.out.println("Linking cardController...");
         cardController.init(this);
-        handController.init(this);
+        System.out.println("Linking p1FieldController...");
+        p1FieldController.init(this);
     }
 
     public void btnPressed(Event event) {
