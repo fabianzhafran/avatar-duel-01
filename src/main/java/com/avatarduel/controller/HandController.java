@@ -24,7 +24,7 @@ public class HandController {
     @FXML private FieldController fieldController;
 
     public void init(FieldController f) {
-        System.out.println("FieldController Linked!");
+        System.out.println("HandController Linked!");
         this.fieldController = f;
     }
 
@@ -34,7 +34,7 @@ public class HandController {
         for (Node child:clickedCard.getChildren()) {
             if (child instanceof Label) {
                 Label conv = (Label) child;
-                System.out.println(conv.getText());
+//                System.out.println(conv.getText());
                 ret += conv.getText() + " ";
             }
         }

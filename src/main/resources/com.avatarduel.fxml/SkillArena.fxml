@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="110.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.SkillArenaController">
+   <children>
+      <GridPane gridLinesVisible="true" prefHeight="110.0" prefWidth="880.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Group>
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="15.0" layoutX="5.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="5.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" layoutX="5.0" layoutY="66.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+                  <Label layoutX="9.0" layoutY="7.0" text="Sozin's Comet">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="5.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="28.0" layoutY="68.0" text="3">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="28.0" layoutY="83.0" text="6">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="62.0" layoutY="69.0" text="6">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="83.0" text="ELMT">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Text layoutX="7.0" layoutY="76.7177734375" strokeType="OUTSIDE" strokeWidth="0.0" text="Pwr:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="7.0" layoutY="90.7177734375" strokeType="OUTSIDE" strokeWidth="0.0" text="Att:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="40.0" layoutY="77.7177734375" strokeType="OUTSIDE" strokeWidth="0.0" text="Def:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Group>
+            <Group GridPane.columnIndex="1">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="15.0" layoutX="5.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="5.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" layoutX="5.0" layoutY="66.0" stroke="BLACK" strokeType="INSIDE" width="70.0" />
+                  <Label layoutX="9.0" layoutY="7.0" text="Air Scooter">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="5.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="28.0" layoutY="68.0" text="2">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="28.0" layoutY="83.0" text="4">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="62.0" layoutY="69.0" text="4">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="83.0" text="ELMT">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Text layoutX="7.0" layoutY="76.7177734375" strokeType="OUTSIDE" strokeWidth="0.0" text="Pwr:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="7.0" layoutY="90.7177734375" strokeType="OUTSIDE" strokeWidth="0.0" text="Att:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="40.0" layoutY="77.7177734375" strokeType="OUTSIDE" strokeWidth="0.0" text="Def:">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Group>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
