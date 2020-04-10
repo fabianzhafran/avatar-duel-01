@@ -1,3 +1,5 @@
+package com.avatarduel.Card;
+
 class Destroy extends Skill {
     
     public Destroy(String name, Element element, String path, String desc, int pow) {

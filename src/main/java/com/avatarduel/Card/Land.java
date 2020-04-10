@@ -1,3 +1,5 @@
+package com.avatarduel.Card;
+
 class Land extends Card {
 
     public Land(String name, Element element, String path, String desc) {

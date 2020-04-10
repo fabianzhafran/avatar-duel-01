@@ -1,3 +1,5 @@
+package com.avatarduel.Card;
+
 enum Element {
     API,
     AIR,

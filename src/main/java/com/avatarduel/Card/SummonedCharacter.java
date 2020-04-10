@@ -1,4 +1,6 @@
-class SummonedCharacter implements ISummoned {
+package com.avatarduel.Card;
+
+public class SummonedCharacter implements ISummoned {
     
     Character character;
     boolean isFaceUp;

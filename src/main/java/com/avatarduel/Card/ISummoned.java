@@ -1,3 +1,5 @@
+package com.avatarduel.Card;
+
 interface ISummoned {
 
     // To Flip Summoned Character,can only be activated when the card is summoned face down
