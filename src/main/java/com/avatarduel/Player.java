@@ -30,7 +30,7 @@ public class Player {
         land = new LinkedList<Element>(); // no land powers at start
     }
 
-    public void takeCardFromTop(LinkedList<Card> moveFrom, LinkedList<Card> moveTo) {
+    public void takeCardFromTop(List<Card> moveFrom, List<Card> moveTo) {
         int totalCards = moveFrom.size();
         Card getCard = moveFrom.remove(totalCards - 1);
         moveTo.add(getCard);
