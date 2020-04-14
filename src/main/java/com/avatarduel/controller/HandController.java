@@ -39,8 +39,10 @@ public class HandController {
     public void addCard() {
         // Nanti bakal nerima parameter card
         Group newCard = CardUtils.createCard();
-        newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
+        newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
                 event ->  cardClicked(event));
+        newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                event -> System.out.println("Card clicked"));
         handHBox.getChildren().add(newCard);
     }
 
