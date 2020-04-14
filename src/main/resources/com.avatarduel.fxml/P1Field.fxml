@@ -14,7 +14,7 @@
    <children>
       <AnchorPane layoutX="880.0" layoutY="-2.0" prefHeight="350.0" prefWidth="110.0">
          <children>
-            <Group layoutX="15.0" layoutY="15.0">
+            <Group layoutX="15.0" layoutY="15.0" onMouseClicked="#draw">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
                   <Ellipse fill="WHITE" layoutX="40.0" layoutY="50.0" radiusX="43.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />

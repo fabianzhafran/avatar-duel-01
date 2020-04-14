@@ -1,26 +1,15 @@
 package com.avatarduel.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 public class HandController {
-    @FXML private AnchorPane card1;
-    @FXML private AnchorPane card2;
-    @FXML private AnchorPane card3;
-    @FXML private AnchorPane card4;
-    @FXML private AnchorPane card5;
-    @FXML private AnchorPane card6;
-    @FXML private AnchorPane card7;
-    @FXML private AnchorPane card8;
-
+    @FXML private HBox handHBox;
     @FXML private FieldController fieldController;
 
     public void init(FieldController f) {
@@ -29,7 +18,7 @@ public class HandController {
     }
 
     public void cardClicked(Event evt) {
-        AnchorPane clickedCard = (AnchorPane) evt.getSource();
+        Group clickedCard = (Group) evt.getSource();
         String ret = "";
         for (Node child:clickedCard.getChildren()) {
             if (child instanceof Label) {
@@ -43,5 +32,16 @@ public class HandController {
         System.out.println("Source delivered successfully");
     }
 
+    public void printTes() {
+        System.out.println("Berhasil yang lu tes!");
+    }
+
+    public void addCard() {
+        // Nanti bakal nerima parameter card
+        Group newCard = CardUtils.createCard();
+        newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                event ->  cardClicked(event));
+        handHBox.getChildren().add(newCard);
+    }
 
 }

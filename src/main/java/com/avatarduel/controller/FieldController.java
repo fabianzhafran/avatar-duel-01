@@ -23,4 +23,8 @@ abstract public class FieldController {
         System.out.println("Sending to gameplay...");
         gameplayController.setDescCard(s);
     }
+
+    public void draw() {
+        handController.addCard();
+    }
 }
