@@ -1,6 +1,6 @@
-package com.avatarduel.card;
+package com.avatarduel.Card;
 
-abstract class Card {
+public abstract class Card {
 
     protected String name;
     protected Element element;

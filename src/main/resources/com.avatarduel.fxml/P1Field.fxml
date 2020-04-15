@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="350.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.P1FieldController">
+   <children>
+      <AnchorPane layoutX="880.0" layoutY="-2.0" prefHeight="350.0" prefWidth="110.0">
+         <children>
+            <Group layoutX="15.0" layoutY="15.0" onMouseClicked="#draw">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+                  <Ellipse fill="WHITE" layoutX="40.0" layoutY="50.0" radiusX="43.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </Group>
+            <Text layoutX="43.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30" textAlignment="JUSTIFY" wrappingWidth="25.0">
+               <font>
+                  <Font name="Caladea Bold" size="18.0" />
+               </font>
+            </Text>
+            <Group layoutX="37.0" layoutY="150.0">
+               <children>
+                  <AnchorPane layoutX="1.0">
+                     <children>
+                        <ImageView layoutY="1.0">
+                           <image>
+                              <Image url="@../assets/fire.png" />
+                           </image>
+                        </ImageView>
+                        <Text layoutX="23.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                           <font>
+                              <Font name="AR PL UKai CN" size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutY="25.0">
+                     <children>
+                        <ImageView layoutY="1.0">
+                           <image>
+                              <Image url="@../assets/drop.png" />
+                           </image>
+                        </ImageView>
+                        <Text layoutX="25.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                           <font>
+                              <Font name="AR PL UKai CN" size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutY="53.0">
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@../assets/rocks.png" />
+                           </image>
+                        </ImageView>
+                        <Text layoutX="25.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" wrappingWidth="13.0">
+                           <font>
+                              <Font name="AR PL UKai CN" size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutY="81.0">
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@../assets/wind.png" />
+                           </image>
+                        </ImageView>
+                        <Text layoutX="25.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                           <font>
+                              <Font name="AR PL UKai CN" size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </Group>
+            <Label layoutX="20.0" layoutY="275.0" text="Player 1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="30.0" layoutY="300.0" text="HP 80">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <fx:include fx:id="hand" layoutY="222.5" source="Hand.fxml" />
+      <fx:include fx:id="characterArena" source="CharacterArena.fxml" />
+      <fx:include fx:id="skillArena" layoutY="110.0" source="SkillArena.fxml" />
+   </children>
+</AnchorPane>

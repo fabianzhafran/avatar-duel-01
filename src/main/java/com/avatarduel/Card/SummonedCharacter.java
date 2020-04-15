@@ -1,6 +1,6 @@
-package com.avatarduel.card;
+package com.avatarduel.Card;
 
-class SummonedCharacter implements ISummoned {
+public class SummonedCharacter implements ISummoned {
     
     Character character;
     boolean isFaceUp;

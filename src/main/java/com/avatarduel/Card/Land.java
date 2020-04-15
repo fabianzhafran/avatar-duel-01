@@ -1,4 +1,4 @@
-package com.avatarduel.card;
+package com.avatarduel.Card;
 
 class Land extends Card {
 

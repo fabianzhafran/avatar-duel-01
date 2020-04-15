@@ -1,4 +1,4 @@
-package com.avatarduel.card;
+package com.avatarduel.Card;
 
 class Aura extends Skill {
 
@@ -8,7 +8,7 @@ class Aura extends Skill {
 
     public Aura(String name, Element elemen, String desc, String path, int pow, int atk, int def) {
         this.name = name;
-        this.element = element;
+        this.element = elemen;
         this.description = desc;
         this.pathGambar = path;
         this.attack = atk;

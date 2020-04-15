@@ -1,4 +1,4 @@
-package com.avatarduel.card;
+package com.avatarduel.Card;
 
 enum Element {
     API,
