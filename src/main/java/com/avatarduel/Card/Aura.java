@@ -1,6 +1,6 @@
 package com.avatarduel.Card;
 
-class Aura extends Skill {
+public class Aura extends Skill {
 
     private int attack;
     private int defense;
@@ -10,7 +10,7 @@ class Aura extends Skill {
         this.name = name;
         this.element = elemen;
         this.description = desc;
-        this.pathGambar = path;
+        this.imagePath = path;
         this.attack = atk;
         this.defense = def;
         this.power = pow;

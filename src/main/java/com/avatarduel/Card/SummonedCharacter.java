@@ -2,12 +2,12 @@ package com.avatarduel.Card;
 
 public class SummonedCharacter implements ISummoned {
     
-    Character character;
+    Monster character;
     boolean isFaceUp;
     boolean isAttackPos;
 
 
-    public SummonedCharacter(Character chara, boolean faceUp, boolean attackPos) {
+    public SummonedCharacter(Monster chara, boolean faceUp, boolean attackPos) {
         this.character = chara;
         this.isFaceUp = faceUp;
         this.isAttackPos = attackPos;
