@@ -34,7 +34,7 @@ public class GameplayController {
 
     public void setDescCard(Card card) {
 //        System.out.println("Setting description...");
-        cardDescController.setName(card.getNama());
+        cardDescController.setName(card.getName());
         cardDescController.setDesc(card.getDeskripsi());
         cardDescController.setImage(card.getImagePath());
         // Set DEscription

@@ -115,7 +115,7 @@ public class Player {
                                              landRow[4]
                                             );
                     this.hand.add(landCard);
-                    System.out.println(landCard.getNama());
+                    System.out.println(landCard.getName());
                     found = true;
                     return landCard;
                 }
@@ -133,7 +133,7 @@ public class Player {
                                                            Integer.parseInt(monsterRow[7])
                                                           );
                         this.hand.add(monsterCard);
-                        System.out.println(monsterCard.getNama());
+                        System.out.println(monsterCard.getName());
                         found = true;
                         return monsterCard;
                     }
@@ -152,7 +152,7 @@ public class Player {
                                                       Integer.parseInt(skillAuraRow[7])
                                                      );
                         this.hand.add(skillAuraCard);
-                        System.out.println(skillAuraCard.getNama());
+                        System.out.println(skillAuraCard.getName());
                         return skillAuraCard;
 
                     }

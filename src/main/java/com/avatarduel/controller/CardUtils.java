@@ -66,7 +66,7 @@ public class CardUtils {
             Rectangle nameRect = createRectCard(70, 15, 20, 10);
             Rectangle imgRect = createRectCard(70,50, 20, 28);
             Rectangle descRect = createRectCard(70, 30, 20, 80);
-            Label nameLabel = createLabel(cardInput.getNama(), 22, 12, 8);
+            Label nameLabel = createLabel(cardInput.getName(), 22, 12, 8);
             // Monster
             if (cardInput.getType().equals("Land")) {
                 Land castedCard = (Land) cardInput;
