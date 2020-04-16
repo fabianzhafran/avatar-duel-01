@@ -11,6 +11,7 @@ import com.avatarduel.util.CsvReader;
 
 public class Player {
 
+    protected int playerID;
     protected String namePlayer;
     protected int hp;
     protected Stack<Integer> deck;
@@ -22,6 +23,8 @@ public class Player {
     public Player(String namePlayer) {
 
         this.namePlayer = namePlayer;
+        int id = namePlayer.charAt(namePlayer.length() - 1) - 48;
+        this.playerID = id;
         hp = 80;
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
@@ -36,8 +39,12 @@ public class Player {
 
     }
 
+    public int getPlayerID() {
+        return playerID;
+    }
+
     public Card[] getHand() {
-        return hand;
+
     }
     
     public SummonedCharacter[] getCharacterOnField() {
@@ -50,6 +57,34 @@ public class Player {
     
     public ElementPower[] getElementPower() {
         return elementPower;
+    }
+
+    public int getPowerByElement(Element e) {
+        for (ElementPower elPow : elementPower) {
+
+            if (elPow.element == e) {
+                return elPow.currentPower;
+            }
+        }
+    }
+
+    public void setElementPower(Element e, int pow) {
+        for (ElementPower elPow : elementPower) {
+
+            if (elPow.element == e) {
+                elPow.currentPower = pow;
+            }
+        }
+    }
+
+    public void addMaxPower(Element e) {
+        for (ElementPower elPow : elementPower) {
+
+            if (elPow.element == e) {
+                elPow.maxPow++;
+                elPow.currentPower++;
+            }
+        }
     }
     
     public void draw() {
