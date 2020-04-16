@@ -2,30 +2,18 @@
 
 public class SummonedMonster implements ISummoned {
     
-    Monster character;
-    boolean isFaceUp;
+    Monster monster;
     boolean isAttackPos;
 
     int buffAtk;
     int buffDef;
     boolean piercieng;
 
-    public SummonedMonster(Monster chara, boolean faceUp, boolean attackPos) {
-        this.character = chara;
-        this.isFaceUp = faceUp;
+    public SummonedMonster(Monster mons, boolean faceUp, boolean attackPos) {
+        this.monster = mons;
         this.isAttackPos = attackPos;
         resetBuff();
         piercieng = false;
-    }
-
-    public boolean flip() {
-        if (!(this.isFaceUp)) {
-            this.isFaceUp = !(this.isFaceUp);
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 
     public void rotate() {
