@@ -22,7 +22,7 @@ public class CardDescController {
     private GameplayController gameplayController;
 
     public void init(GameplayController g) {
-        System.out.println("CardController Linked!");
+//        System.out.println("CardController Linked!");
         this.gameplayController = g;
     }
 

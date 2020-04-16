@@ -11,13 +11,13 @@ public class GameplayController {
 
     @FXML public void initialize() {
         System.out.println("App started");
-        System.out.println("Linking cardDescController...");
+//        System.out.println("Linking cardDescController...");
         cardDescController.init(this);
-        System.out.println("Linking p1FieldController...");
-        System.out.println("On p1FieldController:");
+//        System.out.println("Linking p1FieldController...");
+//        System.out.println("On p1FieldController:");
         p1FieldController.init(this);
-        System.out.println("Linking p2FieldController...");
-        System.out.println("On p2FieldController:");
+//        System.out.println("Linking p2FieldController...");
+//        System.out.println("On p2FieldController:");
         p2FieldController.init(this);
     }
 
@@ -30,7 +30,7 @@ public class GameplayController {
     }
 
     public void setDescCard(String s) {
-        System.out.println("Setting description...");
+//        System.out.println("Setting description...");
         String[] splitString = s.split(" ");
         cardDescController.setName(splitString[0]);
         cardDescController.setPwr(splitString[1]);
