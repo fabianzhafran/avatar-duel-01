@@ -25,72 +25,72 @@
                         <Font name="Caladea Bold" size="18.0" />
                     </font>
                 </Text>
-                <Group layoutX="36.0" layoutY="103.0">
-                    <children>
-                        <AnchorPane layoutX="1.0">
-                            <children>
-                                <ImageView layoutY="1.0">
-                                    <image>
-                                        <Image url="@../assets/fire.png" />
-                                    </image>
-                                </ImageView>
-                                <Text layoutX="23.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
-                                    <font>
-                                        <Font name="AR PL UKai CN" size="13.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutY="25.0">
-                            <children>
-                                <ImageView layoutY="1.0">
-                                    <image>
-                                        <Image url="@../assets/drop.png" />
-                                    </image>
-                                </ImageView>
-                                <Text layoutX="25.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
-                                    <font>
-                                        <Font name="AR PL UKai CN" size="13.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutY="53.0">
-                            <children>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../assets/rocks.png" />
-                                    </image>
-                                </ImageView>
-                                <Text layoutX="25.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" wrappingWidth="13.0">
-                                    <font>
-                                        <Font name="AR PL UKai CN" size="13.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutY="81.0">
-                            <children>
-                                <ImageView>
-                                    <image>
-                                        <Image url="@../assets/wind.png" />
-                                    </image>
-                                </ImageView>
-                                <Text layoutX="25.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
-                                    <font>
-                                        <Font name="AR PL UKai CN" size="13.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </AnchorPane>
-                    </children>
-                </Group>
-                <Label layoutX="20.0" layoutY="43.0" text="Player 2">
+            <Group layoutX="38.0" layoutY="106.0">
+               <children>
+                  <AnchorPane layoutX="1.0">
+                     <children>
+                        <Label fx:id="fireElement" layoutX="25.0" text="2">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <ImageView>
+                           <image>
+                              <Image url="@../assets/fire.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutY="25.0">
+                     <children>
+                        <ImageView layoutY="1.0">
+                           <image>
+                              <Image url="@../assets/drop.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="waterElement" layoutX="25.0" text="2">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutY="53.0">
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@../assets/rocks.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="earthElement" layoutX="25.0" text="2">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutY="81.0">
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@../assets/wind.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="airElement" layoutX="25.0" text="2">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </Group>
+                <Label fx:id="playerLabel" layoutX="20.0" layoutY="43.0" text="Player 2">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
-                <Label layoutX="30.0" layoutY="73.0" text="HP 80">
+                <Label fx:id="hpLabel" layoutX="30.0" layoutY="73.0" text="HP 80">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>

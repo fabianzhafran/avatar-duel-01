@@ -9,6 +9,8 @@ import java.util.Stack;
 import com.avatarduel.Card.*;
 import com.avatarduel.util.CsvReader;
 
+import static com.avatarduel.Card.Element.*;
+
 public class Player {
 
     private static final int maxMonstersOnField = 6;
@@ -42,15 +44,23 @@ public class Player {
         numberOfSkillsOnField = 0;
         skillOnField = new Skill[maxSkillsOnField];
         elementPower = new ElementPower[4];
-        elementPower[0] = new ElementPower(Element.WATER);
-        elementPower[1] = new ElementPower(Element.EARTH);
-        elementPower[2] = new ElementPower(Element.FIRE);
-        elementPower[3] = new ElementPower(Element.AIR);
+        elementPower[0] = new ElementPower(EARTH);
+        elementPower[1] = new ElementPower(WATER);
+        elementPower[2] = new ElementPower(FIRE);
+        elementPower[3] = new ElementPower(AIR);
         System.out.println(deck.size());
     }
 
     public int getPlayerID() {
         return playerID;
+    }
+
+    public String getNamePlayer() {
+        return namePlayer;
+    }
+
+    public int getHp() {
+        return hp;
     }
 
     public ArrayList<Card> getHand() {
@@ -59,6 +69,16 @@ public class Player {
     
     public SummonedMonster[] getCharacterOnField() {
         return monsterOnField;
+    }
+
+    public void printMonsterOnField() {
+        // For debugging
+        for (SummonedMonster sm: monsterOnField) {
+            if (sm != null) {
+                System.out.println(sm.getMonster().getName());
+            }
+
+        }
     }
     
     public Skill[] getSkillOnField() {
@@ -82,7 +102,16 @@ public class Player {
         return 0;
     }
 
-    public void setLandPowerByElement(Element e, int pow) {  
+    public int getMaxLandPowerByElement(Element e) {
+        for (ElementPower elPow : elementPower) {
+            if (elPow.getElement() == e) {
+                return elPow.getMaxPow();
+            }
+        }
+        return 0;
+    }
+
+    public void setLandPowerByElement(Element e, int pow) {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
                 elPow.setCurrentPow(pow);
@@ -155,7 +184,7 @@ public class Player {
                 }
             }
         }
-        return new Land("NOT FOUND", Element.AIR, "NOT FOUND", "NOT FOUND");
+        return new Land("NOT FOUND", AIR, "NOT FOUND", "NOT FOUND");
     }
 
     public void removeMonsterOnField(int monsterIndex) {
@@ -272,6 +301,10 @@ public class Player {
 
     public void printShit(Card card) {
         System.out.println("Name: " + card.getName() + ", Type: " + card.getType());
+    }
+
+    public void destroyMonsterOnField(int idx) {
+        monsterOnField[idx] = null;
     }
 
 }
