@@ -65,7 +65,7 @@ public class Player {
         return elementPower;
     }
 
-    public int getPowerByElement(Element e) {
+    public int getLandPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
                 return elPow.getCurrentPow();
@@ -74,7 +74,7 @@ public class Player {
         return 0;
     }
 
-    public void setElementPower(Element e, int pow) {
+    public void setLandPowerByElement(Element e, int pow) {
         for (ElementPower elPow : elementPower) {
 
             if (elPow.getElement() == e) {
@@ -83,7 +83,7 @@ public class Player {
         }
     }
 
-    public void addMaxPower(Element e) {
+    public void addLandMaxPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
 
             if (elPow.getElement() == e) {
@@ -161,17 +161,21 @@ public class Player {
 
     public void putToField(int indexHand, boolean isAttackPosition) {
 
-        if (hand.get(indexHand).getType().equals("Monster")) {
+        Card handGet = hand.get(indexHand);
+        if (handGet.getType().equals("Monster")) {
             if (numberOfMonstersOnField < maxMonstersOnField) {
                 for (int i = 0; i < maxMonstersOnField; i++) {
                     if (monsterOnField[i] == null) {
-                        monsterOnField[i] = new SummonedMonster(((Monster)hand.get(indexHand)), isAttackPosition);
+                        monsterOnField[i] = new SummonedMonster(((Monster)handGet), isAttackPosition);
                         numberOfMonstersOnField++;
                     }
                 }
             }
+        } else if (handGet.getType().equals("Land")) {
+            addLandMaxPowerByElement(handGet.getElement());
         }
-
+        hand.remove(indexHand);
+        
     }
 
 }
