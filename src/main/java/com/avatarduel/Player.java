@@ -112,7 +112,7 @@ public class Player {
                                              landRow[4]
                                             );
                     this.hand.add(landCard);
-                    System.out.println(landCard.getNama());
+                    System.out.println(landCard.getName());
                     found = true;
                     return landCard;
                 }
@@ -129,7 +129,7 @@ public class Player {
                                                            Integer.parseInt(monsterRow[7])
                                                           );
                         this.hand.add(monsterCard);
-                        System.out.println(monsterCard.getNama());
+                        System.out.println(monsterCard.getName());
                         found = true;
                         return monsterCard;
                     }
@@ -147,7 +147,7 @@ public class Player {
                                                       Integer.parseInt(skillAuraRow[7])
                                                      );
                         this.hand.add(skillAuraCard);
-                        System.out.println(skillAuraCard.getNama());
+                        System.out.println(skillAuraCard.getName());
                         return skillAuraCard;
 
                     }
@@ -159,11 +159,31 @@ public class Player {
     }
 
     public void removeMonsterOnField(int monsterIndex) {
+        ArrayList<int> linkedSkill = monsterOnField[monsterIndex].getSkillLinked();
         monsterOnField[monsterIndex] = null;
+        for (int i = 0; i < linkedSkill.size(); i++) {
+            removeSkillOnField(linkedSkill.get(i));
+        }
     }
 
     public void removeSkillOnField(int skillIndex) {
+        
         skillOnField[skillIndex] = null;
+        boolean removed = false;
+        for (int i = 0; i < maxMonstersOnField && !removed; i++) {
+            if (monsterOnField[i] != null) {
+                ArrayList<int> linkedSkill = monsterOnField[i].getSkillLinked();
+                int j = 0;
+                while (j < linkedSkill.size() && skillIndex != linkedSkill.get(j)) {
+                    j++;
+                }
+                if (j < linkedSkill.size()) {
+                    monsterOnField[i].removeSkill(skillIndex);
+                    removed = true;
+                }
+            }
+        }
+
     }
 
     public void putToField(int cardOnHandIndex, boolean isAttackPosition) {
@@ -194,7 +214,7 @@ public class Player {
     }
 
     public void activateAuraSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
-        monsterOnField[monsterOnFieldIndex].setBuff(
+        monsterOnField[monsterOnFieldIndex].addBuff(
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
         );
