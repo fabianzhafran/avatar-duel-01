@@ -9,7 +9,7 @@ public class SummonedMonster implements ISummoned {
     int buffDef;
     boolean piercieng;
 
-    public SummonedMonster(Monster mons, boolean faceUp, boolean attackPos) {
+    public SummonedMonster(Monster mons, boolean attackPos) {
         this.monster = mons;
         this.isAttackPos = attackPos;
         resetBuff();
@@ -22,10 +22,10 @@ public class SummonedMonster implements ISummoned {
 
     public int getPositionValue() {
         if (this.isAttackPos) {
-            return this.character.getAttackValue();
+            return this.monster.getAttackValue();
         }
         else {
-            return this.character.getDefenseValue();
+            return this.monster.getDefenseValue();
         }
     }
  

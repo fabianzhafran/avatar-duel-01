@@ -30,20 +30,39 @@ public class AvatarDuel extends Application {
     stage.setScene(scene);
     stage.show();
 
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println(" ______                                             ");
+    System.out.println(" _________        .---\"\"\"      \"\"\"---.              ");
+    System.out.println(":______.-':      :  .--------------.  :             ");
+    System.out.println("| ______  |      | :                : |             ");
+    System.out.println("|:______B:|      | |  Debug  logs : | |             ");
+    System.out.println("|:______B:|      | |  Debug  logs : | |             ");
+    System.out.println("|:______B:|      | |  Debug  logs : | |             ");
+    System.out.println("|         |      | |  Debug  logs : | |             ");
+    System.out.println("|:_____:  |      | |                | |             ");
+    System.out.println("|    ==   |      | :                : |             ");
+    System.out.println("|       O |      :  '--------------'  :             ");
+    System.out.println("|       o |      :'---...______...---'              ");
+    System.out.println("|       o |-._.-i___/'             \\._              ");
+    System.out.println("|'-.____o_|   '-.   '-...______...-'  `-._          ");
+    System.out.println(":_________:      `.____________________   `-.___.-. ");
+    System.out.println("                 .'.eeeeeeeeeeeeeeeeee.'.      :___:");
+    System.out.println("    fsc        .'.eeeeeeeeeeeeeeeeeeeeee.'.         ");
+    System.out.println("              :____________________________:        ");
     
     try {
-      System.out.println();
-      System.out.println();
-      System.out.println();
-      System.out.println();
       text.setText("Avatar Duel!");
       Player player1 = new Player("Player 1");
       Player player2 = new Player("Player 2");
-      ListOfCards temp = new ListOfCards();
-      for (String[] s : temp.listOfLandCards) {
-        System.out.println(s[0]);
-      }
+      // ListOfCards temp = new ListOfCards();
       player1.draw();
+      
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);
     }

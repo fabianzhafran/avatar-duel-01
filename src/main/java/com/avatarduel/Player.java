@@ -67,11 +67,11 @@ public class Player {
 
     public int getPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
-
             if (elPow.getElement() == e) {
-                return elPow.getCurrentPower();
+                return elPow.getCurrentPow();
             }
         }
+        return 0;
     }
 
     public void setElementPower(Element e, int pow) {
@@ -165,7 +165,7 @@ public class Player {
             if (numberOfMonstersOnField < maxMonstersOnField) {
                 for (int i = 0; i < maxMonstersOnField; i++) {
                     if (monsterOnField[i] == null) {
-                        monsterOnField[i] = new SummonedMonster(hand.get(indexHand), isAttackPosition);
+                        monsterOnField[i] = new SummonedMonster(((Monster)hand.get(indexHand)), isAttackPosition);
                         numberOfMonstersOnField++;
                     }
                 }
