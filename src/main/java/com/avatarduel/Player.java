@@ -175,7 +175,9 @@ public class Player {
             addLandMaxPowerByElement(handGet.getElement());
         }
         hand.remove(indexHand);
-        
+
     }
+
+    
 
 }

@@ -18,7 +18,7 @@ public class Turn {
 
     }
 
-    public void playTurn(){
+    public void playTurn() {
         for (Phase phase : phases) {
             phase.playPhase();
         }
