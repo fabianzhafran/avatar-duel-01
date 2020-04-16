@@ -26,14 +26,13 @@ public class Player {
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
         for (int i = 0; i < 50; i++) {
-            this.deck.push(randomNumber.nextInt(90));
+            this.deck.push(randomNumber.nextInt(47) + 17);
         }
         hand = new ArrayList<Card>();
         characterOnField = new ArrayList<SummonedCharacter>();
         skillOnField = new ArrayList<Skill>();
         elementPower = new ElementPower[4];
         System.out.println(deck.size());
-
     }
 
     public ArrayList<Card> getHand() {
@@ -51,8 +50,10 @@ public class Player {
     public ElementPower[] getElementPower() {
         return elementPower;
     }
+
+    public int getDeckCount() { return this.deck.size(); }
     
-    public void draw() {
+    public Card draw() {
 
         System.out.println("~~ " + this.namePlayer + " Draw : ");
         ListOfCards listOfCards = new ListOfCards();
@@ -63,7 +64,7 @@ public class Player {
             System.out.println("top card id : ");
             System.out.println(topCardId);
             for (String[] landRow : listOfCards.listOfLandCards) {
-                System.out.println(landRow[0]);
+//                System.out.println(landRow[0]);
                 if (topCardId == Integer.parseInt(landRow[0])) {
                         System.out.println("~~ Found a land card.");
                         Land landCard = new Land(landRow[1], 
@@ -74,7 +75,7 @@ public class Player {
                     this.hand.add(landCard);
                     System.out.println(landCard.getDeskripsi());
                     found = true;
-                    break;
+                    return landCard;
                 }
             }
             if (!found) {
@@ -92,7 +93,7 @@ public class Player {
                         this.hand.add(monsterCard);
                         System.out.println(monsterCard.getDeskripsi());
                         found = true;
-                        break;
+                        return monsterCard;
                     }
                 }
             }
@@ -110,12 +111,14 @@ public class Player {
                                                      );
                         this.hand.add(skillAuraCard);
                         System.out.println(skillAuraCard.getDeskripsi());
-                        break;
+                        return skillAuraCard;
+
                     }
                 }
             }
         }
-        
+        return new Land("NOT FOUND", Element.AIR, "NOT FOUND", "NOT FOUND");
+
     }
 
     
