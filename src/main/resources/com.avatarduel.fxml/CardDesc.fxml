@@ -25,7 +25,7 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label fx:id="powLabel" layoutX="202.0" layoutY="411.0" text="POW:">
+      <Label fx:id="powLabel" layoutX="200.0" layoutY="411.0" text="POW:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>

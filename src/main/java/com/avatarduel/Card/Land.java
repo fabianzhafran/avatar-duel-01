@@ -9,4 +9,8 @@ public class Land extends Card {
         this.imagePath = path;
     }
 
+    public String getType() {
+        return "Land";
+    }
+
 }
