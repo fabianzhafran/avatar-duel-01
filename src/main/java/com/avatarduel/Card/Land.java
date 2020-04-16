@@ -9,4 +9,10 @@ public class Land extends Card {
         this.imagePath = path;
     }
 
+    public void ActivateCardEff(Player user) {
+
+        user.addMaxPower(this.element);
+
+    }
+
 }

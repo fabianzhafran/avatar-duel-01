@@ -1,4 +1,7 @@
-//package com.avatarduel.Card;
+package com.avatarduel.Card;
+
+import java.util.ArrayList;
+import com.avatarduel.Player;
 
 public class SummonedMonster implements ISummoned {
     
@@ -9,11 +12,14 @@ public class SummonedMonster implements ISummoned {
     int buffDef;
     boolean piercieng;
 
-    public SummonedMonster(Monster mons, boolean faceUp, boolean attackPos) {
+    ArrayList<Skill> skillLinked;
+
+    public SummonedMonster(Monster mons, boolean attackPos) {
         this.monster = mons;
         this.isAttackPos = attackPos;
         resetBuff();
         piercieng = false;
+        skillLinked = new ArrayList<Skill>
     }
 
     public void rotate() {
@@ -45,6 +51,25 @@ public class SummonedMonster implements ISummoned {
 
     public void resetPiercing() {
         piercieng = false;
+    }
+
+    public void registerSkill(Skill skill) {
+        skillLinked.add(skill);
+    }
+
+    public void remove(Player player) {
+        // Remove this card and all skills linked to this monster card
+        String targetCardName = this.getName();
+        
+        ArrayList<SummonedMonster> monsterOnField = player.getMonsterOnField();
+        monsterOnField.removeIf(SummonedMonster -> SummonedMonster.getName().equals(targetCardName));
+        player.setMonsterOnField(monsterOnField);
+
+        // Remove Linked Skills
+        for (Skill s : skillLinked) {
+            s.remove(player);
+        }
+
     }
 
 }
