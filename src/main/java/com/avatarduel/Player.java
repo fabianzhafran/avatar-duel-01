@@ -11,12 +11,17 @@ import com.avatarduel.util.CsvReader;
 
 public class Player {
 
+    private static final int maxMonstersOnField = 6;
+    private static final int maxSkillsOnField = 6;
+    private static final int maxCardsOnHand = 6;
+
     protected int playerID;
     protected String namePlayer;
     protected int hp;
     protected Stack<Integer> deck;
-    protected Card[] hand;
-    protected SummonedCharacter[] characterOnField;
+    protected ArrayList<Card> hand;
+    protected SummonedMonster[] monsterOnField;
+    protected int numberOfMonstersOnField;
     protected Skill[] skillOnField;
     protected ElementPower[] elementPower;
 
@@ -31,9 +36,10 @@ public class Player {
         for (int i = 0; i < 50; i++) {
             this.deck.push(randomNumber.nextInt(90));
         }
-        hand = new Card[7];
-        characterOnField = new SummonedCharacter[6];
-        skillOnField = new Skill[];
+        hand = new ArrayList<Card>();
+        monsterOnField = new SummonedCharacter[maxMonstersOnField];
+        numberOfMonstersOnField = 0;
+        skillOnField = new Skill[maxSkillsOnField];
         elementPower = new ElementPower[4];
         System.out.println(deck.size());
 
@@ -43,12 +49,12 @@ public class Player {
         return playerID;
     }
 
-    public Card[] getHand() {
-
+    public ArrayList<Card> getHand() {
+        return hand;
     }
     
     public SummonedCharacter[] getCharacterOnField() {
-        return characterOnField;
+        return monsterOnField;
     }
     
     public Skill[] getSkillOnField() {
@@ -153,6 +159,19 @@ public class Player {
         
     }
 
+    public void putToField(int indexHand) {
 
+        if (hand[indexHand].getType().equals("Monster")) {
+            if (numberOfMonstersOnField < maxMonstersOnField) {
+                for (int i = 0; i < maxMonstersOnField; i++) {
+                    if (monsterOnField[i] == null) {
+                        monsterOnField[i] = hand[indexHand];
+                        numberOfMonstersOnField++;
+                    }
+                }
+            }
+        }
+
+    }
 
 }
