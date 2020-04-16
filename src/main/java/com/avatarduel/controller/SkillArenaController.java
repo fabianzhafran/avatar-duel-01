@@ -6,7 +6,7 @@ public class SkillArenaController {
     @FXML private FieldController fieldController;
 
     public void init(FieldController f) {
-        System.out.println("SkillArenaController Linked!");
+//        System.out.println("SkillArenaController Linked!");
         this.fieldController = f;
     }
 }

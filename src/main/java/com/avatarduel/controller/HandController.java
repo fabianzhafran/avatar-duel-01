@@ -1,5 +1,6 @@
 package com.avatarduel.controller;
 
+import com.avatarduel.Card.Card;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -13,11 +14,20 @@ public class HandController {
     @FXML private FieldController fieldController;
 
     public void init(FieldController f) {
-        System.out.println("HandController Linked!");
+//        System.out.println("HandController Linked!");
         this.fieldController = f;
     }
 
-    public void cardClicked(Event evt) {
+    public void cardHover(Event evt) {
+
+    }
+
+    public void printTes() {
+        System.out.println("Berhasil yang lu tes!");
+    }
+
+    public void summon(Event evt) {
+        System.out.println("Card Summoned");
         Group clickedCard = (Group) evt.getSource();
         String ret = "";
         for (Node child:clickedCard.getChildren()) {
@@ -27,23 +37,21 @@ public class HandController {
                 ret += conv.getText() + " ";
             }
         }
-        System.out.println("Sending to field...");
-        fieldController.setDescCard(ret);
-        System.out.println("Source delivered successfully");
+        handHBox.getChildren().remove(clickedCard);
+        fieldController.summon(ret);
     }
 
-    public void printTes() {
-        System.out.println("Berhasil yang lu tes!");
-    }
-
-    public void addCard() {
+    public void addCard(Group newCard) {
         // Nanti bakal nerima parameter card
-        Group newCard = CardUtils.createCard();
+//        Group newCard = CardUtils.createCard(card);
         newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                event ->  cardClicked(event));
+                event ->  cardHover(event));
         newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> System.out.println("Card clicked"));
+                event -> summon(event));
+        newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
+                event -> newCard.setTranslateY(0));
         handHBox.getChildren().add(newCard);
     }
+
 
 }
