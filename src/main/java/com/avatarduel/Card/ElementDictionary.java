@@ -11,7 +11,6 @@ public class ElementDictionary {
         elementDictionary.put("FIRE", Element.FIRE);
         elementDictionary.put("AIR", Element.AIR);
         elementDictionary.put("EARTH", Element.EARTH);
-        System.out.println("~~ Element Dictionary : ");
     }
 
     public Element getElement(String elementString) {

@@ -3,15 +3,12 @@ package com.avatarduel.Card;
 public class PowerUp extends Skill {
 
     public PowerUp(String name, Element element, String path, String desc, int pow) {
-        this.name = name;
-        this.element = element;
-        this.imagePath = path;
-        this.description = desc;
-        this.power = pow;
+        super(name, element, path, desc, pow);
     }
     
-    public void ActivateCardEff() {
-        // PowerUp Skill Implementation here. Chosen Character on field has Piercing Attack.
+    @Override
+    public String getSkillType() {
+        return "Power Up";
     }
 
 }

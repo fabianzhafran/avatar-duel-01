@@ -3,11 +3,11 @@ package com.avatarduel.Card;
 public class Destroy extends Skill {
     
     public Destroy(String name, Element element, String path, String desc, int pow) {
-        this.name = name;
-        this.element = element;
-        this.imagePath = path;
-        this.description = desc;
-        this.power = pow;
+        super(name, element, path, desc, pow);
+    }
+
+    public String getSkillType() {
+        return "Destroy";
     }
 
     public void ActivateCardEff() {

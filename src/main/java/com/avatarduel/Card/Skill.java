@@ -1,8 +1,16 @@
 package com.avatarduel.Card;
 
-public abstract class Skill extends Card {
+public class Skill extends Card {
 
     protected int power;
+
+    public Skill(String name, Element element, String path, String desc, int pow) {
+        this.name = name;
+        this.element = element;
+        this.imagePath = path;
+        this.description = desc;
+        this.power = pow;
+    }
 
     public String getType() {
         return "Skill";
@@ -12,6 +20,8 @@ public abstract class Skill extends Card {
         return power;
     }
 
-    abstract void ActivateCardEff();
+    public String getSkillType() {
+        return "Nothing";
+    }
 
 }

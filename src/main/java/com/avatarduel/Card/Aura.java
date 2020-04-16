@@ -5,15 +5,15 @@ public class Aura extends Skill {
     private int attack;
     private int defense;
 
-
-    public Aura(String name, Element elemen, String desc, String path, int pow, int atk, int def) {
-        this.name = name;
-        this.element = elemen;
-        this.description = desc;
-        this.imagePath = path;
+    public Aura(String name, Element elemen, String path, String desc, int pow, int atk, int def) {
+        super(name, elemen, path, desc, pow);
         this.attack = atk;
         this.defense = def;
-        this.power = pow;
+    }
+
+    @Override
+    public String getSkillType() {
+        return "Aura";
     }
 
     public int getAttackValue() {
@@ -23,10 +23,5 @@ public class Aura extends Skill {
     public int getDefenseValue() {
         return defense;
     }
-
-    public void ActivateCardEff() {
-        // Aura Skill Implementation here. Add Attack and Defense points to certain Character
-    }
-    
 
 }
