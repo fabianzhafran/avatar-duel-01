@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import com.avatarduel.Player;
 
 public class SummonedMonster implements ISummoned {
-    
-    Monster monster;
+
+    private Monster monster;
     boolean isAttackPos;
 
     int buffAtk;
@@ -13,6 +13,10 @@ public class SummonedMonster implements ISummoned {
     boolean piercieng;
 
     ArrayList<Skill> skillLinked;
+
+    public Monster getMonster() {
+        return monster;
+    }
 
     public SummonedMonster(Monster mons, boolean attackPos) {
         this.monster = mons;

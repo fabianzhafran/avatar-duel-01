@@ -51,7 +51,11 @@ abstract public class FieldController {
         deckCount.setText(String.valueOf(this.player.getDeckCount()));
     }
 
-    public void summon(String str) {
-        characterArenaController.summon(str);
+    public void summon(int idx) {
+        Card card = player.getHand().get(idx);
+        player.putToField(idx, true);
+        if (card.getType().equals("Monster")) {
+            characterArenaController.summon(card);
+        }
     }
 }

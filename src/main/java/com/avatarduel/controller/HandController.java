@@ -38,18 +38,17 @@ public class HandController {
     }
 
     public void summon(Event evt) {
+        int i = 0;
         System.out.println("Card Summoned");
         Group clickedCard = (Group) evt.getSource();
-        String ret = "";
-        for (Node child:clickedCard.getChildren()) {
-            if (child instanceof Label) {
-                Label conv = (Label) child;
-//                System.out.println(conv.getText());
-                ret += conv.getText() + " ";
+        for (Node node : handHBox.getChildren()) {
+            if (clickedCard.getChildren().get(4).equals(((Group) node).getChildren().get(4))) {
+                break;
             }
+            i++;
         }
         handHBox.getChildren().remove(clickedCard);
-        fieldController.summon(ret);
+        fieldController.summon(i);
     }
 
     public void addCard(Group newCard) {

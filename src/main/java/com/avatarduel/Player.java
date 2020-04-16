@@ -55,6 +55,16 @@ public class Player {
     public SummonedMonster[] getCharacterOnField() {
         return monsterOnField;
     }
+
+    public void printMonsterOnField() {
+        // For debugging
+        for (SummonedMonster sm: monsterOnField) {
+            if (sm != null) {
+                System.out.println(sm.getMonster().getName());
+            }
+
+        }
+    }
     
     public Skill[] getSkillOnField() {
         return skillOnField;
@@ -172,14 +182,20 @@ public class Player {
                     if (monsterOnField[i] == null) {
                         monsterOnField[i] = new SummonedMonster(((Monster)handGet), isAttackPosition);
                         numberOfMonstersOnField++;
+                        break;
                     }
                 }
             }
         } else if (handGet.getType().equals("Land")) {
             addLandMaxPowerByElement(handGet.getElement());
         }
+
         hand.remove(indexHand);
         
+    }
+
+    public void destroyMonsterOnField(int idx) {
+        monsterOnField[idx] = null;
     }
 
 }
