@@ -11,13 +11,18 @@ import com.avatarduel.util.CsvReader;
 
 public class Player {
 
+    private static final int maxMonstersOnField = 6;
+    private static final int maxSkillsOnField = 6;
+    private static final int maxCardsOnHand = 6;
+
     protected int playerID;
     protected String namePlayer;
     protected int hp;
     protected Stack<Integer> deck;
     protected ArrayList<Card> hand;
-    protected ArrayList<SummonedCharacter> characterOnField;
-    protected ArrayList<Skill> skillOnField;
+    protected SummonedMonster[] monsterOnField;
+    protected int numberOfMonstersOnField;
+    protected Skill[] skillOnField;
     protected ElementPower[] elementPower;
 
     public Player(String namePlayer) {
@@ -32,8 +37,9 @@ public class Player {
             this.deck.push(randomNumber.nextInt(90));
         }
         hand = new ArrayList<Card>();
-        characterOnField = new ArrayList<SummonedCharacter>();
-        skillOnField = new ArrayList<Skill>();
+        monsterOnField = new SummonedMonster[maxMonstersOnField];
+        numberOfMonstersOnField = 0;
+        skillOnField = new Skill[maxSkillsOnField];
         elementPower = new ElementPower[4];
         System.out.println(deck.size());
 
@@ -47,11 +53,11 @@ public class Player {
         return hand;
     }
     
-    public ArrayList<SummonedCharacter> getCharacterOnField() {
-        return characterOnField;
+    public SummonedMonster[] getCharacterOnField() {
+        return monsterOnField;
     }
     
-    public ArrayList<Skill> getSkillOnField() {
+    public Skill[] getSkillOnField() {
         return skillOnField;
     }
     
@@ -59,48 +65,48 @@ public class Player {
         return elementPower;
     }
 
-    public int getPowerByElement(Element e) {
+    public int getLandPowerByElement(Element e) {
+        for (ElementPower elPow : elementPower) {
+            if (elPow.getElement() == e) {
+                return elPow.getCurrentPow();
+            }
+        }
+        return 0;
+    }
+
+    public void setLandPowerByElement(Element e, int pow) {
         for (ElementPower elPow : elementPower) {
 
-            if (elPow.element == e) {
-                return elPow.currentPower;
+            if (elPow.getElement() == e) {
+                elPow.setCurrentPow(pow);
             }
         }
     }
 
-    public void setElementPower(Element e, int pow) {
+    public void addLandMaxPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
 
-            if (elPow.element == e) {
-                elPow.currentPower = pow;
-            }
-        }
-    }
-
-    public void addMaxPower(Element e) {
-        for (ElementPower elPow : elementPower) {
-
-            if (elPow.element == e) {
-                elPow.maxPow++;
-                elPow.currentPower++;
+            if (elPow.getElement() == e) {
+                elPow.setCurrentPow(elPow.getCurrentPow() + 1);
+                elPow.setMaxPow(elPow.getMaxPow() + 1);
             }
         }
     }
     
     public void draw() {
 
-        System.out.println("~~ " + this.namePlayer + " Draw : ");
+        // System.out.println("~~ " + this.namePlayer + " Draw : ");
         ListOfCards listOfCards = new ListOfCards();
         boolean found = false;
         ElementDictionary elementDictionary = new ElementDictionary();
         if (deck.size() > 0) {
             int topCardId = deck.pop();
-            System.out.println("top card id : ");
-            System.out.println(topCardId);
+            // System.out.println("top card id : ");
+            // System.out.println(topCardId);
             for (String[] landRow : listOfCards.listOfLandCards) {
                 System.out.println(landRow[0]);
                 if (topCardId == Integer.parseInt(landRow[0])) {
-                        System.out.println("~~ Found a land card.");
+                        // System.out.println("~~ Found a land card.");
                         Land landCard = new Land(landRow[1], 
                                              elementDictionary.getElement(landRow[2]), 
                                              landRow[3], 
@@ -115,7 +121,7 @@ public class Player {
             if (!found) {
                 for (String[] monsterRow : listOfCards.listOfMonsterCards) {
                     if (topCardId == Integer.parseInt(monsterRow[0])) {
-                        System.out.println("~~ Found a monster card.");
+                        // System.out.println("~~ Found a monster card.");
                         Monster monsterCard = new Monster(monsterRow[1], 
                                                            elementDictionary.getElement(monsterRow[2]), 
                                                            monsterRow[3], 
@@ -134,7 +140,7 @@ public class Player {
             if (!found) {
                 for (String[] skillAuraRow : listOfCards.listOfSkillAuraCards) {
                     if (topCardId == Integer.parseInt(skillAuraRow[0])) {
-                        System.out.println("~~ Found a skillAura card.");
+                        // System.out.println("~~ Found a skillAura card.");
                         Aura skillAuraCard = new Aura(skillAuraRow[1], 
                                                       elementDictionary.getElement(skillAuraRow[2]), 
                                                       skillAuraRow[3], 
@@ -153,6 +159,23 @@ public class Player {
         
     }
 
-    
+    public void putToField(int indexHand, boolean isAttackPosition) {
+
+        Card handGet = hand.get(indexHand);
+        if (handGet.getType().equals("Monster")) {
+            if (numberOfMonstersOnField < maxMonstersOnField) {
+                for (int i = 0; i < maxMonstersOnField; i++) {
+                    if (monsterOnField[i] == null) {
+                        monsterOnField[i] = new SummonedMonster(((Monster)handGet), isAttackPosition);
+                        numberOfMonstersOnField++;
+                    }
+                }
+            }
+        } else if (handGet.getType().equals("Land")) {
+            addLandMaxPowerByElement(handGet.getElement());
+        }
+        hand.remove(indexHand);
+        
+    }
 
 }

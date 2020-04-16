@@ -13,6 +13,9 @@ public class Land extends Card {
 
         user.addMaxPower(this.element);
 
+    public String getType() {
+        return "Land";
+
     }
 
 }

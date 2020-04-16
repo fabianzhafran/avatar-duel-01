@@ -10,4 +10,24 @@ public class ElementPower {
         currentPow = 0;
         maxPow = 10;
     }
+
+    public Element getElement() {
+        return element;
+    }
+
+    public int getCurrentPow() {
+        return currentPow;
+    }
+
+    public void setCurrentPow(int updatePow) {
+        currentPow = updatePow;
+    }
+
+    public int getMaxPow() {
+        return maxPow;
+    }
+
+    public void setMaxPow(int updatePow) {
+        maxPow = updatePow;
+    }
 }

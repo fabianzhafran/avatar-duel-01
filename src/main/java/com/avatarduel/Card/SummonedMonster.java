@@ -1,7 +1,10 @@
 package com.avatarduel.Card;
+<<<<<<< HEAD
 
 import java.util.ArrayList;
 import com.avatarduel.Player;
+=======
+>>>>>>> c3245b24bff78963deea062d8fe1a82928fabcfd
 
 public class SummonedMonster implements ISummoned {
     
@@ -12,8 +15,11 @@ public class SummonedMonster implements ISummoned {
     int buffDef;
     boolean piercieng;
 
+<<<<<<< HEAD
     ArrayList<Skill> skillLinked;
 
+=======
+>>>>>>> c3245b24bff78963deea062d8fe1a82928fabcfd
     public SummonedMonster(Monster mons, boolean attackPos) {
         this.monster = mons;
         this.isAttackPos = attackPos;
@@ -28,10 +34,10 @@ public class SummonedMonster implements ISummoned {
 
     public int getPositionValue() {
         if (this.isAttackPos) {
-            return this.character.getAttackValue();
+            return this.monster.getAttackValue();
         }
         else {
-            return this.character.getDefenseValue();
+            return this.monster.getDefenseValue();
         }
     }
  

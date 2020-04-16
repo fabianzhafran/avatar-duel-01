@@ -7,6 +7,10 @@ public abstract class Skill extends Card {
 
     protected int power;
 
+    public String getType() {
+        return "Skill";
+    }
+
     public int getPowerValue() {
         return power;
     }

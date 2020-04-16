@@ -16,6 +16,10 @@ public class Monster extends Card {
         this.power = pow;
     }
 
+    public String getType() {
+        return "Monster";
+    }
+
     public int getAttackValue() {
         return attack;
     }

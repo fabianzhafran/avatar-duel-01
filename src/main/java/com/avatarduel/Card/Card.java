@@ -7,6 +7,9 @@ public abstract class Card {
     protected String description;
     protected String imagePath;
 
+
+    abstract public String getType();
+
     public String getName() {
         return name;
     }
