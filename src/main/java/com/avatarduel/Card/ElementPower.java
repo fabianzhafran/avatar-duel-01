@@ -8,7 +8,7 @@ public class ElementPower {
     public ElementPower(Element element) {
         this.element = element;
         currentPow = 0;
-        maxPow = 10;
+        maxPow = 0;
     }
 
     public Element getElement() {

@@ -12,20 +12,20 @@ public class SummonedMonster implements ISummoned {
     int buffDef;
     boolean piercieng;
 
-    ArrayList<int> skillLinked;
+    ArrayList<Integer> skillLinked;
 
     public SummonedMonster(Monster mons, boolean attackPos) {
         this.monster = mons;
         this.isAttackPos = attackPos;
         resetBuff();
         piercieng = false;
-        skillLinked = new ArrayList<int>();
+        skillLinked = new ArrayList<Integer>();
     }
 
     public void rotate() {
         this.isAttackPos = !(this.isAttackPos);
     }
-
+    
     public int getPositionValue() {
         if (this.isAttackPos) {
             return this.monster.getAttackValue();
@@ -34,38 +34,38 @@ public class SummonedMonster implements ISummoned {
             return this.monster.getDefenseValue();
         }
     }
-
+    
     public void addBuff(int atk, int def) {
         buffAtk += atk;
         buffDef += def;
     }
- 
+    
     public void setBuff(int atk, int def) {
         buffAtk = atk;
         buffDef = def;
     }
-
+    
     public void resetBuff() {
         buffAtk = 0;
         buffDef = 0;
     }
-
+    
     public void setPierce() {
         piercieng = true;
     }
-
+    
     public void resetPiercing() {
         piercieng = false;
     }
-
+    
     public void registerSkill(int skillOnFieldIndex) {
-        skillLinked.add(skillOnField);
+        skillLinked.add(skillOnFieldIndex);
     }
-
-    public ArrayList<int> getSkillLinked() {
+    
+    public ArrayList<Integer> getSkillLinked() {
         return skillLinked;
     }
-
+    
     public void removeSkill(int skillOnFieldIndex) {
         for (int i = 0; i < skillLinked.size(); i++) {
             if (skillLinked.get(i) == skillOnFieldIndex) {
@@ -75,19 +75,25 @@ public class SummonedMonster implements ISummoned {
         }
     }
 
+    // for debug purposes
+    public Monster getMonster() {
+        return monster;
+    }
+    
     public void remove(Player player) {
         // Remove this card and all skills linked to this monster card
-//        String targetCardName = this.getName();
-//
-//        ArrayList<SummonedMonster> monsterOnField = player.getMonsterOnField();
-//        monsterOnField.removeIf(SummonedMonster -> SummonedMonster.getName().equals(targetCardName));
-//        player.setMonsterOnField(monsterOnField);
-//
-//        // Remove Linked Skills
-//        for (Skill s : skillLinked) {
-//            s.remove(player);
-//        }
-
+        //        String targetCardName = this.getName();
+        //
+        //        ArrayList<SummonedMonster> monsterOnField = player.getMonsterOnField();
+        //        monsterOnField.removeIf(SummonedMonster -> SummonedMonster.getName().equals(targetCardName));
+        //        player.setMonsterOnField(monsterOnField);
+        //
+        //        // Remove Linked Skills
+        //        for (Skill s : skillLinked) {
+            //            s.remove(player);
+            //        }
+            
+        }
+        
     }
-
-}
+    

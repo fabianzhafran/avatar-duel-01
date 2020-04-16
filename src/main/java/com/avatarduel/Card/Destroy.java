@@ -12,11 +12,6 @@ public class Destroy extends Skill {
         return "Destroy";
     }
 
-    @Override
-    public void ActivateCardEff() {
-
-    }
-
     //    @Override
 //    public void ActivateCardEff(Player user, Player enemy) {
 //
