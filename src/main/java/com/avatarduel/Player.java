@@ -11,6 +11,7 @@ import com.avatarduel.util.CsvReader;
 
 public class Player {
 
+    protected int playerID;
     protected String namePlayer;
     protected int hp;
     protected Stack<Integer> deck;
@@ -22,6 +23,8 @@ public class Player {
     public Player(String namePlayer) {
 
         this.namePlayer = namePlayer;
+        int id = namePlayer.charAt(namePlayer.length() - 1) - 48;
+        this.playerID = id;
         hp = 80;
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
@@ -34,6 +37,10 @@ public class Player {
         elementPower = new ElementPower[4];
         System.out.println(deck.size());
 
+    }
+
+    public int getPlayerID() {
+        return playerID;
     }
 
     public ArrayList<Card> getHand() {
