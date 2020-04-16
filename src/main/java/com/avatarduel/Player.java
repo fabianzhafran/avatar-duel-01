@@ -37,7 +37,7 @@ public class Player {
             this.deck.push(randomNumber.nextInt(90));
         }
         hand = new ArrayList<Card>();
-        monsterOnField = new SummonedCharacter[maxMonstersOnField];
+        monsterOnField = new SummonedMonster[maxMonstersOnField];
         numberOfMonstersOnField = 0;
         skillOnField = new Skill[maxSkillsOnField];
         elementPower = new ElementPower[4];
@@ -53,7 +53,7 @@ public class Player {
         return hand;
     }
     
-    public SummonedCharacter[] getCharacterOnField() {
+    public SummonedMonster[] getCharacterOnField() {
         return monsterOnField;
     }
     
@@ -68,8 +68,8 @@ public class Player {
     public int getPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
 
-            if (elPow.element == e) {
-                return elPow.currentPower;
+            if (elPow.getElement() == e) {
+                return elPow.getCurrentPower();
             }
         }
     }
@@ -77,8 +77,8 @@ public class Player {
     public void setElementPower(Element e, int pow) {
         for (ElementPower elPow : elementPower) {
 
-            if (elPow.element == e) {
-                elPow.currentPower = pow;
+            if (elPow.getElement() == e) {
+                elPow.setCurrentPow(pow);
             }
         }
     }
@@ -86,9 +86,9 @@ public class Player {
     public void addMaxPower(Element e) {
         for (ElementPower elPow : elementPower) {
 
-            if (elPow.element == e) {
-                elPow.maxPow++;
-                elPow.currentPower++;
+            if (elPow.getElement() == e) {
+                elPow.setCurrentPow(elPow.getCurrentPow() + 1);
+                elPow.setMaxPow(elPow.getMaxPow() + 1);
             }
         }
     }
@@ -159,13 +159,13 @@ public class Player {
         
     }
 
-    public void putToField(int indexHand) {
+    public void putToField(int indexHand, boolean isAttackPosition) {
 
-        if (hand[indexHand].getType().equals("Monster")) {
+        if (hand.get(indexHand).getType().equals("Monster")) {
             if (numberOfMonstersOnField < maxMonstersOnField) {
                 for (int i = 0; i < maxMonstersOnField; i++) {
                     if (monsterOnField[i] == null) {
-                        monsterOnField[i] = hand[indexHand];
+                        monsterOnField[i] = new SummonedMonster(hand.get(indexHand), isAttackPosition);
                         numberOfMonstersOnField++;
                     }
                 }

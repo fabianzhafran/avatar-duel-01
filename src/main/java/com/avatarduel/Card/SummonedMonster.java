@@ -1,4 +1,4 @@
-//package com.avatarduel.Card;
+package com.avatarduel.Card;
 
 public class SummonedMonster implements ISummoned {
     
