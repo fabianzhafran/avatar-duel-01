@@ -37,7 +37,7 @@ public class HandController {
         System.out.println("Berhasil yang lu tes!");
     }
 
-    public void summon(Event evt) {
+    public void useCard(Event evt) {
         int i = 0;
         System.out.println("Card Summoned");
         Group clickedCard = (Group) evt.getSource();
@@ -48,7 +48,7 @@ public class HandController {
             i++;
         }
         handHBox.getChildren().remove(clickedCard);
-        fieldController.summon(i);
+        fieldController.useCard(i);
     }
 
     public void addCard(Group newCard) {
@@ -57,7 +57,7 @@ public class HandController {
         newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
                 event ->  cardHover(event));
         newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> summon(event));
+                event -> useCard(event));
         newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
                 event -> newCard.setTranslateY(0));
         handHBox.getChildren().add(newCard);

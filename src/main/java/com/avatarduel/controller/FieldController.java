@@ -1,11 +1,17 @@
 package com.avatarduel.controller;
 
 import com.avatarduel.Card.Card;
+import com.avatarduel.Card.Element;
 import com.avatarduel.Card.Monster;
 import com.avatarduel.Player;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.text.Text;
+
+import java.util.HashMap;
+
+import static com.avatarduel.Card.Element.*;
 
 abstract public class FieldController {
     @FXML protected GameplayController gameplayController;
@@ -14,24 +20,36 @@ abstract public class FieldController {
     @FXML protected SkillArenaController skillArenaController;
 
     @FXML private Text deckCount;
+    @FXML private Label fireElement;
+    @FXML private Label waterElement;
+    @FXML private Label earthElement;
+    @FXML private Label airElement;
+    @FXML private Label hpLabel;
+    @FXML private Label playerLabel;
+
+    HashMap<Element, Label> elmtMap = new HashMap<Element, Label>();
 
     protected Player player;
 
     public void init(GameplayController g) {
-//        System.out.println("FieldController Linked!");
         this.gameplayController = g;
-//        System.out.println("Linking handController...");
         handController.init(this);
-//        System.out.println("Linking characterArenaController...");
         characterArenaController.init(this);
-//        System.out.println("Linking skillArenaController...");
         skillArenaController.init(this);
         player = new Player("Player");
         for (int i = 0; i < 7; i++) {
                 this.draw();
         }
-//        deckCount.setText(String.valueOf(this.player.getDeckCount()));
-
+        playerLabel.setText(player.getNamePlayer());
+        hpLabel.setText("HP " + String.valueOf(player.getHp()));
+        waterElement.setText(String.valueOf(player.getLandPowerByElement(WATER)) + " / " + player.getMaxLandPowerByElement(WATER));
+        fireElement.setText(String.valueOf(player.getLandPowerByElement(FIRE)) + " / " + player.getMaxLandPowerByElement(FIRE));
+        airElement.setText(String.valueOf(player.getLandPowerByElement(AIR)) + " / " + player.getMaxLandPowerByElement(AIR));
+        earthElement.setText(String.valueOf(player.getLandPowerByElement(EARTH)) + " / " + player.getMaxLandPowerByElement(EARTH));
+        elmtMap.put(WATER, waterElement);
+        elmtMap.put(FIRE, fireElement);
+        elmtMap.put(AIR, airElement);
+        elmtMap.put(EARTH, earthElement);
     }
 
     public void setDescCard(Card c) {
@@ -51,11 +69,13 @@ abstract public class FieldController {
         deckCount.setText(String.valueOf(this.player.getDeckCount()));
     }
 
-    public void summon(int idx) {
+    public void useCard(int idx) {
         Card card = player.getHand().get(idx);
         player.putToField(idx, true);
         if (card.getType().equals("Monster")) {
             characterArenaController.summon(card);
+        } else if (card.getType().equals("Land")) {
+            elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
         }
     }
 }

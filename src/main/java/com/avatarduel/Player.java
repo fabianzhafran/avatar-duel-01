@@ -9,6 +9,8 @@ import java.util.Stack;
 import com.avatarduel.Card.*;
 import com.avatarduel.util.CsvReader;
 
+import static com.avatarduel.Card.Element.*;
+
 public class Player {
 
     private static final int maxMonstersOnField = 6;
@@ -41,11 +43,23 @@ public class Player {
         numberOfMonstersOnField = 0;
         skillOnField = new Skill[maxSkillsOnField];
         elementPower = new ElementPower[4];
+        elementPower[0] = new ElementPower(EARTH);
+        elementPower[1] = new ElementPower(WATER);
+        elementPower[2] = new ElementPower(FIRE);
+        elementPower[3] = new ElementPower(AIR);
         System.out.println(deck.size());
     }
 
     public int getPlayerID() {
         return playerID;
+    }
+
+    public String getNamePlayer() {
+        return namePlayer;
+    }
+
+    public int getHp() {
+        return hp;
     }
 
     public ArrayList<Card> getHand() {
@@ -80,6 +94,15 @@ public class Player {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
                 return elPow.getCurrentPow();
+            }
+        }
+        return 0;
+    }
+
+    public int getMaxLandPowerByElement(Element e) {
+        for (ElementPower elPow : elementPower) {
+            if (elPow.getElement() == e) {
+                return elPow.getMaxPow();
             }
         }
         return 0;
@@ -169,7 +192,7 @@ public class Player {
                 }
             }
         }
-        return new Land("NOT FOUND", Element.AIR, "NOT FOUND", "NOT FOUND");
+        return new Land("NOT FOUND", AIR, "NOT FOUND", "NOT FOUND");
 
     }
 
