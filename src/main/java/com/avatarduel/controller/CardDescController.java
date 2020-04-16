@@ -8,15 +8,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class CardDescController {
     @FXML private Label nameLabel;
     @FXML private Label powLabel;
     @FXML private Label atkLabel;
     @FXML private Label defLabel;
+    @FXML private Label descLabel;
     @FXML private Label powDescLabel;
     @FXML private Label atkDescLabel;
     @FXML private Label defDescLabel;
+    @FXML private Label descLabel2;
+    @FXML private ImageView imgView;
 
     @FXML private TextArea textDesc;
     private GameplayController gameplayController;
@@ -32,21 +37,31 @@ public class CardDescController {
     }
 
     public void setAtt(String atk) {
-        atkLabel.setText("Atk: " + atk);
-        atkDescLabel.setText("Atk: " + atk);
+        atkLabel.setText(atk);
+        atkDescLabel.setText(atk);
 //        System.out.println("Masuk ke method ganti att!");
     }
 
     public void setDef(String def) {
-        defLabel.setText("Def: " + def);
-        defDescLabel.setText("Def: " + def);
+        defLabel.setText(def);
+        defDescLabel.setText(def);
 //        System.out.println("Masuk ke method ganti def!");
     }
 
     public void setPwr(String pow) {
-        powLabel.setText("Pow: " + pow);
-        powDescLabel.setText("Pow: " + pow);
+        powLabel.setText(pow);
+        powDescLabel.setText(pow);
 //        System.out.println("Masuk ke method ganti pwr!");
+    }
+
+    public void setDesc(String desc) {
+        descLabel.setText(desc);
+        descLabel2.setText(desc);
+    }
+
+    public void setImage(String url) {
+        Image img = new Image(url);
+        imgView.setImage(img);
     }
 
 //    public void btnPressed(Event event) {

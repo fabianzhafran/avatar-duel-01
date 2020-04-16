@@ -19,7 +19,18 @@ public class HandController {
     }
 
     public void cardHover(Event evt) {
-
+        int i = 0;
+        Group hoveredCard = (Group) evt.getSource();
+        hoveredCard.setTranslateY(-10);
+        for (Node node : handHBox.getChildren()) {
+            if (hoveredCard.getChildren().get(4).equals(((Group) node).getChildren().get(4))) {
+                break;
+            }
+            i++;
+        }
+//        System.out.println("Sending to field...");
+        fieldController.setDescCard(fieldController.player.getHand().get(i));
+        System.out.println("Source delivered successfully");
     }
 
     public void printTes() {

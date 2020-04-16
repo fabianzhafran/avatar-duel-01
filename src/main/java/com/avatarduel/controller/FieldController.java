@@ -27,13 +27,16 @@ abstract public class FieldController {
 //        System.out.println("Linking skillArenaController...");
         skillArenaController.init(this);
         player = new Player("Player");
-        deckCount.setText(String.valueOf(this.player.getDeckCount()));
+        for (int i = 0; i < 7; i++) {
+                this.draw();
+        }
+//        deckCount.setText(String.valueOf(this.player.getDeckCount()));
 
     }
 
-    public void setDescCard(String s) {
+    public void setDescCard(Card c) {
 //        System.out.println("Sending to gameplay...");
-        gameplayController.setDescCard(s);
+        gameplayController.setDescCard(c);
     }
 
     public void draw() {

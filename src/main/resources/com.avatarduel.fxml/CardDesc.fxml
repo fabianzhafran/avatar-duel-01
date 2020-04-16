@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -29,15 +30,18 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
+      <Label fx:id="descLabel" alignment="TOP_LEFT" layoutX="20.0" layoutY="310.0" prefHeight="100.0" prefWidth="240.0" style="-fx-border-color: black;" wrapText="true" AnchorPane.leftAnchor="20.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="251.0" layoutX="3.0" layoutY="463.0" stroke="BLACK" strokeType="INSIDE" width="274.0" />
       <Text layoutX="15.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" underline="true">
          <font>
             <Font name="AR PL UKai CN" size="13.0" />
-         </font>
-      </Text>
-      <Text layoutX="17.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manipulates the flow of air within a person's respiratory system and prevents any new intake of breath by forming a ball of air around the head." textAlignment="JUSTIFY" wrappingWidth="240.0">
-         <font>
-            <Font name="AR PL UKai CN" size="15.0" />
          </font>
       </Text>
       <Text layoutX="18.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Skill Attached" underline="true">
@@ -62,13 +66,17 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="20.0" layoutY="310.0" prefHeight="100.0" prefWidth="240.0" style="-fx-border-color: black;" text="Manipulates the flow of air within a person's respiratory system and prevents any new intake of breath by forming a ball of air around the head." wrapText="true" AnchorPane.leftAnchor="20.0">
+      <Label fx:id="descLabel2" alignment="TOP_LEFT" layoutX="9.0" layoutY="492.0" prefHeight="100.0" prefWidth="240.0" wrapText="true">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <padding>
             <Insets left="5.0" />
          </padding>
+         <font>
+            <Font size="15.0" />
+         </font>
       </Label>
+      <ImageView fx:id="imgView" fitHeight="240.0" fitWidth="240.0" layoutX="19.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

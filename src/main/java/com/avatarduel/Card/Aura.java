@@ -24,6 +24,10 @@ public class Aura extends Skill {
         return defense;
     }
 
+    public int getPowerValue() {
+        return power;
+    }
+
     public void ActivateCardEff() {
         // Aura Skill Implementation here. Add Attack and Defense points to certain Character
     }

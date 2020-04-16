@@ -100,6 +100,7 @@ public class Player {
         ListOfCards listOfCards = new ListOfCards();
         boolean found = false;
         ElementDictionary elementDictionary = new ElementDictionary();
+        System.out.println("Card :");
         if (deck.size() > 0) {
             int topCardId = deck.pop();
             // System.out.println("top card id : ");

@@ -1,5 +1,8 @@
 package com.avatarduel.controller;
 
+import com.avatarduel.Card.Aura;
+import com.avatarduel.Card.Card;
+import com.avatarduel.Card.Monster;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 
@@ -29,12 +32,27 @@ public class GameplayController {
         cardDescController.setDef("4");
     }
 
-    public void setDescCard(String s) {
+    public void setDescCard(Card card) {
 //        System.out.println("Setting description...");
-        String[] splitString = s.split(" ");
-        cardDescController.setName(splitString[0]);
-        cardDescController.setPwr(splitString[1]);
-        cardDescController.setAtt(splitString[2]);
-        cardDescController.setDef(splitString[3]);
+        cardDescController.setName(card.getNama());
+        cardDescController.setDesc(card.getDeskripsi());
+        cardDescController.setImage(card.getImagePath());
+        // Set DEscription
+        // SEt ELement
+        if (card.getType().equals("Monster")) {
+            Monster castedCard = (Monster) card;
+            cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
+            cardDescController.setAtt("Atk: " + String.valueOf(castedCard.getAttackValue()));
+            cardDescController.setDef("Def: " + String.valueOf(castedCard.getDefenseValue()));
+        } else if (card.getType().equals("Skill")) {
+            Aura castedCard = (Aura) card;
+            cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
+            cardDescController.setAtt("Atk: " + String.valueOf(castedCard.getAttackValue()));
+            cardDescController.setDef("Def: " + String.valueOf(castedCard.getDefenseValue()));
+        } else {
+            cardDescController.setPwr(String.valueOf(" "));
+            cardDescController.setAtt(String.valueOf(" "));
+            cardDescController.setDef(String.valueOf(" "));
+        }
     }
 }
