@@ -58,6 +58,34 @@ public class Player {
     public ElementPower[] getElementPower() {
         return elementPower;
     }
+
+    public int getPowerByElement(Element e) {
+        for (ElementPower elPow : elementPower) {
+
+            if (elPow.element == e) {
+                return elPow.currentPower;
+            }
+        }
+    }
+
+    public void setElementPower(Element e, int pow) {
+        for (ElementPower elPow : elementPower) {
+
+            if (elPow.element == e) {
+                elPow.currentPower = pow;
+            }
+        }
+    }
+
+    public void addMaxPower(Element e) {
+        for (ElementPower elPow : elementPower) {
+
+            if (elPow.element == e) {
+                elPow.maxPow++;
+                elPow.currentPower++;
+            }
+        }
+    }
     
     public void draw() {
 
