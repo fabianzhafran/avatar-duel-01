@@ -5,9 +5,7 @@ public abstract class Card {
     protected String name;
     protected Element element;
     protected String description;
-    protected String pathGambar;
-
-
+    protected String imagePath;
 
     public String getNama() {
         return name;
@@ -21,8 +19,8 @@ public abstract class Card {
         return description;
     }
 
-    public String pathGambar() {
-        return pathGambar;
+    public String getImagePath() {
+        return imagePath;
     }
 
 }

@@ -1,34 +1,19 @@
 package com.avatarduel;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.Objects;
 
-import com.avatarduel.model.Element;
-import com.avatarduel.model.Land;
-import com.avatarduel.util.CSVReader;
+import com.avatarduel.Card.*;
 
 public class AvatarDuel extends Application {
-  private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
-
-  public void loadCards() throws IOException, URISyntaxException {
-    File landCSVFile = new File(getClass().getResource(LAND_CSV_FILE_PATH).toURI());
-    CSVReader landReader = new CSVReader(landCSVFile, "\t");
-    landReader.setSkipHeader(true);
-    List<String[]> landRows = landReader.read();
-    for (String[] row : landRows) {
-      Land l = new Land(row[1], row[3], Element.valueOf(row[2]));
-    }
-  }
+  private static final String LAND_CSV_FILE_PATH = "card/data/character.csv";
 
   @Override
   public void start(Stage stage) throws IOException {
@@ -45,9 +30,20 @@ public class AvatarDuel extends Application {
     stage.setScene(scene);
     stage.show();
 
+    
     try {
-      this.loadCards();
+      System.out.println();
+      System.out.println();
+      System.out.println();
+      System.out.println();
       text.setText("Avatar Duel!");
+      Player player1 = new Player("Player 1");
+      Player player2 = new Player("Player 2");
+      ListOfCards temp = new ListOfCards();
+      for (String[] s : temp.listOfLandCards) {
+        System.out.println(s[0]);
+      }
+      player1.draw();
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);
     }

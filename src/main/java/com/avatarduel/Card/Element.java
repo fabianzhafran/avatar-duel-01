@@ -1,8 +1,8 @@
 package com.avatarduel.Card;
 
-enum Element {
-    API,
-    AIR,
-    TANAH,
-    ANGIN
+public enum Element {
+    FIRE,
+    WATER,
+    EARTH,
+    AIR
 }

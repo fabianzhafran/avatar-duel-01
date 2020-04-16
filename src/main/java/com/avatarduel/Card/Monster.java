@@ -1,16 +1,16 @@
 package com.avatarduel.Card;
 
-class Character extends Card {
+public class Monster extends Card {
 
     protected int attack;
     protected int defense;
     protected int power;
 
-    public Character(String name, Element Element, String desc, String path, int atk, int def, int pow) {
+    public Monster(String name, Element Element, String desc, String path, int atk, int def, int pow) {
         this.name = name;
         this.element = Element;
         this.description = desc;
-        this.pathGambar = path;
+        this.imagePath = path;
         this.attack = atk;
         this.defense = def;
         this.power = pow;

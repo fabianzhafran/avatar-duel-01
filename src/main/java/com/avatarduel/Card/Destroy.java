@@ -1,11 +1,11 @@
 package com.avatarduel.Card;
 
-class Destroy extends Skill {
+public class Destroy extends Skill {
     
     public Destroy(String name, Element element, String path, String desc, int pow) {
         this.name = name;
         this.element = element;
-        this.pathGambar = path;
+        this.imagePath = path;
         this.description = desc;
         this.power = pow;
     }
