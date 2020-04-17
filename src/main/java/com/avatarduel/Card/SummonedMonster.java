@@ -18,12 +18,22 @@ public class SummonedMonster implements ISummoned {
         return monster;
     }
 
+    public int getAttackValue() {
+        return monster.getAttackValue() + buffAtk;
+    }
+
+    public int getDefenseValue() {
+        return monster.getDefenseValue() + buffDef;
+    }
+
     public SummonedMonster(Monster mons, boolean attackPos) {
         this.monster = mons;
         this.isAttackPos = attackPos;
         resetBuff();
         piercieng = false;
         skillLinked = new ArrayList<Integer>();
+        buffDef = 0;
+        buffAtk = 0;
     }
 
     public void rotate() {

@@ -2,6 +2,7 @@ package com.avatarduel.controller;
 
 import com.avatarduel.Card.Card;
 import com.avatarduel.Card.Element;
+import com.avatarduel.Card.SummonedMonster;
 import com.avatarduel.Player;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -57,6 +58,11 @@ abstract public class FieldController {
     public void setDescCard(Card c) {
 //        System.out.println("Sending to gameplay...");
         gameplayController.setDescCard(c);
+    }
+
+    public void setDescCard(SummonedMonster sm) {
+//        System.out.println("Sending to gameplay...");
+        gameplayController.setDescCard(sm, player.getSkillOnField());
     }
 
     public void draw() {

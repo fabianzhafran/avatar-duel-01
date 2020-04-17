@@ -269,6 +269,11 @@ public class Player {
     }
 
     public void activateAuraSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
+        System.out.println("Masuk activate Aura");
+        SummonedMonster sm = monsterOnField[monsterOnFieldIndex];
+//        System.out.println(sm.getMonster().getName());
+        Aura aura = (Aura) skillOnField[sourceSkillOnFieldIndex];
+        System.out.println(aura.getName());
         monsterOnField[monsterOnFieldIndex].addBuff(
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
@@ -324,11 +329,6 @@ public class Player {
 
     public void printShit(Card card) {
         System.out.println("Name: " + card.getName() + ", Type: " + card.getType());
-    }
-
-    public void destroyMonsterOnField(int idx) {
-        monsterOnField[idx] = null;
-        numberOfMonstersOnField--;
     }
 
 }
