@@ -36,7 +36,7 @@ public class Player {
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
         for (int i = 0; i < 50; i++) {
-            this.deck.push(randomNumber.nextInt(90));
+            this.deck.push(randomNumber.nextInt(89) + 1);
         }
         hand = new ArrayList<Card>();
         monsterOnField = new SummonedMonster[maxMonstersOnField];
@@ -136,9 +136,9 @@ public class Player {
             int topCardId = deck.pop();
             for (String[] landRow : listOfCards.listOfLandCards) {
                 if (topCardId == Integer.parseInt(landRow[0])) {
-                        Land landCard = new Land(landRow[1], 
-                                             elementDictionary.getElement(landRow[2]), 
-                                             landRow[3], 
+                        Land landCard = new Land(landRow[1],
+                                             elementDictionary.getElement(landRow[2]),
+                                             landRow[3],
                                              landRow[4]
                                             );
                     this.hand.add(landCard);
@@ -150,12 +150,12 @@ public class Player {
             if (!found) {
                 for (String[] monsterRow : listOfCards.listOfMonsterCards) {
                     if (topCardId == Integer.parseInt(monsterRow[0])) {
-                        Monster monsterCard = new Monster(monsterRow[1], 
-                                                           elementDictionary.getElement(monsterRow[2]), 
-                                                           monsterRow[3], 
-                                                           monsterRow[4], 
-                                                           Integer.parseInt(monsterRow[5]), 
-                                                           Integer.parseInt(monsterRow[6]), 
+                        Monster monsterCard = new Monster(monsterRow[1],
+                                                           elementDictionary.getElement(monsterRow[2]),
+                                                           monsterRow[3],
+                                                           monsterRow[4],
+                                                           Integer.parseInt(monsterRow[5]),
+                                                           Integer.parseInt(monsterRow[6]),
                                                            Integer.parseInt(monsterRow[7])
                                                           );
                         this.hand.add(monsterCard);
@@ -168,12 +168,12 @@ public class Player {
             if (!found) {
                 for (String[] skillAuraRow : listOfCards.listOfSkillAuraCards) {
                     if (topCardId == Integer.parseInt(skillAuraRow[0])) {
-                        Aura skillAuraCard = new Aura(skillAuraRow[1], 
-                                                      elementDictionary.getElement(skillAuraRow[2]), 
-                                                      skillAuraRow[3], 
-                                                      skillAuraRow[4], 
-                                                      Integer.parseInt(skillAuraRow[5]), 
-                                                      Integer.parseInt(skillAuraRow[6]), 
+                        Aura skillAuraCard = new Aura(skillAuraRow[1],
+                                                      elementDictionary.getElement(skillAuraRow[2]),
+                                                      skillAuraRow[3],
+                                                      skillAuraRow[4],
+                                                      Integer.parseInt(skillAuraRow[5]),
+                                                      Integer.parseInt(skillAuraRow[6]),
                                                       Integer.parseInt(skillAuraRow[7])
                                                      );
                         this.hand.add(skillAuraCard);
@@ -182,9 +182,15 @@ public class Player {
 
                     }
                 }
+            } else {
+                Land makeshiftCard = new Land(String.valueOf((topCardId)) + "(N) Eastern Air Temple", AIR, "(NOT FOUND) One of the two temples exclusively housing female airbenders.", "@/../com/avatarduel/card/image/land/Eastern Air Temple.png");
+                this.hand.add(makeshiftCard);
+                return makeshiftCard;
             }
         }
-        return new Land("NOT FOUND", AIR, "NOT FOUND", "NOT FOUND");
+        Land makeshiftCard = new Land("(N) Eastern Air Temple", AIR, "(NOT FOUND) One of the two temples exclusively housing female airbenders.", "@/../com/avatarduel/card/image/land/Eastern Air Temple.png");
+        this.hand.add(makeshiftCard);
+        return makeshiftCard;
     }
 
     public void removeMonsterOnField(int monsterIndex) {

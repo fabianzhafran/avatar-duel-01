@@ -6,7 +6,10 @@ import com.avatarduel.Card.Monster;
 import com.avatarduel.Player;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.util.HashMap;
@@ -19,6 +22,8 @@ abstract public class FieldController {
     @FXML protected CharacterArenaController characterArenaController;
     @FXML protected SkillArenaController skillArenaController;
 
+    @FXML private AnchorPane fieldPane;
+
     @FXML private Text deckCount;
     @FXML private Label fireElement;
     @FXML private Label waterElement;
@@ -26,6 +31,9 @@ abstract public class FieldController {
     @FXML private Label airElement;
     @FXML private Label hpLabel;
     @FXML private Label playerLabel;
+
+//    @FXML private Button summonAttButton;
+//    @FXML private Button summonDefButton;
 
     HashMap<Element, Label> elmtMap = new HashMap<Element, Label>();
 
@@ -69,13 +77,20 @@ abstract public class FieldController {
         deckCount.setText(String.valueOf(this.player.getDeckCount()));
     }
 
-    public void useCard(int idx) {
+    public void useCard(int idx, boolean isAtt) {
         Card card = player.getHand().get(idx);
-        player.putToField(idx, true);
-        if (card.getType().equals("Monster")) {
-            characterArenaController.summon(card);
-        } else if (card.getType().equals("Land")) {
+        player.putToField(idx, isAtt);
+
+        if (card.getType().equals("Land")) {
             elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
+        } else if (card.getType().equals("Monster")) {
+            characterArenaController.summon(card, isAtt);
         }
+
+        handController.removeCard(idx);
+
+
+
     }
+
 }

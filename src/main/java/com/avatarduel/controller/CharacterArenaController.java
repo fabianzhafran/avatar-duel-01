@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.transform.Rotate;
 
 import java.util.PriorityQueue;
 
@@ -34,9 +35,12 @@ public class CharacterArenaController {
 //        System.out.println("Source delivered successfully");
     }
 
-    public void summon(Card card) {
+    public void summon(Card card, boolean isAtt) {
         int emptyCol = emptyGrid.poll();
         Group newCard = CardUtils.createCard(card);
+        if (!isAtt) {
+            newCard.setRotate(90);
+        }
         newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
                 event -> cardHover(event));
         newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,

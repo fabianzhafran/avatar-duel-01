@@ -13,7 +13,7 @@ public class Skill extends Card {
         System.out.println(name);
     }
 
-    public Skill(String name, Element element, String path, String desc, int pow) {
+    public Skill(String name, Element element, String desc, String path, int pow) {
         this.name = name;
         this.element = element;
         this.imagePath = path;
