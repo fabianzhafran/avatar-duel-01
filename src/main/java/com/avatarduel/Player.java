@@ -48,7 +48,7 @@ public class Player {
         elementPower[1] = new ElementPower(WATER);
         elementPower[2] = new ElementPower(FIRE);
         elementPower[3] = new ElementPower(AIR);
-        System.out.println(deck.size());
+//        System.out.println(deck.size());
     }
 
     public int getPlayerID() {
@@ -91,6 +91,14 @@ public class Player {
 
     public int getDeckCount() { 
         return this.deck.size(); 
+    }
+
+    public int getNumberOfMonstersOnField() {
+        return numberOfMonstersOnField;
+    }
+
+    public int getNumberOfSkillsOnField() {
+        return numberOfSkillsOnField;
     }
 
     public int getLandPowerByElement(Element e) {
@@ -142,7 +150,7 @@ public class Player {
                                              landRow[4]
                                             );
                     this.hand.add(landCard);
-                    System.out.println(landCard.getName());
+//                    System.out.println(landCard.getName());
                     found = true;
                     return landCard;
                 }
@@ -159,7 +167,7 @@ public class Player {
                                                            Integer.parseInt(monsterRow[7])
                                                           );
                         this.hand.add(monsterCard);
-                        System.out.println(monsterCard.getName());
+//                        System.out.println(monsterCard.getName());
                         found = true;
                         return monsterCard;
                     }
@@ -177,12 +185,13 @@ public class Player {
                                                       Integer.parseInt(skillAuraRow[7])
                                                      );
                         this.hand.add(skillAuraCard);
-                        System.out.println(skillAuraCard.getName());
+//                        System.out.println(skillAuraCard.getName());
                         return skillAuraCard;
 
                     }
                 }
             } else {
+                System.out.println("Card not found on draw");
                 Land makeshiftCard = new Land(String.valueOf((topCardId)) + "(N) Eastern Air Temple", AIR, "(NOT FOUND) One of the two temples exclusively housing female airbenders.", "@/../com/avatarduel/card/image/land/Eastern Air Temple.png");
                 this.hand.add(makeshiftCard);
                 return makeshiftCard;
@@ -226,20 +235,24 @@ public class Player {
     public void putToField(int cardOnHandIndex, boolean isAttackPosition) {
         int i = 0;
         if (hand.size() > 0) {
-            System.out.println("~~ putToField ~~");
+//            System.out.println("~~ putToField ~~");
             Card handGet = hand.get(cardOnHandIndex);
             if (handGet.getType().equals("Monster")) {
+//                System.out.println("Card is monster");
                 if (numberOfMonstersOnField < maxMonstersOnField) {
                     while (i < maxMonstersOnField && monsterOnField[i] != null) {
-                        System.out.println(i);
+//                        System.out.println(i);
                         i++;
                     }
+                    System.out.println("Got on index " + i);
                     monsterOnField[i] = new SummonedMonster(((Monster)handGet), isAttackPosition);
                     numberOfMonstersOnField++;
                 }
             } else if (handGet.getType().equals("Land")) {
+//                System.out.println("Card is land");
                 addLandMaxPowerByElement(handGet.getElement());
             } else {
+//                System.out.println("Card is skill");
                 if (numberOfSkillsOnField < maxSkillsOnField) {
                     while (i < maxSkillsOnField && skillOnField[i] != null) {
                         System.out.println(i);
@@ -251,6 +264,8 @@ public class Player {
             }
             hand.remove(cardOnHandIndex);
         }
+
+//        System.out.println("End of putToField");
     }
 
     public void activateAuraSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
@@ -291,6 +306,8 @@ public class Player {
                                    + " DEF "
                                    + String.valueOf(monsterOnField[i].getMonster().getDefenseValue())
                                    );
+            } else {
+                System.out.println("Index " + i + " is null");
             }
         }
     }
@@ -311,6 +328,7 @@ public class Player {
 
     public void destroyMonsterOnField(int idx) {
         monsterOnField[idx] = null;
+        numberOfMonstersOnField--;
     }
 
 }

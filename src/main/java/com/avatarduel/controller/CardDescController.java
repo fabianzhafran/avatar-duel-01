@@ -2,6 +2,8 @@ package com.avatarduel.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.avatarduel.Card.Element;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.scene.image.ImageView;
 
 public class CardDescController {
     @FXML private Label nameLabel;
+    @FXML private Label typeLabel;
     @FXML private Label powLabel;
     @FXML private Label atkLabel;
     @FXML private Label defLabel;
@@ -21,7 +24,8 @@ public class CardDescController {
     @FXML private Label atkDescLabel;
     @FXML private Label defDescLabel;
     @FXML private Label descLabel2;
-    @FXML private ImageView imgView;
+    @FXML private ImageView cardImg;
+    @FXML private ImageView elementImg;
 
     @FXML private TextArea textDesc;
     private GameplayController gameplayController;
@@ -59,12 +63,31 @@ public class CardDescController {
         descLabel2.setText(desc);
     }
 
-    public void setImage(String url) {
+    public void setCardImage(String url) {
         Image img = new Image(url);
-        imgView.setImage(img);
+        cardImg.setImage(img);
     }
 
-//    public void btnPressed(Event event) {
+    public void setElementImage(Element element) {
+        String url;
+        if (element.equals(Element.WATER)) {
+            url = "@/../assets/drop.png";
+        } else if (element.equals(Element.EARTH)) {
+            url = "@/../assets/rocks.png";
+        } else if (element.equals(Element.FIRE)) {
+            url = "@/../assets/fire.png";
+        } else {
+            url = "@/../assets/wind.png";
+        }
+        Image img = new Image(url);
+        elementImg.setImage(img);
+    }
+
+    public void setType(String type) {
+        typeLabel.setText(type);
+    }
+
+    //    public void btnPressed(Event event) {
 //        System.out.println("Button pressed!");
 //    }
 }

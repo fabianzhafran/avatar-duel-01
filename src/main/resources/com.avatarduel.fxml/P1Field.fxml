@@ -98,7 +98,6 @@
          </children>
       </AnchorPane>
       <fx:include fx:id="hand" layoutY="222.5" source="Hand.fxml" />
-      <fx:include fx:id="characterArena" source="CharacterArena.fxml" />
-      <fx:include fx:id="skillArena" layoutY="110.0" source="SkillArena.fxml" />
+      <fx:include fx:id="arena" source="Arena.fxml" />
    </children>
 </AnchorPane>

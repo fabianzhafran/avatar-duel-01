@@ -45,16 +45,19 @@ public class HandController {
             attButton.setFont(Font.font(8));
             defButton.setFont(Font.font(8));
 
-            attButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                    event -> {
-                        System.out.println("Clicked summon att");
-                        useCard(idx, true);
-                    });
-            defButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                    event -> {
-                        System.out.println("Clicked summon def");
-                        useCard(idx, false);
-                    });
+            if (fieldController.player.getNumberOfMonstersOnField() < 6) {
+                attButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        event -> {
+                            System.out.println("Clicked summon att");
+                            useCard(idx, true);
+                        });
+                defButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        event -> {
+                            System.out.println("Clicked summon def");
+                            useCard(idx, false);
+                        });
+            }
+
 
             hoveredCard.getChildren().addAll(attButton, defButton);
         } else {
@@ -66,14 +69,20 @@ public class HandController {
             actButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                     event -> {
                         System.out.println("Clicked activate");
-                        useCard(idx, false);
+                        if (fieldController.player.getHand().get(idx).getType().equals("Skill")) {
+                            if (fieldController.player.getNumberOfSkillsOnField() < 6) {
+                                useCard(idx, false);
+                            }
+                        } else {
+                            useCard(idx, false);
+                        }
                     });
 
             hoveredCard.getChildren().add(actButton);
         }
 
 
-        System.out.println("Source delivered successfully");
+//        System.out.println("Source delivered successfully");
     }
 
     public void printTes() {
@@ -96,7 +105,6 @@ public class HandController {
 
 //        System.out.println("Card Summoned");
 //        Group clickedCard = (Group) evt.getSource();
-
         fieldController.useCard(idx, isAtt);
     }
 

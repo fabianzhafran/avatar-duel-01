@@ -1,8 +1,6 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.Card.Aura;
-import com.avatarduel.Card.Card;
-import com.avatarduel.Card.Monster;
+import com.avatarduel.Card.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 
@@ -24,19 +22,13 @@ public class GameplayController {
         p2FieldController.init(this);
     }
 
-    public void btnPressed(Event event) {
-        System.out.println("Button pressed!");
-        cardDescController.setName("Zuko");
-        cardDescController.setPwr("2");
-        cardDescController.setAtt("7");
-        cardDescController.setDef("4");
-    }
-
     public void setDescCard(Card card) {
 //        System.out.println("Setting description...");
         cardDescController.setName(card.getName());
         cardDescController.setDesc(card.getDeskripsi());
-        cardDescController.setImage(card.getImagePath());
+        cardDescController.setCardImage(card.getImagePath());
+        cardDescController.setElementImage(card.getElement());
+        cardDescController.setType(card.getType());
         // Set DEscription
         // SEt ELement
         if (card.getType().equals("Monster")) {
@@ -45,10 +37,15 @@ public class GameplayController {
             cardDescController.setAtt("Atk: " + String.valueOf(castedCard.getAttackValue()));
             cardDescController.setDef("Def: " + String.valueOf(castedCard.getDefenseValue()));
         } else if (card.getType().equals("Skill")) {
-            Aura castedCard = (Aura) card;
-            cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
-            cardDescController.setAtt("Atk: " + String.valueOf(castedCard.getAttackValue()));
-            cardDescController.setDef("Def: " + String.valueOf(castedCard.getDefenseValue()));
+            Skill skillCard = (Skill) card;
+            cardDescController.setType(skillCard.getSkillType());
+            if (skillCard.getSkillType().equals("Aura")) {
+                Aura castedCard = (Aura) skillCard;
+                cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
+                cardDescController.setAtt("Atk: " + String.valueOf(castedCard.getAttackValue()));
+                cardDescController.setDef("Def: " + String.valueOf(castedCard.getDefenseValue()));
+            }
+
         } else {
             cardDescController.setPwr(String.valueOf(" "));
             cardDescController.setAtt(String.valueOf(" "));

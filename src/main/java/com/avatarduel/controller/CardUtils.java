@@ -1,9 +1,6 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.Card.Aura;
-import com.avatarduel.Card.Card;
-import com.avatarduel.Card.Land;
-import com.avatarduel.Card.Monster;
+import com.avatarduel.Card.*;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -60,13 +57,14 @@ public class CardUtils {
             imgView.setLayoutX(20);
             imgView.setLayoutY(28);
         } catch (Exception e) {
-
+            System.out.println("Image not found!");
         } finally {
             Rectangle outer = createRectCard(80, 110, 15, 5);
             Rectangle nameRect = createRectCard(70, 15, 20, 10);
             Rectangle imgRect = createRectCard(70,50, 20, 28);
             Rectangle descRect = createRectCard(70, 30, 20, 80);
             Label nameLabel = createLabel(cardInput.getName(), 22, 12, 8);
+            nameLabel.setPrefWidth(70);
             // Monster
             if (cardInput.getType().equals("Land")) {
                 Land castedCard = (Land) cardInput;
@@ -74,24 +72,27 @@ public class CardUtils {
                 newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, elmtLabel,imgView);
             } else if (cardInput.getType().equals("Monster")) {
                 Monster castedCard = (Monster) cardInput;
-                Label powLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 80, 10);
-                Label attLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 45, 92, 10);
-                Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 77, 80, 10);
-                Label elmtLabel = createLabel(castedCard.getElement().toString(), 55, 95, 8);
+                Label attLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 80, 10);
+                Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 45, 92, 10);
+                Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 80, 80, 10);
+                Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
                 Text powText = createText("Pow:", 22, 91, 10);
                 Text attText = createText("Att:", 22, 103, 10);
                 Text defText = createText("Def:", 55, 91, 10);
                 newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, imgView);
             } else {
-                Aura castedCard = (Aura) cardInput;
-                Label powLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 80, 10);
-                Label attLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 45, 92, 10);
-                Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 77, 80, 10);
-                Label elmtLabel = createLabel(castedCard.getElement().toString(), 55, 95, 8);
-                Text powText = createText("Pow:", 22, 91, 10);
-                Text attText = createText("Att:", 22, 103, 10);
-                Text defText = createText("Def:", 55, 91, 10);
-                newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, imgView);
+                Skill skillCard = (Skill) cardInput;
+                if (skillCard.getSkillType().equals("Aura")) {
+                    Aura castedCard = (Aura) skillCard;
+                    Label attLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 80, 10);
+                    Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 45, 92, 10);
+                    Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 80, 80, 10);
+                    Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
+                    Text powText = createText("Pow:", 22, 91, 10);
+                    Text attText = createText("Att:", 22, 103, 10);
+                    Text defText = createText("Def:", 55, 91, 10);
+                    newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, imgView);
+                }
             }
 
             return newCard;
