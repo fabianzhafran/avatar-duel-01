@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class PowerUp extends Skill {
 
-    public PowerUp(String name, Element element, String path, String desc, int pow) {
-        super(name, element, path, desc, pow);
+    public PowerUp(String name, Element element, String desc, String path, int pow) {
+        super(name, element, desc, path, pow);
     }
     
     @Override

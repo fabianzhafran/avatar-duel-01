@@ -2,11 +2,11 @@ package com.avatarduel.controller;
 
 import com.avatarduel.Card.Card;
 import com.avatarduel.Card.Element;
-import com.avatarduel.Card.Monster;
 import com.avatarduel.Player;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.util.HashMap;
@@ -16,8 +16,9 @@ import static com.avatarduel.Card.Element.*;
 abstract public class FieldController {
     @FXML protected GameplayController gameplayController;
     @FXML protected HandController handController;
-    @FXML protected CharacterArenaController characterArenaController;
-    @FXML protected SkillArenaController skillArenaController;
+    @FXML protected ArenaController arenaController;
+
+    @FXML private AnchorPane fieldPane;
 
     @FXML private Text deckCount;
     @FXML private Label fireElement;
@@ -27,6 +28,9 @@ abstract public class FieldController {
     @FXML private Label hpLabel;
     @FXML private Label playerLabel;
 
+//    @FXML private Button summonAttButton;
+//    @FXML private Button summonDefButton;
+
     HashMap<Element, Label> elmtMap = new HashMap<Element, Label>();
 
     protected Player player;
@@ -34,8 +38,6 @@ abstract public class FieldController {
     public void init(GameplayController g) {
         this.gameplayController = g;
         handController.init(this);
-        characterArenaController.init(this);
-        skillArenaController.init(this);
         player = new Player("Player");
         for (int i = 0; i < 7; i++) {
                 this.draw();
@@ -60,22 +62,32 @@ abstract public class FieldController {
     public void draw() {
 
 //        handController.addCard();
-        System.out.println("Performing draw...");
+//        System.out.println("Performing draw...");
 //        System.out.println(drawnCard.getDeskripsi());
         Group newCard = CardUtils.createCard(player.draw());
         handController.addCard(newCard);
 
-        System.out.println(this.player.getDeckCount());
+//        System.out.println(this.player.getDeckCount());
         deckCount.setText(String.valueOf(this.player.getDeckCount()));
     }
 
-    public void useCard(int idx) {
+    public void useCard(int idx, boolean isAtt) {
         Card card = player.getHand().get(idx);
-        player.putToField(idx, true);
-        if (card.getType().equals("Monster")) {
-            characterArenaController.summon(card);
-        } else if (card.getType().equals("Land")) {
+//        System.out.println("~~~FieldController~~~");
+//        System.out.println("Card: " + card.getName());
+        player.putToField(idx, isAtt);
+
+        if (card.getType().equals("Land")) {
             elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
+        } else if (card.getType().equals("Monster")) {
+            arenaController.summon(card, isAtt);
+        } else {
+            arenaController.activateCardEff(card);
         }
+        handController.removeCard(idx);
+
+
+
     }
+
 }

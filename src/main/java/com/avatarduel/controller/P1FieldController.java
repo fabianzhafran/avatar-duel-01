@@ -1,8 +1,9 @@
 package com.avatarduel.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.text.Text;
-
 public class P1FieldController extends FieldController {
-
+    @Override
+    public void init(GameplayController g) {
+        super.init(g);
+        this.arenaController.init(this, true);
+    }
 }
