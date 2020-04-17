@@ -207,6 +207,9 @@ public class Player {
                         j++;
                     }
                     if (j < linkedSkill.size()) {
+                        monsterOnField[i].subtractBuff(((Aura)skillOnField[skillIndex]).getAttackValue(), 
+                                                       ((Aura)skillOnField[skillIndex]).getDefenseValue()
+                                                      );
                         monsterOnField[i].removeSkill(skillIndex);
                         removed = true;
                     }
@@ -252,7 +255,10 @@ public class Player {
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
         );
+        monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
     }
+
+
 
     public void activateDestroySkill(boolean isTargetMonster, int targetOnFieldIndex, Player targetPlayer) {
         if (isTargetMonster) {

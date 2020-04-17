@@ -43,6 +43,11 @@ public class SummonedMonster implements ISummoned {
         buffAtk += atk;
         buffDef += def;
     }
+
+    public void subtractBuff(int atk, int def) {
+        buffAtk -= atk;
+        buffDef -= def;
+    }
     
     public void setBuff(int atk, int def) {
         buffAtk = atk;
