@@ -278,6 +278,8 @@ public class Player {
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
         );
+
+        monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
     }
 
     public void activateDestroySkill(boolean isTargetMonster, int targetOnFieldIndex, Player targetPlayer) {

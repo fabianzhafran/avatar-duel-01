@@ -88,19 +88,19 @@ public class CardDescController {
 
     public void setType(String type) {
         typeLabel.setText(type);
-        if (!type.equals("Monster")) {
-            attachedSkillLabel.setText("None");
-        }
+        attachedSkillLabel.setText("None");
+
     }
 
     public void setAttachedSkill(ArrayList<String> auraNames) {
         if (auraNames.size() == 0) {
+//            System.out.println("gapunya aura");
             attachedSkillLabel.setText("None");
         } else {
             int i = 0;
             String ret = "";
             while (i < auraNames.size() - 1) {
-                ret += "\n" + auraNames.get(i);
+                ret += auraNames.get(i) + "\n";
                 i++;
             }
 
