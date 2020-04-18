@@ -22,6 +22,10 @@ public class ArenaController {
     private PriorityQueue<Integer> emptyMonster;
     private PriorityQueue<Integer> emptySkill;
 
+    private boolean receivingAttack = false;
+    private int idxAttacker = -1;
+    private int atkValue = 0;
+
     private boolean skillActivating;
 
     private int idxActivatedSkill;
@@ -44,6 +48,12 @@ public class ArenaController {
 
     public void setIdxActivatedSkill(int idxActivatedSkill) {
         this.idxActivatedSkill = idxActivatedSkill;
+    }
+
+    public void receiveAttack(int idxAttacker, int atkValue) {
+        receivingAttack = true;
+        this.idxAttacker = idxAttacker;
+        this.atkValue = atkValue;
     }
 
     public void cardHover(Event evt) {
@@ -71,6 +81,36 @@ public class ArenaController {
                     hoveredCard.getChildren().add(equipButton);
 //                }
             }
+            if (!receivingAttack){
+                // ditaro kondisi klo lagi battle
+                Button attackButton = new Button("Attack");
+                attackButton.setLayoutX(20);
+                attackButton.setLayoutY(60);
+                attackButton.setPrefWidth(70);
+                attackButton.setFont(Font.font(8));
+                attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        event -> {
+                            System.out.println("Clicked Attack");
+                            fieldController.startAttack(i);
+                        });
+                hoveredCard.getChildren().add(attackButton);
+            }
+
+            if (receivingAttack && fieldController.player.getMonsterOnField()[i].getAttackValue() < atkValue) {
+                // ditaro kondisi klo lagi battle
+                Button attackButton = new Button("Attack this");
+                attackButton.setLayoutX(20);
+                attackButton.setLayoutY(20);
+                attackButton.setPrefWidth(70);
+                attackButton.setFont(Font.font(8));
+                attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        event -> {
+                            System.out.println("Arena start Attack");
+                            destroy(evt);
+                            startBattle(i);
+                        });
+                hoveredCard.getChildren().add(attackButton);
+            }
 
         } else {
             i = (skillArena.getColumnIndex(hoveredCard));
@@ -81,6 +121,12 @@ public class ArenaController {
 //        System.out.println("Hovered card name is" + hovered.getName());
 
 //        System.out.println("Source delivered successfully");
+    }
+
+    public void startBattle(int idxReceiver) {
+        System.out.println("Arena Start Battle");
+        receivingAttack = false;
+        fieldController.startBattle(idxAttacker, idxReceiver);
     }
 
     public void equip(int monsterIdx) {
@@ -138,7 +184,9 @@ public class ArenaController {
         for (int idxRemove: idxSkillArena) {
             skillArena.getChildren().remove(idxRemove);
         }
-        fieldController.player.removeMonsterOnField(idx);
+        if (!receivingAttack) {
+            fieldController.player.removeMonsterOnField(idx);
+        }
     }
 
     public void exitHover(Event evt) {
