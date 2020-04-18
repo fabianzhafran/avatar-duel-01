@@ -1,12 +1,19 @@
 package com.avatarduel.controller;
 
+import com.avatarduel.Card.Aura;
 import com.avatarduel.Card.Card;
+import com.avatarduel.Card.Element;
+import com.avatarduel.Card.Skill;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class ArenaController {
@@ -14,12 +21,19 @@ public class ArenaController {
     @FXML private GridPane monsterArena;
     @FXML private GridPane skillArena;
 
-    PriorityQueue<Integer> emptyMonster = new PriorityQueue<Integer>();
-    PriorityQueue<Integer> emptySkill = new PriorityQueue<Integer>();
+    private PriorityQueue<Integer> emptyMonster;
+    private PriorityQueue<Integer> emptySkill;
+
+    private boolean skillActivating;
+
+    private int idxActivatedSkill;
 
     public void init(FieldController f, boolean isPlayer1) {
 //        System.out.println("CharacterArenaController Linked!");
         this.fieldController = f;
+        emptyMonster = new PriorityQueue<Integer>();
+        emptySkill = new PriorityQueue<Integer>();
+        skillActivating = false;
         for (int i = 0; i < 6; i++) {
             emptyMonster.add(i);
             emptySkill.add(i);
@@ -30,14 +44,53 @@ public class ArenaController {
         }
     }
 
+    public void setIdxActivatedSkill(int idxActivatedSkill) {
+        this.idxActivatedSkill = idxActivatedSkill;
+    }
+
     public void cardHover(Event evt) {
+        int i;
         Group hoveredCard = (Group) evt.getSource();
-        int i = (monsterArena.getColumnIndex(hoveredCard));
-        Card hovered = (fieldController.player.getCharacterOnField())[i].getMonster();
+        if (monsterArena.getChildren().contains(hoveredCard)) {
+            i = (monsterArena.getColumnIndex(hoveredCard));
+            fieldController.setDescCard((fieldController.player.getCharacterOnField())[i]);
+
+            if (skillActivating) {
+                Element monsterElement = fieldController.player.getCharacterOnField()[i].getMonster().getElement();
+                Element skillElement = fieldController.player.getSkillOnField()[idxActivatedSkill].getElement();
+                if (monsterElement.equals(skillElement)) {
+                    Button equipButton = new Button("Equip");
+                    equipButton.setLayoutX(20);
+                    equipButton.setLayoutY(20);
+                    equipButton.setPrefWidth(70);
+                    equipButton.setFont(Font.font(8));
+                    equipButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            event -> {
+                                System.out.println("Clicked Equip");
+                                equip(i);
+
+                            });
+                    hoveredCard.getChildren().add(equipButton);
+                }
+            }
+
+        } else {
+            i = (skillArena.getColumnIndex(hoveredCard));
+            fieldController.setDescCard((fieldController.player.getSkillOnField())[i]);
+        }
 
 //        System.out.println("Hovered card name is" + hovered.getName());
-        fieldController.setDescCard((fieldController.player.getCharacterOnField())[i].getMonster());
+
 //        System.out.println("Source delivered successfully");
+    }
+
+    public void equip(int monsterIdx) {
+        System.out.println("Skill index: " + idxActivatedSkill);
+        fieldController.player.printSkillCardsOnField();
+        System.out.println("Monster index: " + monsterIdx);
+        fieldController.player.printMonsterCardsOnField();
+        fieldController.player.activateAuraSkill(idxActivatedSkill, monsterIdx);
+        skillActivating = false;
     }
 
     public void summon(Card card, boolean isAtt) {
@@ -50,6 +103,8 @@ public class ArenaController {
                 event -> cardHover(event));
         newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
                 event -> destroy(event));
+        newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
+                event -> exitHover(event));
         monsterArena.add(newCard, emptyCol, 0,  1, 1);
     }
 
@@ -60,7 +115,11 @@ public class ArenaController {
                 event -> cardHover(event));
 //        newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
 //                event -> destroy(event));
+        newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
+                event -> exitHover(event));
         skillArena.add(newCard, emptyCol, 0,  1, 1);
+        skillActivating = true;
+        idxActivatedSkill = emptyCol;
     }
 
     public void destroy(Event evt) {
@@ -68,7 +127,26 @@ public class ArenaController {
         int idx = monsterArena.getColumnIndex(clickedCard);
         emptyMonster.add(idx);
         monsterArena.getChildren().remove(clickedCard);
-        fieldController.player.destroyMonsterOnField(idx);
+        fieldController.player.removeMonsterOnField(idx);
+    }
+
+    public void exitHover(Event evt) {
+        Group hoveredCard = (Group) evt.getSource();
+        ArrayList<Integer> removeIdx = new ArrayList<Integer>();
+        int i = 0;
+        for (Node node: hoveredCard.getChildren()) {
+            if (node instanceof Button) {
+                removeIdx.add(0, i);
+//                System.out.println("Index " + i);
+            }
+            i++;
+        }
+
+        for (int idx:removeIdx) {
+            hoveredCard.getChildren().remove(idx);
+        }
+
+        hoveredCard.setTranslateY(0);
     }
 }
 

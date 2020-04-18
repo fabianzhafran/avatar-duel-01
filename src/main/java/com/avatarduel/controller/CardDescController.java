@@ -1,6 +1,7 @@
 package com.avatarduel.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.avatarduel.Card.Element;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 public class CardDescController {
     @FXML private Label nameLabel;
@@ -24,6 +26,7 @@ public class CardDescController {
     @FXML private Label atkDescLabel;
     @FXML private Label defDescLabel;
     @FXML private Label descLabel2;
+    @FXML private Text attachedSkillLabel;
     @FXML private ImageView cardImg;
     @FXML private ImageView elementImg;
 
@@ -85,6 +88,25 @@ public class CardDescController {
 
     public void setType(String type) {
         typeLabel.setText(type);
+        attachedSkillLabel.setText("None");
+
+    }
+
+    public void setAttachedSkill(ArrayList<String> auraNames) {
+        if (auraNames.size() == 0) {
+//            System.out.println("gapunya aura");
+            attachedSkillLabel.setText("None");
+        } else {
+            int i = 0;
+            String ret = "";
+            while (i < auraNames.size() - 1) {
+                ret += auraNames.get(i) + "\n";
+                i++;
+            }
+
+            ret += auraNames.get(i);
+            attachedSkillLabel.setText(ret);
+        }
     }
 
     //    public void btnPressed(Event event) {

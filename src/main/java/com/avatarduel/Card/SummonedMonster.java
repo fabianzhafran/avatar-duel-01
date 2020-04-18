@@ -7,6 +7,7 @@ public class SummonedMonster implements ISummoned {
 
     private Monster monster;
     boolean isAttackPos;
+    private boolean hasAttacked;
 
     int buffAtk;
     int buffDef;
@@ -14,18 +15,30 @@ public class SummonedMonster implements ISummoned {
 
     ArrayList<Integer> skillLinked;
 
-    public Monster getMonster() {
-        return monster;
-    }
-
+    
     public SummonedMonster(Monster mons, boolean attackPos) {
         this.monster = mons;
         this.isAttackPos = attackPos;
         resetBuff();
         piercieng = false;
         skillLinked = new ArrayList<Integer>();
+        buffDef = 0;
+        buffAtk = 0;
+        hasAttacked = false;
     }
 
+    public Monster getMonster() {
+        return monster;
+    }
+
+    public int getAttackValue() {
+        return monster.getAttackValue() + buffAtk;
+    }
+
+    public int getDefenseValue() {
+        return monster.getDefenseValue() + buffDef;
+    }
+    
     public void rotate() {
         this.isAttackPos = !(this.isAttackPos);
     }
@@ -65,6 +78,14 @@ public class SummonedMonster implements ISummoned {
     
     public void resetPiercing() {
         piercieng = false;
+    }
+
+    public boolean getHasAttacked() {
+        return hasAttacked;
+    }
+
+    public void setHasAttacked() {
+        hasAttacked = true;
     }
     
     public void registerSkill(int skillOnFieldIndex) {

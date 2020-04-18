@@ -49,7 +49,7 @@
             <Font name="AR PL UKai CN" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="19.0" layoutY="649.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="236.0">
+      <Text fx:id="attachedSkillLabel" layoutX="19.0" layoutY="649.0" strokeType="OUTSIDE" strokeWidth="0.0" text="None" textAlignment="JUSTIFY" wrappingWidth="236.0">
          <font>
             <Font name="AR PL UKai CN" size="15.0" />
          </font>

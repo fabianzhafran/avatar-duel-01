@@ -36,8 +36,10 @@ public class Player {
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
         for (int i = 0; i < 50; i++) {
-            this.deck.push(randomNumber.nextInt(89) + 1);
+            deck.push(randomNumber.nextInt(89) + 1);
         }
+        deck.pop();
+        deck.push(new Integer(1));
         hand = new ArrayList<Card>();
         monsterOnField = new SummonedMonster[maxMonstersOnField];
         numberOfMonstersOnField = 0;
@@ -140,69 +142,64 @@ public class Player {
     }
     
     public Card draw() {
-        ListOfCards listOfCards = new ListOfCards();
-        boolean found = false;
-        ElementDictionary elementDictionary = new ElementDictionary();
-        if (getDeckCount() > 0) {
-            int topCardId = deck.pop();
-            for (String[] landRow : listOfCards.listOfLandCards) {
-                if (topCardId == Integer.parseInt(landRow[0])) {
-                        Land landCard = new Land(landRow[1],
-                                             elementDictionary.getElement(landRow[2]),
-                                             landRow[3],
-                                             landRow[4]
-                                            );
-                    this.hand.add(landCard);
-//                    System.out.println(landCard.getName());
-                    found = true;
-                    return landCard;
-                }
-            }
-            if (!found) {
-                for (String[] monsterRow : listOfCards.listOfMonsterCards) {
-                    if (topCardId == Integer.parseInt(monsterRow[0])) {
-                        Monster monsterCard = new Monster(monsterRow[1],
-                                                           elementDictionary.getElement(monsterRow[2]),
-                                                           monsterRow[3],
-                                                           monsterRow[4],
-                                                           Integer.parseInt(monsterRow[5]),
-                                                           Integer.parseInt(monsterRow[6]),
-                                                           Integer.parseInt(monsterRow[7])
-                                                          );
-                        this.hand.add(monsterCard);
-//                        System.out.println(monsterCard.getName());
+        if (hand.size() < maxCardsOnHand) {
+            ListOfCards listOfCards = new ListOfCards();
+            boolean found = false;
+            ElementDictionary elementDictionary = new ElementDictionary();
+            if (getDeckCount() > 0) {
+                int topCardId = deck.pop();
+                for (String[] landRow : listOfCards.listOfLandCards) {
+                    if (topCardId == Integer.parseInt(landRow[0])) {
+                            Land landCard = new Land(landRow[1],
+                                                 elementDictionary.getElement(landRow[2]),
+                                                 landRow[3],
+                                                 landRow[4]
+                                                );
+                        this.hand.add(landCard);
+    //                    System.out.println(landCard.getName());
                         found = true;
-                        return monsterCard;
+                        return landCard;
                     }
                 }
-            }
-            if (!found) {
-                for (String[] skillAuraRow : listOfCards.listOfSkillAuraCards) {
-                    if (topCardId == Integer.parseInt(skillAuraRow[0])) {
-                        Aura skillAuraCard = new Aura(skillAuraRow[1],
-                                                      elementDictionary.getElement(skillAuraRow[2]),
-                                                      skillAuraRow[3],
-                                                      skillAuraRow[4],
-                                                      Integer.parseInt(skillAuraRow[5]),
-                                                      Integer.parseInt(skillAuraRow[6]),
-                                                      Integer.parseInt(skillAuraRow[7])
-                                                     );
-                        this.hand.add(skillAuraCard);
-//                        System.out.println(skillAuraCard.getName());
-                        return skillAuraCard;
-
+                if (!found) {
+                    for (String[] monsterRow : listOfCards.listOfMonsterCards) {
+                        if (topCardId == Integer.parseInt(monsterRow[0])) {
+                            Monster monsterCard = new Monster(monsterRow[1],
+                                                               elementDictionary.getElement(monsterRow[2]),
+                                                               monsterRow[3],
+                                                               monsterRow[4],
+                                                               Integer.parseInt(monsterRow[5]),
+                                                               Integer.parseInt(monsterRow[6]),
+                                                               Integer.parseInt(monsterRow[7])
+                                                              );
+                            this.hand.add(monsterCard);
+    //                        System.out.println(monsterCard.getName());
+                            found = true;
+                            return monsterCard;
+                        }
                     }
                 }
-            } else {
-                System.out.println("Card not found on draw");
-                Land makeshiftCard = new Land(String.valueOf((topCardId)) + "(N) Eastern Air Temple", AIR, "(NOT FOUND) One of the two temples exclusively housing female airbenders.", "@/../com/avatarduel/card/image/land/Eastern Air Temple.png");
-                this.hand.add(makeshiftCard);
-                return makeshiftCard;
+                if (!found) {
+                    for (String[] skillAuraRow : listOfCards.listOfSkillAuraCards) {
+                        if (topCardId == Integer.parseInt(skillAuraRow[0])) {
+                            Aura skillAuraCard = new Aura(skillAuraRow[1],
+                                                          elementDictionary.getElement(skillAuraRow[2]),
+                                                          skillAuraRow[3],
+                                                          skillAuraRow[4],
+                                                          Integer.parseInt(skillAuraRow[5]),
+                                                          Integer.parseInt(skillAuraRow[6]),
+                                                          Integer.parseInt(skillAuraRow[7])
+                                                         );
+                            this.hand.add(skillAuraCard);
+    //                        System.out.println(skillAuraCard.getName());
+                            return skillAuraCard;
+    
+                        }
+                    }
+                }
             }
         }
-        Land makeshiftCard = new Land("(N) Eastern Air Temple", AIR, "(NOT FOUND) One of the two temples exclusively housing female airbenders.", "@/../com/avatarduel/card/image/land/Eastern Air Temple.png");
-        this.hand.add(makeshiftCard);
-        return makeshiftCard;
+        return null;
     }
 
     public void removeMonsterOnField(int monsterIndex) {
@@ -238,43 +235,56 @@ public class Player {
         numberOfSkillsOnField--;
     }
 
-    public void putToField(int cardOnHandIndex, boolean isAttackPosition) {
+    // return true kalo sukses
+    public boolean putToField(int cardOnHandIndex, boolean isAttackPosition) {
         int i = 0;
+        boolean putCardIsSuccessful = false;
         if (hand.size() > 0) {
-//            System.out.println("~~ putToField ~~");
             Card handGet = hand.get(cardOnHandIndex);
             if (handGet.getType().equals("Monster")) {
-//                System.out.println("Card is monster");
-                if (numberOfMonstersOnField < maxMonstersOnField) {
+               System.out.println("Card is monster");
+                int currentElementPower = getLandPowerByElement(handGet.getElement());
+                int monsterPower = ((Monster)handGet).getPowerValue();
+                Element monsterElement = handGet.getElement();
+                if (monsterPower <= currentElementPower && numberOfMonstersOnField < maxMonstersOnField) {               
                     while (i < maxMonstersOnField && monsterOnField[i] != null) {
-//                        System.out.println(i);
                         i++;
                     }
                     System.out.println("Got on index " + i);
+                    setLandPowerByElement(monsterElement, currentElementPower - monsterPower);
                     monsterOnField[i] = new SummonedMonster(((Monster)handGet), isAttackPosition);
                     numberOfMonstersOnField++;
+                    putCardIsSuccessful = true;
                 }
             } else if (handGet.getType().equals("Land")) {
-//                System.out.println("Card is land");
                 addLandMaxPowerByElement(handGet.getElement());
+                putCardIsSuccessful = true;
             } else {
-//                System.out.println("Card is skill");
-                if (numberOfSkillsOnField < maxSkillsOnField) {
+                int skillPower = ((Skill)handGet).getPowerValue();
+                Element skillElement = handGet.getElement();
+                int currentElementPower = getLandPowerByElement(skillElement);
+                if (skillPower <= currentElementPower && numberOfSkillsOnField < maxSkillsOnField) {
                     while (i < maxSkillsOnField && skillOnField[i] != null) {
-                        System.out.println(i);
+                        // System.out.println(i);
                         i++;
                     }
                     skillOnField[i] = (Skill)handGet;
                     numberOfSkillsOnField++;
+                    putCardIsSuccessful = true;
                 }
             }
             hand.remove(cardOnHandIndex);
         }
-
+        return putCardIsSuccessful;
 //        System.out.println("End of putToField");
     }
 
     public void activateAuraSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
+        System.out.println("Masuk activate Aura");
+        SummonedMonster sm = monsterOnField[monsterOnFieldIndex];
+//        System.out.println(sm.getMonster().getName());
+        Aura aura = (Aura) skillOnField[sourceSkillOnFieldIndex];
+        System.out.println(aura.getName());
         monsterOnField[monsterOnFieldIndex].addBuff(
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
             ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
@@ -283,7 +293,7 @@ public class Player {
     }
 
     public void activatePowerUpSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
-        monsterOnField[monsterOnFieldIndex].setPiercing();
+        monsterOnField[monsterOnFieldIndex].setPierce();
         removeSkillOnField(sourceSkillOnFieldIndex);
     }
 
@@ -337,11 +347,6 @@ public class Player {
 
     public void printShit(Card card) {
         System.out.println("Name: " + card.getName() + ", Type: " + card.getType());
-    }
-
-    public void destroyMonsterOnField(int idx) {
-        monsterOnField[idx] = null;
-        numberOfMonstersOnField--;
     }
 
 }

@@ -4,6 +4,8 @@ import com.avatarduel.Card.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 
+import java.util.ArrayList;
+
 public class GameplayController {
 
     @FXML private CardDescController cardDescController;
@@ -51,5 +53,25 @@ public class GameplayController {
             cardDescController.setAtt(String.valueOf(" "));
             cardDescController.setDef(String.valueOf(" "));
         }
+    }
+
+    public void setDescCard(SummonedMonster Summoned, Skill[] skillOnField) {
+        Monster card = Summoned.getMonster();
+        cardDescController.setName(card.getName());
+        cardDescController.setDesc(card.getDeskripsi());
+        cardDescController.setCardImage(card.getImagePath());
+        cardDescController.setElementImage(card.getElement());
+        cardDescController.setType(card.getType());
+        cardDescController.setPwr("Pow: " + String.valueOf(card.getPowerValue()));
+        cardDescController.setAtt("Atk: " + String.valueOf(Summoned.getAttackValue()));
+        cardDescController.setDef("Def: " + String.valueOf(Summoned.getDefenseValue()));
+
+        ArrayList<Integer> idxSkillOnField = Summoned.getSkillLinked();
+        ArrayList<String> attachedSkillName = new ArrayList<String>();
+        for (int idx:idxSkillOnField) {
+            attachedSkillName.add(skillOnField[idx].getName());
+        }
+
+        cardDescController.setAttachedSkill(attachedSkillName);
     }
 }
