@@ -3,6 +3,7 @@ package com.avatarduel.Card;
 public class Skill extends Card {
 
     protected int power;
+    protected boolean isUsed;
 
     public Skill(Skill other) {
         name = other.getName();
@@ -10,6 +11,7 @@ public class Skill extends Card {
         imagePath = other.getImagePath();
         description = other.getDeskripsi();
         power = other.getPowerValue();
+        isUsed = other.getIsUsed();
         System.out.println(name);
     }
 
@@ -19,6 +21,15 @@ public class Skill extends Card {
         this.imagePath = path;
         this.description = desc;
         this.power = pow;
+        this.isUsed = false;
+    }
+
+    public boolean getIsUsed() {
+        return isUsed;
+    }
+
+    public void setIsUsedToTrue() {
+        isUsed = true;
     }
 
     public String getType() {

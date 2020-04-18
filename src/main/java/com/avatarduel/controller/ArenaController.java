@@ -1,6 +1,7 @@
 package com.avatarduel.controller;
 
 import com.avatarduel.Card.*;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
