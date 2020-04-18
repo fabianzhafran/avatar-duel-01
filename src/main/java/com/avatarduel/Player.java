@@ -48,7 +48,6 @@ public class Player {
         elementPower[1] = new ElementPower(WATER);
         elementPower[2] = new ElementPower(FIRE);
         elementPower[3] = new ElementPower(AIR);
-//        System.out.println(deck.size());
     }
 
     public int getPlayerID() {
@@ -61,6 +60,10 @@ public class Player {
 
     public int getHp() {
         return hp;
+    }
+
+    public void subtractHp(int damage) {
+        hp = hp - damage;
     }
 
     public ArrayList<Card> getHand() {
@@ -279,14 +282,18 @@ public class Player {
         monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
     }
 
+    public void activatePowerUpSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
+        monsterOnField[monsterOnFieldIndex].setPiercing();
+        removeSkillOnField(sourceSkillOnFieldIndex);
+    }
 
-
-    public void activateDestroySkill(boolean isTargetMonster, int targetOnFieldIndex, Player targetPlayer) {
+    public void activateDestroySkill(boolean isTargetMonster, int sourceSkillOnFieldIndex, int targetOnFieldIndex, Player targetPlayer) {
         if (isTargetMonster) {
             targetPlayer.removeMonsterOnField(targetOnFieldIndex);
         } else {
             targetPlayer.removeSkillOnField(targetOnFieldIndex);
         }
+        removeSkillOnField(sourceSkillOnFieldIndex);
     }
 
     // =============================
