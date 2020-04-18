@@ -16,8 +16,8 @@
             <children>
                 <Group layoutX="15.0" layoutY="235.0" onMouseClicked="#draw">
                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
-                        <Ellipse fill="WHITE" layoutX="40.0" layoutY="50.0" radiusX="43.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d07b26" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+                        <Ellipse fill="#000000a8" layoutX="40.0" layoutY="50.0" radiusX="43.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />
                     </children>
                 </Group>
                 <Text fx:id="deckCount" layoutX="43.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30" textAlignment="JUSTIFY" wrappingWidth="25.0">
