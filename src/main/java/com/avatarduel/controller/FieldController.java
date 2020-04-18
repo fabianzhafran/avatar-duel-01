@@ -55,6 +55,10 @@ abstract public class FieldController {
         elmtMap.put(EARTH, earthElement);
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void setDescCard(Card c) {
 //        System.out.println("Sending to gameplay...");
         gameplayController.setDescCard(c);

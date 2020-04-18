@@ -4,6 +4,8 @@ import com.avatarduel.Card.Aura;
 import com.avatarduel.Card.Card;
 import com.avatarduel.Card.Element;
 import com.avatarduel.Card.Skill;
+import com.avatarduel.phase.Phase;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Group;

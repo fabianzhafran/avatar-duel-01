@@ -1,13 +1,11 @@
 package com.avatarduel;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
 import com.avatarduel.Card.*;
-import com.avatarduel.util.CsvReader;
+import com.avatarduel.phase.PhaseEnum;
 
 import static com.avatarduel.Card.Element.*;
 
@@ -20,6 +18,7 @@ public class Player {
     protected int playerID;
     protected String namePlayer;
     protected int hp;
+    protected int phaseNumber;
     protected Stack<Integer> deck;
     protected ArrayList<Card> hand;
     protected SummonedMonster[] monsterOnField;
@@ -27,11 +26,12 @@ public class Player {
     protected Skill[] skillOnField;
     protected int numberOfSkillsOnField;
     protected ElementPower[] elementPower;
-
+    
     public Player(String namePlayer) {
         this.namePlayer = namePlayer;
         int id = namePlayer.charAt(namePlayer.length() - 1) - 48;
         this.playerID = id;
+        phaseNumber = -1;
         hp = 80;
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
@@ -66,6 +66,14 @@ public class Player {
 
     public void subtractHp(int damage) {
         hp = hp - damage;
+    }
+
+    public void notifyPhase(int phaseNumber) {
+        this.phaseNumber = phaseNumber;
+    }
+
+    private boolean isCorrectPhase(int correctPhase) {
+        return phaseNumber != -1 && phaseNumber == correctPhase;
     }
 
     public ArrayList<Card> getHand() {
@@ -239,7 +247,7 @@ public class Player {
     public boolean putToField(int cardOnHandIndex, boolean isAttackPosition) {
         int i = 0;
         boolean putCardIsSuccessful = false;
-        if (hand.size() > 0) {
+        if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2))) {
             Card handGet = hand.get(cardOnHandIndex);
             if (handGet.getType().equals("Monster")) {
                System.out.println("Card is monster");
@@ -281,15 +289,17 @@ public class Player {
 
     public void activateAuraSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
         System.out.println("Masuk activate Aura");
-        SummonedMonster sm = monsterOnField[monsterOnFieldIndex];
 //        System.out.println(sm.getMonster().getName());
         Aura aura = (Aura) skillOnField[sourceSkillOnFieldIndex];
-        System.out.println(aura.getName());
-        monsterOnField[monsterOnFieldIndex].addBuff(
-            ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
-            ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
-        );
-        monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
+        if ((isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2)) && aura.getIsUsed()) {
+            System.out.println(aura.getName());
+            skillOnField[sourceSkillOnFieldIndex].setIsUsedToTrue();
+            monsterOnField[monsterOnFieldIndex].addBuff(
+                ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
+                ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
+            );
+            monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
+        }
     }
 
     public void activatePowerUpSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
