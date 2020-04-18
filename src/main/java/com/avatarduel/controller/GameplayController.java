@@ -19,13 +19,9 @@ public class GameplayController {
         System.out.println("App started");
 //        System.out.println("Linking cardDescController...");
         cardDescController.init(this);
-//        System.out.println("Linking p1FieldController...");
-//        System.out.println("On p1FieldController:");
         p1FieldController.init(this);
-//        System.out.println("Linking p2FieldController...");
-//        System.out.println("On p2FieldController:");
         p2FieldController.init(this);
-        phase = new Phase(p1FieldController.getPlayer(), p2FieldController.getPlayer());
+        phase = new Phase(p1FieldController, p2FieldController);
     }
 
     public void setDescCard(Card card) {

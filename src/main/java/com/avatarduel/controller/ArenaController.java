@@ -75,6 +75,7 @@ public class ArenaController {
         } else {
             i = (skillArena.getColumnIndex(hoveredCard));
             fieldController.setDescCard((fieldController.player.getSkillOnField())[i]);
+
         }
 
 //        System.out.println("Hovered card name is" + hovered.getName());

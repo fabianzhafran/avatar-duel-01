@@ -104,7 +104,7 @@ public class CardUtils {
                     Text attText = createText("Att:", 22, 91, 10);
                     Text defText = createText("Def:", 55, 91, 10);
                     newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, imgView);
-                }
+                } 
             }
 
             return newCard;

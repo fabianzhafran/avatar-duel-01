@@ -36,7 +36,7 @@ public class Player {
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
         for (int i = 0; i < 50; i++) {
-            deck.push(randomNumber.nextInt(89) + 1);
+            deck.push(randomNumber.nextInt(91) + 1);
         }
         deck.pop();
         deck.push(new Integer(1));
@@ -50,6 +50,12 @@ public class Player {
         elementPower[1] = new ElementPower(WATER);
         elementPower[2] = new ElementPower(FIRE);
         elementPower[3] = new ElementPower(AIR);
+
+        // DEBUG
+        addLandMaxPowerByElement(EARTH);
+        addLandMaxPowerByElement(WATER);
+        addLandMaxPowerByElement(FIRE);
+        addLandMaxPowerByElement(AIR);
     }
 
     public int getPlayerID() {
@@ -150,8 +156,8 @@ public class Player {
     public void addLandMaxPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
-                elPow.setCurrentPow(elPow.getCurrentPow() + 1);
-                elPow.setMaxPow(elPow.getMaxPow() + 1);
+                elPow.setCurrentPow(elPow.getCurrentPow() + 100);
+                elPow.setMaxPow(elPow.getMaxPow() + 100);
             }
         }
     }
@@ -208,10 +214,24 @@ public class Player {
                             this.hand.add(skillAuraCard);
     //                        System.out.println(skillAuraCard.getName());
                             return skillAuraCard;
-    
                         }
                     }
                 }
+    //             if (!found) {
+    //                 for (String[] destroyAuraRow : listOfCards.listOfSkillDestroyCards) {
+    //                     if (topCardId == Integer.parseInt(destroyAuraRow[0])) {
+    //                         Destroy skillDestroyCard = new Destroy(destroyAuraRow[1],
+    //                                                       elementDictionary.getElement(destroyAuraRow[2]),
+    //                                                       destroyAuraRow[3],
+    //                                                       destroyAuraRow[4],
+    //                                                       Integer.parseInt(destroyAuraRow[5])
+    //                                                      );
+    //                         this.hand.add(skillDestroyCard);
+    // //                        System.out.println(skillAuraCard.getName());
+    //                         return skillDestroyCard;
+    //                     }
+    //                 }
+    //             }
             }
         }
         return null;
@@ -267,6 +287,10 @@ public class Player {
                     }
                     System.out.println("Got on index " + i);
                     setLandPowerByElement(monsterElement, currentElementPower - monsterPower);
+                    System.out.println(getLandPowerByElement(EARTH));
+                    System.out.println(getLandPowerByElement(WATER));
+                    System.out.println(getLandPowerByElement(FIRE));
+                    System.out.println(getLandPowerByElement(AIR));
                     monsterOnField[i] = new SummonedMonster(((Monster)handGet), isAttackPosition);
                     numberOfMonstersOnField++;
                     putCardIsSuccessful = true;
@@ -280,7 +304,6 @@ public class Player {
                 int currentElementPower = getLandPowerByElement(skillElement);
                 if (skillPower <= currentElementPower && numberOfSkillsOnField < maxSkillsOnField) {
                     while (i < maxSkillsOnField && skillOnField[i] != null) {
-                        // System.out.println(i);
                         i++;
                     }
                     skillOnField[i] = (Skill)handGet;
