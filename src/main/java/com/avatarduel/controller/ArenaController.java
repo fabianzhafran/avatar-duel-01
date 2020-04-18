@@ -1,9 +1,6 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.Card.Aura;
-import com.avatarduel.Card.Card;
-import com.avatarduel.Card.Element;
-import com.avatarduel.Card.Skill;
+import com.avatarduel.Card.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -56,9 +53,9 @@ public class ArenaController {
             fieldController.setDescCard((fieldController.player.getCharacterOnField())[i]);
 
             if (skillActivating) {
-                Element monsterElement = fieldController.player.getCharacterOnField()[i].getMonster().getElement();
-                Element skillElement = fieldController.player.getSkillOnField()[idxActivatedSkill].getElement();
-                if (monsterElement.equals(skillElement)) {
+//                Element monsterElement = fieldController.player.getCharacterOnField()[i].getMonster().getElement();
+//                Element skillElement = fieldController.player.getSkillOnField()[idxActivatedSkill].getElement();
+//                if (monsterElement.equals(skillElement)) {
                     Button equipButton = new Button("Equip");
                     equipButton.setLayoutX(20);
                     equipButton.setLayoutY(20);
@@ -71,7 +68,7 @@ public class ArenaController {
 
                             });
                     hoveredCard.getChildren().add(equipButton);
-                }
+//                }
             }
 
         } else {
@@ -127,6 +124,18 @@ public class ArenaController {
         int idx = monsterArena.getColumnIndex(clickedCard);
         emptyMonster.add(idx);
         monsterArena.getChildren().remove(clickedCard);
+        SummonedMonster monsterData = fieldController.player.getCharacterOnField()[idx];
+        ArrayList<Integer> linkedSkill = monsterData.getSkillLinked();
+        ArrayList<Integer> idxSkillArena = new ArrayList<Integer>();
+        System.out.println("Destroying skill Card");
+        for (int skillIdx: linkedSkill) {
+            System.out.println("Linked Index: " + skillIdx);
+            idxSkillArena.add(0, skillIdx + 1);
+            emptySkill.add(skillIdx);
+        }
+        for (int idxRemove: idxSkillArena) {
+            skillArena.getChildren().remove(idxRemove);
+        }
         fieldController.player.removeMonsterOnField(idx);
     }
 

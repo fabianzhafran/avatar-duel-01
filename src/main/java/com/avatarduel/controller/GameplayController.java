@@ -30,6 +30,7 @@ public class GameplayController {
         cardDescController.setDesc(card.getDeskripsi());
         cardDescController.setCardImage(card.getImagePath());
         cardDescController.setElementImage(card.getElement());
+        cardDescController.setColor(card.getElement());
         cardDescController.setType(card.getType());
         // Set DEscription
         // SEt ELement
@@ -61,6 +62,7 @@ public class GameplayController {
         cardDescController.setDesc(card.getDeskripsi());
         cardDescController.setCardImage(card.getImagePath());
         cardDescController.setElementImage(card.getElement());
+        cardDescController.setColor(card.getElement());
         cardDescController.setType(card.getType());
         cardDescController.setPwr("Pow: " + String.valueOf(card.getPowerValue()));
         cardDescController.setAtt("Atk: " + String.valueOf(Summoned.getAttackValue()));

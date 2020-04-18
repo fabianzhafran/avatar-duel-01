@@ -13,11 +13,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class CardUtils {
-    public static Rectangle createRectCard(double width, double height, double layoutX, double layoutY) {
+    public static Rectangle createRectCard(double width, double height, double layoutX, double layoutY, Element element) {
         Rectangle rect = new Rectangle(width, height);
+        String color;
         rect.setLayoutX(layoutX);
         rect.setLayoutY(layoutY);
-        rect.setFill(Color.WHITE);
+        if (element.equals(Element.WATER)) {
+            color = "#4049f4";
+        } else if (element.equals(Element.FIRE)) {
+            color = "#f73131";
+        } else if (element.equals(Element.EARTH)) {
+            color = "#efd040";
+        } else {
+            color = "#41f282";
+        }
+        rect.setFill(Color.web(color));
         rect.setStroke(Color.BLACK);
         rect.setStrokeWidth(1);
         rect.setSmooth(true);
@@ -41,6 +51,7 @@ public class CardUtils {
         t.setLayoutY(layoutY);
         t.setFont(Font.font(fontSize));
 
+
         return t;
     }
 
@@ -59,10 +70,11 @@ public class CardUtils {
         } catch (Exception e) {
             System.out.println("Image not found!");
         } finally {
-            Rectangle outer = createRectCard(80, 110, 15, 5);
-            Rectangle nameRect = createRectCard(70, 15, 20, 10);
-            Rectangle imgRect = createRectCard(70,50, 20, 28);
-            Rectangle descRect = createRectCard(70, 30, 20, 80);
+            Element element = cardInput.getElement();
+            Rectangle outer = createRectCard(80, 110, 15, 5, element);
+            Rectangle nameRect = createRectCard(70, 15, 20, 10, element);
+            Rectangle imgRect = createRectCard(70,50, 20, 28, element);
+            Rectangle descRect = createRectCard(70, 30, 20, 80, element);
             Label nameLabel = createLabel(cardInput.getName(), 22, 12, 8);
             nameLabel.setPrefWidth(70);
             // Monster
@@ -72,9 +84,9 @@ public class CardUtils {
                 newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, elmtLabel,imgView);
             } else if (cardInput.getType().equals("Monster")) {
                 Monster castedCard = (Monster) cardInput;
-                Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 42, 92, 10);
+                Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 45, 92, 10);
                 Label attLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 42, 80, 10);
-                Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 80, 80, 10);
+                Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 78, 80, 10);
                 Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
                 Text powText = createText("Pow:", 22, 103, 10);
                 Text attText = createText("Att:", 22, 91, 10);
@@ -85,8 +97,8 @@ public class CardUtils {
                 if (skillCard.getSkillType().equals("Aura")) {
                     Aura castedCard = (Aura) skillCard;
                     Label attLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 92, 10);
-                    Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 45, 80, 10);
-                    Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 80, 80, 10);
+                    Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 42, 80, 10);
+                    Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 78, 80, 10);
                     Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
                     Text powText = createText("Pow:", 22, 103, 10);
                     Text attText = createText("Att:", 22, 91, 10);

@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -10,32 +12,41 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.CardDescController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="450.0" layoutX="3.0" stroke="BLACK" strokeType="INSIDE" width="274.0" />
+      <Rectangle fx:id="bodyRect" arcHeight="5.0" arcWidth="5.0" fill="#41f282" height="450.0" layoutX="3.0" stroke="BLACK" strokeType="INSIDE" width="274.0">
+         <effect>
+            <InnerShadow />
+         </effect></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="240.0" layoutX="20.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="240.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="35.0" layoutX="20.0" layoutY="17.0" stroke="BLACK" strokeType="INSIDE" width="240.0" />
-      <Label fx:id="nameLabel" layoutX="30.0" layoutY="25.0">
+      <Rectangle fx:id="nameRect" arcHeight="5.0" arcWidth="5.0" fill="#41f282" height="35.0" layoutX="20.0" layoutY="17.0" stroke="BLACK" strokeType="INSIDE" width="240.0">
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="5.0" radius="2.0" spread="0.1" width="5.0" />
+         </effect></Rectangle>
+      <Label fx:id="nameLabel" layoutX="30.0" layoutY="25.0" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font></Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" layoutX="20.0" layoutY="310.0" stroke="BLACK" strokeType="INSIDE" width="240.0" />
-      <Label fx:id="atkLabel" layoutX="90.0" layoutY="411.0">
+      <Rectangle fx:id="descRect" arcHeight="5.0" arcWidth="5.0" fill="#41f282" height="120.0" layoutX="20.0" layoutY="310.0" stroke="BLACK" strokeType="INSIDE" width="240.0">
+         <effect>
+            <InnerShadow />
+         </effect></Rectangle>
+      <Label fx:id="atkLabel" layoutX="90.0" layoutY="411.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label fx:id="defLabel" layoutX="144.0" layoutY="411.0">
+      <Label fx:id="defLabel" layoutX="144.0" layoutY="411.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label fx:id="powLabel" layoutX="200.0" layoutY="411.0">
+      <Label fx:id="powLabel" layoutX="200.0" layoutY="411.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label fx:id="descLabel" alignment="TOP_LEFT" layoutX="20.0" layoutY="310.0" prefHeight="100.0" prefWidth="240.0" style="-fx-border-color: black;" wrapText="true" AnchorPane.leftAnchor="20.0">
+      <Label fx:id="descLabel" alignment="TOP_LEFT" layoutX="20.0" layoutY="310.0" prefHeight="100.0" prefWidth="240.0" style="-fx-border-color: black;" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="20.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets left="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="251.0" layoutX="3.0" layoutY="463.0" stroke="BLACK" strokeType="INSIDE" width="274.0" />
@@ -44,12 +55,12 @@
             <Font name="AR PL UKai CN" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="18.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Skill Attached" underline="true">
+      <Text layoutX="18.0" layoutY="600.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Skill Attached" underline="true">
          <font>
             <Font name="AR PL UKai CN" size="13.0" />
          </font>
       </Text>
-      <Text fx:id="attachedSkillLabel" layoutX="19.0" layoutY="649.0" strokeType="OUTSIDE" strokeWidth="0.0" text="None" textAlignment="JUSTIFY" wrappingWidth="236.0">
+      <Text fx:id="attachedSkillLabel" layoutX="19.0" layoutY="623.0" strokeType="OUTSIDE" strokeWidth="0.0" text="None" textAlignment="JUSTIFY" wrappingWidth="236.0">
          <font>
             <Font name="AR PL UKai CN" size="15.0" />
          </font>
@@ -77,8 +88,8 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <ImageView fx:id="cardImg" fitHeight="240.0" fitWidth="240.0" layoutX="19.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="typeLabel" layoutX="25.0" layoutY="411.0" text="TYPE">
+      <ImageView fx:id="cardImg" fitHeight="238.0" fitWidth="238.0" layoutX="21.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="typeLabel" layoutX="25.0" layoutY="411.0" text="TYPE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

@@ -13,6 +13,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class CardDescController {
@@ -29,6 +31,10 @@ public class CardDescController {
     @FXML private Text attachedSkillLabel;
     @FXML private ImageView cardImg;
     @FXML private ImageView elementImg;
+
+    @FXML private Rectangle nameRect;
+    @FXML private Rectangle descRect;
+    @FXML private Rectangle bodyRect;
 
     @FXML private TextArea textDesc;
     private GameplayController gameplayController;
@@ -109,7 +115,21 @@ public class CardDescController {
         }
     }
 
-    //    public void btnPressed(Event event) {
-//        System.out.println("Button pressed!");
-//    }
+    public void setColor(Element element) {
+        String color;
+        if (element.equals(Element.WATER)) {
+            color = "#4049f4";
+        } else if (element.equals(Element.FIRE)) {
+            color = "#f73131";
+        } else if (element.equals(Element.EARTH)) {
+            color = "#efd040";
+        } else {
+            color = "#41f282";
+        }
+
+        nameRect.setFill(Color.web(color));
+        bodyRect.setFill(Color.web(color));
+        descRect.setFill(Color.web(color));
+
+    }
 }
