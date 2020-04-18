@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.GameplayController">
     <children>
@@ -21,6 +25,23 @@
             <fx:include fx:id="p2Field" source="P2Field.fxml" />
             <fx:include fx:id="p1Field" layoutY="360.0" source="P1Field.fxml" />
             </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1180.0" layoutY="315.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: rgba(255,255,255,0.8);">
+         <children>
+            <Text layoutX="31.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turn: " />
+            <Label fx:id="playerLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="22.0" prefHeight="16.0" prefWidth="100.0" text="Player 1">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Text layoutX="31.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phase: " />
+            <Label fx:id="phaseLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="53.0" prefHeight="16.0" prefWidth="100.0" text="Main Phase">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Button fx:id="nextPhaseButton" layoutX="5.0" layoutY="71.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Next Phase" />
+         </children>
       </AnchorPane>
     </children>
 </AnchorPane>

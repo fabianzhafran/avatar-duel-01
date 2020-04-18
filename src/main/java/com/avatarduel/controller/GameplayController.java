@@ -4,6 +4,8 @@ import com.avatarduel.Card.*;
 import com.avatarduel.phase.Phase;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 
@@ -15,17 +17,17 @@ public class GameplayController {
     @FXML private P1FieldController p1FieldController;
     @FXML private P2FieldController p2FieldController;
 
+    @FXML private Label playerLabel;
+    @FXML private Label phaseLabel;
+    @FXML private Button nextPhaseButton;
+
     @FXML public void initialize() {
         System.out.println("App started");
 //        System.out.println("Linking cardDescController...");
         cardDescController.init(this);
-//        System.out.println("Linking p1FieldController...");
-//        System.out.println("On p1FieldController:");
         p1FieldController.init(this);
-//        System.out.println("Linking p2FieldController...");
-//        System.out.println("On p2FieldController:");
         p2FieldController.init(this);
-        phase = new Phase(p1FieldController.getPlayer(), p2FieldController.getPlayer());
+        phase = new Phase(p1FieldController, p2FieldController);
     }
 
     public void setDescCard(Card card) {

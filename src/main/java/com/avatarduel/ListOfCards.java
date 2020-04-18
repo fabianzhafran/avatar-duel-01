@@ -13,6 +13,7 @@ public class ListOfCards {
     public ArrayList<String[]> listOfLandCards = ListOfCards.loadCards("land");
     public ArrayList<String[]> listOfMonsterCards = ListOfCards.loadCards("character");
     public ArrayList<String[]> listOfSkillAuraCards = ListOfCards.loadCards("skill_aura");
+    public ArrayList<String[]> listOfSkillDestroyCards = ListOfCards.loadCards("skill_destroy");
 
     public ListOfCards() {
         listOfLandCards = this.loadCards("land");

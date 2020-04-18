@@ -50,18 +50,18 @@ public class AvatarDuel extends Application {
     
     try {
       text.setText("Avatar Duel!");
-      Player player1 = new Player("Player 1");
-      player1.draw(); player1.draw(); player1.draw(); player1.draw(); player1.draw(); 
-      player1.printCardsOnHand();
-      player1.putToField(0, true);
-      player1.putToField(0, true);
-      player1.putToField(0, true);
-      player1.putToField(0, true);
-      player1.putToField(0, true);
-      player1.putToField(0, true);
-      player1.printCardsOnHand();
-      player1.printMonsterCardsOnField();
-      player1.printSkillCardsOnField();
+      // Player player1 = new Player("Player 1");
+      // player1.draw(); player1.draw(); player1.draw(); player1.draw(); player1.draw(); 
+      // player1.printCardsOnHand();
+      // player1.putToField(0, true);
+      // player1.putToField(0, true);
+      // player1.putToField(0, true);
+      // player1.putToField(0, true);
+      // player1.putToField(0, true);
+      // player1.putToField(0, true);
+      // player1.printCardsOnHand();
+      // player1.printMonsterCardsOnField();
+      // player1.printSkillCardsOnField();
     //  Player player2 = new Player("Player 2");
     //  ListOfCards temp = new ListOfCards();
     //  for (String[] s : temp.listOfLandCards) {

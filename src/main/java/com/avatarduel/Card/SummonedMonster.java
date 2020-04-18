@@ -38,6 +38,10 @@ public class SummonedMonster implements ISummoned {
     public int getDefenseValue() {
         return monster.getDefenseValue() + buffDef;
     }
+
+    public boolean getIsAttackPosition() {
+        return isAttackPos;
+    }
     
     public void rotate() {
         this.isAttackPos = !(this.isAttackPos);
@@ -72,6 +76,10 @@ public class SummonedMonster implements ISummoned {
         buffDef = 0;
     }
     
+    public boolean getPierce() {
+        return piercieng;
+    }
+
     public void setPierce() {
         piercieng = true;
     }
@@ -84,10 +92,10 @@ public class SummonedMonster implements ISummoned {
         return hasAttacked;
     }
 
-    public void setHasAttacked() {
-        hasAttacked = true;
+    public void setHasAttacked(boolean value) {
+        hasAttacked = value;
     }
-    
+
     public void registerSkill(int skillOnFieldIndex) {
         skillLinked.add(skillOnFieldIndex);
     }

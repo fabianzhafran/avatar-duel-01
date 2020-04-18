@@ -51,10 +51,10 @@ public class ArenaController {
         Group hoveredCard = (Group) evt.getSource();
         if (monsterArena.getChildren().contains(hoveredCard)) {
             i = (monsterArena.getColumnIndex(hoveredCard));
-            fieldController.setDescCard((fieldController.player.getCharacterOnField())[i]);
+            fieldController.setDescCard((fieldController.player.getMonsterOnField())[i]);
 
             if (skillActivating) {
-//                Element monsterElement = fieldController.player.getCharacterOnField()[i].getMonster().getElement();
+//                Element monsterElement = fieldController.player.getMonsterOnField()[i].getMonster().getElement();
 //                Element skillElement = fieldController.player.getSkillOnField()[idxActivatedSkill].getElement();
 //                if (monsterElement.equals(skillElement)) {
                     Button equipButton = new Button("Equip");
@@ -75,6 +75,7 @@ public class ArenaController {
         } else {
             i = (skillArena.getColumnIndex(hoveredCard));
             fieldController.setDescCard((fieldController.player.getSkillOnField())[i]);
+
         }
 
 //        System.out.println("Hovered card name is" + hovered.getName());
@@ -125,7 +126,7 @@ public class ArenaController {
         int idx = monsterArena.getColumnIndex(clickedCard);
         emptyMonster.add(idx);
         monsterArena.getChildren().remove(clickedCard);
-        SummonedMonster monsterData = fieldController.player.getCharacterOnField()[idx];
+        SummonedMonster monsterData = fieldController.player.getMonsterOnField()[idx];
         ArrayList<Integer> linkedSkill = monsterData.getSkillLinked();
         ArrayList<Integer> idxSkillArena = new ArrayList<Integer>();
         System.out.println("Destroying skill Card");
