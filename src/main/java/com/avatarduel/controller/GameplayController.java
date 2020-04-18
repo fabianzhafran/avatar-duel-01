@@ -1,6 +1,7 @@
 package com.avatarduel.controller;
 
 import com.avatarduel.Card.*;
+import com.avatarduel.Player;
 import com.avatarduel.phase.Phase;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -81,5 +82,27 @@ public class GameplayController {
         }
 
         cardDescController.setAttachedSkill(attachedSkillName);
+    }
+
+    public void startAttack(int idx) {
+        // Nanti di chek turn siapa, misalnya skarang turn P1 Yang nyerang
+        System.out.println("Gameplay Start Attack");
+        int atkValue = p1FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
+        p2FieldController.receiveAttack(idx,atkValue);
+    }
+
+    public void startBattle(int idxAttacker, int idxReceiver) {
+        // Misalkan yang nyerang p1
+        System.out.println("Gameplay Start Battle");
+        Player attackingPlayer = p1FieldController.getPlayer();
+        Player receivingPlayer = p2FieldController.getPlayer();
+        // Nanti dibikin if klo lagi giliran p2
+
+        System.out.println("Monster before battle: ");
+        receivingPlayer.printMonsterCardsOnField();
+        attackingPlayer.attack(idxAttacker, idxReceiver, receivingPlayer);
+        System.out.println("Monster after battle: ");
+        receivingPlayer.printMonsterCardsOnField();
+        System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
     }
 }

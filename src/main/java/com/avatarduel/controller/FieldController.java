@@ -69,6 +69,27 @@ abstract public class FieldController {
         gameplayController.setDescCard(sm, player.getSkillOnField());
     }
 
+    public void startAttack(int idx) {
+        System.out.println("Field start Attack");
+        gameplayController.startAttack(idx);
+    }
+
+    public void receiveAttack(int idxAttacker, int atkValue) {
+        System.out.println("Field Receive Attack");
+        if (player.getNumberOfMonstersOnField() > 0) {
+            arenaController.receiveAttack(idxAttacker, atkValue);
+        } else {
+            // Direct Attack
+            gameplayController.startBattle(idxAttacker, -1);
+        }
+
+    }
+
+    public void startBattle(int idxAttacker, int idxReceiver) {
+        System.out.println("Field Start Battle");
+        gameplayController.startBattle(idxAttacker, idxReceiver);
+    }
+
     public void draw() {
 
 //        handController.addCard();
