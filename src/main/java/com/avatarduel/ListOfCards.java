@@ -9,19 +9,19 @@ import com.avatarduel.Card.*;
 import com.avatarduel.util.CsvReader;
 
 public class ListOfCards {
-    
-    public ArrayList<String[]> listOfLandCards = ListOfCards.loadCards("land");
-    public ArrayList<String[]> listOfMonsterCards = ListOfCards.loadCards("character");
-    public ArrayList<String[]> listOfSkillAuraCards = ListOfCards.loadCards("skill_aura");
-    public ArrayList<String[]> listOfSkillDestroyCards = ListOfCards.loadCards("skill_destroy");
+    public ArrayList<String[]> listOfLandCards;
+    public ArrayList<String[]> listOfMonsterCards;
+    public ArrayList<String[]> listOfSkillAuraCards;
+    public ArrayList<String[]> listOfSkillDestroyCards;
 
     public ListOfCards() {
         listOfLandCards = this.loadCards("land");
-        listOfMonsterCards = this.loadCards("character");
-        listOfSkillAuraCards = this.loadCards("skill_aura");
+        listOfMonsterCards = this.loadCards("characterDebug");
+        listOfSkillAuraCards = this.loadCards("skill_auraDebug");
+        listOfSkillDestroyCards = this.loadCards("skill_destroy");
     }
 
-    public static ArrayList<String[]> loadCards(String csvName) {
+    public ArrayList<String[]> loadCards(String csvName) {
 
         ArrayList<String[]> cardRows = new ArrayList<String[]>();
         Path currentRelativePath = Paths.get("");

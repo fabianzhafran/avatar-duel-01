@@ -13,8 +13,6 @@ import java.util.Objects;
 import com.avatarduel.Card.*;
 
 public class AvatarDuel extends Application {
-  private static final String LAND_CSV_FILE_PATH = "card/data/character.csv";
-
   @Override
   public void start(Stage stage) throws IOException {
     Text text = new Text();
