@@ -70,6 +70,13 @@ public class Player {
 
     public void notifyPhase(int phaseNumber) {
         this.phaseNumber = phaseNumber;
+        if (phaseNumber == 1) {
+            for (int i = 0; i < maxMonstersOnField; i++) {
+                if (monsterOnField[i] != null) {
+                    monsterOnField[i].setHasAttacked(false);
+                }
+            }
+        }
     }
 
     private boolean isCorrectPhase(int correctPhase) {
@@ -80,7 +87,7 @@ public class Player {
         return hand;
     }
     
-    public SummonedMonster[] getCharacterOnField() {
+    public SummonedMonster[] getMonsterOnField() {
         return monsterOnField;
     }
 
@@ -247,7 +254,7 @@ public class Player {
     public boolean putToField(int cardOnHandIndex, boolean isAttackPosition) {
         int i = 0;
         boolean putCardIsSuccessful = false;
-        if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2))) {
+        // if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2))) { 
             Card handGet = hand.get(cardOnHandIndex);
             if (handGet.getType().equals("Monster")) {
                System.out.println("Card is monster");
@@ -282,16 +289,43 @@ public class Player {
                 }
             }
             hand.remove(cardOnHandIndex);
-        }
+        // }
         return putCardIsSuccessful;
 //        System.out.println("End of putToField");
+    }
+
+    public void attack(int sourceMonsterOnFieldIndex, int targetMonsterOnFieldIndex, Player targetPlayer) {
+        System.out.println("Masuk attack");
+        SummonedMonster attackingMonster = this.monsterOnField[sourceMonsterOnFieldIndex];
+        if (!attackingMonster.getHasAttacked()) {
+            if (targetMonsterOnFieldIndex != -1) { // -1 kalau nggak ada monster di field lawan
+                SummonedMonster[] targetMonsterField = targetPlayer.getMonsterOnField();
+                SummonedMonster targetMonster = targetMonsterField[targetMonsterOnFieldIndex];
+                int attackingMonsterAtk = attackingMonster.getAttackValue();
+                int targetMonsterAtk = targetMonster.getAttackValue();
+                int targetMonsterDef = targetMonster.getDefenseValue();
+                if (targetMonster.getIsAttackPosition()) {
+                    if (attackingMonsterAtk > targetMonsterAtk) {
+                        targetPlayer.removeMonsterOnField(targetMonsterOnFieldIndex);
+                        targetPlayer.subtractHp(attackingMonsterAtk - targetMonsterAtk);
+                        attackingMonster.setHasAttacked(true);
+                    }
+                } else {
+                    if (attackingMonsterAtk > targetMonsterDef) {
+                        targetPlayer.removeMonsterOnField(targetMonsterOnFieldIndex);
+                    }
+                }
+            } else {
+                targetPlayer.subtractHp(attackingMonster.getAttackValue());
+            }
+        }
     }
 
     public void activateAuraSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
         System.out.println("Masuk activate Aura");
 //        System.out.println(sm.getMonster().getName());
         Aura aura = (Aura) skillOnField[sourceSkillOnFieldIndex];
-        if ((isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2)) && aura.getIsUsed()) {
+        // if ((isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2)) && aura.getIsUsed()) { 
             System.out.println(aura.getName());
             skillOnField[sourceSkillOnFieldIndex].setIsUsedToTrue();
             monsterOnField[monsterOnFieldIndex].addBuff(
@@ -299,7 +333,7 @@ public class Player {
                 ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
             );
             monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
-        }
+        // }
     }
 
     public void activatePowerUpSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
