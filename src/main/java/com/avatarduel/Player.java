@@ -254,7 +254,7 @@ public class Player {
     public boolean putToField(int cardOnHandIndex, boolean isAttackPosition) {
         int i = 0;
         boolean putCardIsSuccessful = false;
-        // if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2))) { 
+        // if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1)) { 
             Card handGet = hand.get(cardOnHandIndex);
             if (handGet.getType().equals("Monster")) {
                System.out.println("Card is monster");
@@ -313,10 +313,14 @@ public class Player {
                 } else {
                     if (attackingMonsterAtk > targetMonsterDef) {
                         targetPlayer.removeMonsterOnField(targetMonsterOnFieldIndex);
+                        if (attackingMonster.getPierce()) {
+                            targetPlayer.subtractHp(attackingMonsterAtk - targetMonsterAtk);
+                        }
                     }
                 }
             } else {
                 targetPlayer.subtractHp(attackingMonster.getAttackValue());
+                attackingMonster.setHasAttacked(true);
             }
         }
     }

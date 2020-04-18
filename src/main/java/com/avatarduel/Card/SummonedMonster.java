@@ -76,6 +76,10 @@ public class SummonedMonster implements ISummoned {
         buffDef = 0;
     }
     
+    public boolean getPierce() {
+        return piercieng;
+    }
+
     public void setPierce() {
         piercieng = true;
     }
