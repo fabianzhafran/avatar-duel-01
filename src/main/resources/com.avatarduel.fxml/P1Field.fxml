@@ -5,7 +5,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -15,11 +14,11 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="160.0" layoutX="890.0" layoutY="190.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="90.0" />
       <AnchorPane layoutX="880.0" layoutY="31.0" prefHeight="295.0" prefWidth="110.0">
          <children>
-            <AnchorPane layoutX="25.0" layoutY="110.0" maxHeight="-Infinity" prefHeight="94.0" prefWidth="53.0">
+            <AnchorPane layoutX="-1.0" layoutY="108.0" maxHeight="-Infinity" prefHeight="94.0" prefWidth="53.0">
                <children>
                   <AnchorPane layoutX="18.0" layoutY="61.0">
                      <children>
-                        <Label fx:id="fireElement" layoutX="25.0" text="2">
+                        <Label fx:id="fireElement" layoutX="25.0" text="100/100">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
@@ -78,12 +77,16 @@
             <Group layoutX="18.0" layoutY="32.0" onMouseClicked="#draw">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d07b26" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
-                  <Ellipse fill="#000000a9" layoutX="40.0" layoutY="50.0" radiusX="43.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />
                   <Text fx:id="deckCount" layoutX="28.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30" textAlignment="JUSTIFY" wrappingWidth="25.0">
                      <font>
                         <Font name="Caladea Bold" size="18.0" />
                      </font>
                   </Text>
+                  <ImageView fitHeight="100.0" fitWidth="80.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../assets/card-background.jpg" />
+                     </image>
+                  </ImageView>
                </children>
             </Group>
             <Label fx:id="playerLabel" alignment="CENTER" layoutY="275.0" prefWidth="110.0" text="Player 1">

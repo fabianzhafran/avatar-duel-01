@@ -2,6 +2,7 @@ package com.avatarduel.controller;
 
 import com.avatarduel.Card.*;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,18 +56,41 @@ public class CardUtils {
         return t;
     }
 
+    public static Button createButton(String str, double layoutX, double layoutY, double width, double fontSize) {
+        Button newButton = new Button(str);
+        newButton.setLayoutX(layoutX);
+        newButton.setLayoutY(layoutY);
+        newButton.setPrefWidth(width);
+        newButton.setFont(Font.font(fontSize));
+
+        return newButton;
+    }
+
+
+
     public static Group createCard(Card cardInput) {
         Group newCard = new Group();
-        ImageView imgView = new ImageView();
+        ImageView cardImg = new ImageView();
+        ImageView backCardImg = new ImageView();
         try {
             Image img = new Image(cardInput.getImagePath());
-            imgView.setImage(img);
-            imgView.setFitWidth(70);
-            imgView.setFitHeight(50);
-            imgView.setSmooth(true);
-            imgView.setCache(true);
-            imgView.setLayoutX(20);
-            imgView.setLayoutY(28);
+            cardImg.setImage(img);
+            cardImg.setFitWidth(70);
+            cardImg.setFitHeight(50);
+            cardImg.setSmooth(true);
+            cardImg.setCache(true);
+            cardImg.setLayoutX(20);
+            cardImg.setLayoutY(28);
+
+            Image backImg = new Image("@/../assets/card-background.jpg");
+            backCardImg.setImage(backImg);
+            backCardImg.setFitWidth(80);
+            backCardImg.setFitHeight(110);
+            backCardImg.setSmooth(true);
+            backCardImg.setCache(true);
+            backCardImg.setLayoutX(15);
+            backCardImg.setLayoutY(5);
+            backCardImg.setOpacity(0);
         } catch (Exception e) {
             System.out.println("Image not found!");
         } finally {
@@ -81,7 +105,7 @@ public class CardUtils {
             if (cardInput.getType().equals("Land")) {
                 Land castedCard = (Land) cardInput;
                 Label elmtLabel = createLabel(castedCard.getElement().toString(), 40, 80, 10);
-                newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, elmtLabel,imgView);
+                newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, elmtLabel,cardImg, backCardImg);
             } else if (cardInput.getType().equals("Monster")) {
                 Monster castedCard = (Monster) cardInput;
                 Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 45, 92, 10);
@@ -91,19 +115,19 @@ public class CardUtils {
                 Text powText = createText("Pow:", 22, 103, 10);
                 Text attText = createText("Att:", 22, 91, 10);
                 Text defText = createText("Def:", 55, 91, 10);
-                newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, imgView);
+                newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, cardImg, backCardImg);
             } else {
                 Skill skillCard = (Skill) cardInput;
                 if (skillCard.getSkillType().equals("Aura")) {
                     Aura castedCard = (Aura) skillCard;
-                    Label attLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 92, 10);
-                    Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 42, 80, 10);
+                    Label attLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 80, 10);
+                    Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 42, 92, 10);
                     Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 78, 80, 10);
                     Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
                     Text powText = createText("Pow:", 22, 103, 10);
                     Text attText = createText("Att:", 22, 91, 10);
                     Text defText = createText("Def:", 55, 91, 10);
-                    newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, imgView);
+                    newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, cardImg, backCardImg);
                 } 
             }
 

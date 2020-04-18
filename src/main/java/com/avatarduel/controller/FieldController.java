@@ -29,9 +29,6 @@ abstract public class FieldController {
     @FXML private Label hpLabel;
     @FXML private Label playerLabel;
 
-//    @FXML private Button summonAttButton;
-//    @FXML private Button summonDefButton;
-
     HashMap<Element, Label> elmtMap = new HashMap<Element, Label>();
 
     protected Player player;
@@ -44,7 +41,7 @@ abstract public class FieldController {
             this.draw();
         }
         playerLabel.setText(player.getNamePlayer());
-        hpLabel.setText("HP " + String.valueOf(player.getHp()));
+        setHP(player.getHp());
         waterElement.setText(String.valueOf(player.getLandPowerByElement(WATER)) + " / " + player.getMaxLandPowerByElement(WATER));
         fireElement.setText(String.valueOf(player.getLandPowerByElement(FIRE)) + " / " + player.getMaxLandPowerByElement(FIRE));
         airElement.setText(String.valueOf(player.getLandPowerByElement(AIR)) + " / " + player.getMaxLandPowerByElement(AIR));
@@ -55,19 +52,62 @@ abstract public class FieldController {
         elmtMap.put(EARTH, earthElement);
     }
 
-    public Player getPlayer() {
-        return player;
+    // Label setter
+
+    public void setHP(int hp) {
+        hpLabel.setText("HP " + String.valueOf(hp));
     }
 
     public void setDescCard(Card c) {
-//        System.out.println("Sending to gameplay...");
         gameplayController.setDescCard(c);
     }
 
     public void setDescCard(SummonedMonster sm) {
-//        System.out.println("Sending to gameplay...");
         gameplayController.setDescCard(sm, player.getSkillOnField());
     }
+
+    // Getter
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public HandController getHandController() {
+        return handController;
+    }
+
+    // Basic methods
+
+    public void draw() {
+        Card cardToPutOnHand = player.draw();
+        if (cardToPutOnHand != null) {
+            Group newCard = CardUtils.createCard(cardToPutOnHand);
+            handController.addCard(newCard);
+        }
+        deckCount.setText(String.valueOf(this.player.getDeckCount()));
+    }
+
+    public void useCard(int idx, boolean isAtt) {
+        Card card = player.getHand().get(idx);
+        System.out.println("~~~FieldController~~~");
+        System.out.println("Card: " + card.getName());
+        player.putToField(idx, isAtt);
+
+
+            if (card.getType().equals("Land")) {
+                // Insert method here
+            } else if (card.getType().equals("Monster")) {
+                arenaController.summon(card, isAtt);
+            } else {
+                arenaController.activateCardEff(card);
+                handController.setIsEquipping(true);
+            }
+            handController.removeCard(idx);
+
+        elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
+    }
+
+    // Battle Methods
 
     public void startAttack(int idx) {
         System.out.println("Field start Attack");
@@ -82,45 +122,10 @@ abstract public class FieldController {
             // Direct Attack
             gameplayController.startBattle(idxAttacker, -1);
         }
-
     }
 
     public void startBattle(int idxAttacker, int idxReceiver) {
         System.out.println("Field Start Battle");
         gameplayController.startBattle(idxAttacker, idxReceiver);
     }
-
-    public void draw() {
-
-//        handController.addCard();
-//        System.out.println("Performing draw...");
-//        System.out.println(drawnCard.getDeskripsi());
-        Card cardToPutOnHand = player.draw();
-        if (cardToPutOnHand != null) {
-            Group newCard = CardUtils.createCard(cardToPutOnHand);
-            handController.addCard(newCard);
-    //        System.out.println(this.player.getDeckCount());
-        }
-        deckCount.setText(String.valueOf(this.player.getDeckCount()));
-    }
-
-    public void useCard(int idx, boolean isAtt) {
-        Card card = player.getHand().get(idx);
-        System.out.println("~~~FieldController~~~");
-        System.out.println("Card: " + card.getName());
-        boolean isPutToField = player.putToField(idx, isAtt);
-
-        if (isPutToField) {
-            if (card.getType().equals("Land")) {
-                // Insert method here
-            } else if (card.getType().equals("Monster")) {
-                arenaController.summon(card, isAtt);
-            } else {
-                arenaController.activateCardEff(card);
-            }
-            handController.removeCard(idx);
-        }
-        elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
-    }
-
 }
