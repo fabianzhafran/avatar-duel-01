@@ -85,13 +85,13 @@ abstract public class FieldController {
 
     public void useCard(int idx, boolean isAtt) {
         Card card = player.getHand().get(idx);
-//        System.out.println("~~~FieldController~~~");
-//        System.out.println("Card: " + card.getName());
+        System.out.println("~~~FieldController~~~");
+        System.out.println("Card: " + card.getName());
         boolean isPutToField = player.putToField(idx, isAtt);
 
         if (isPutToField) {
             if (card.getType().equals("Land")) {
-                elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
+                // Insert method here
             } else if (card.getType().equals("Monster")) {
                 arenaController.summon(card, isAtt);
             } else {
@@ -99,7 +99,7 @@ abstract public class FieldController {
             }
             handController.removeCard(idx);
         }
-
+        elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
     }
 
 }

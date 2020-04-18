@@ -150,7 +150,7 @@ public class Player {
     }
     
     public Card draw() {
-        if (hand.size() < maxCardsOnHand) {
+        if (hand.size() < 10) {
             ListOfCards listOfCards = new ListOfCards();
             boolean found = false;
             ElementDictionary elementDictionary = new ElementDictionary();
@@ -246,15 +246,17 @@ public class Player {
     // return true kalo sukses
     public boolean putToField(int cardOnHandIndex, boolean isAttackPosition) {
         int i = 0;
+        System.out.println("~~~Put to field~~~");
         boolean putCardIsSuccessful = false;
-        if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2))) {
+//        if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2))) {
+        if (hand.size() > 0) {
             Card handGet = hand.get(cardOnHandIndex);
             if (handGet.getType().equals("Monster")) {
                System.out.println("Card is monster");
                 int currentElementPower = getLandPowerByElement(handGet.getElement());
                 int monsterPower = ((Monster)handGet).getPowerValue();
                 Element monsterElement = handGet.getElement();
-                if (monsterPower <= currentElementPower && numberOfMonstersOnField < maxMonstersOnField) {               
+                if (monsterPower <= currentElementPower && numberOfMonstersOnField < maxMonstersOnField) {
                     while (i < maxMonstersOnField && monsterOnField[i] != null) {
                         i++;
                     }
@@ -276,6 +278,7 @@ public class Player {
                         // System.out.println(i);
                         i++;
                     }
+                    setLandPowerByElement(skillElement, currentElementPower - skillPower);
                     skillOnField[i] = (Skill)handGet;
                     numberOfSkillsOnField++;
                     putCardIsSuccessful = true;

@@ -12,22 +12,12 @@
 
 <AnchorPane fx:id="fieldPane" prefHeight="350.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.P1FieldController">
    <children>
-      <AnchorPane layoutX="880.0" layoutY="-2.0" prefHeight="350.0" prefWidth="110.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="116.0" layoutX="906.0" layoutY="190.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+      <AnchorPane layoutX="880.0" layoutY="31.0" prefHeight="295.0" prefWidth="110.0">
          <children>
-            <Group layoutX="15.0" layoutY="15.0" onMouseClicked="#draw">
+            <AnchorPane layoutX="20.0" layoutY="110.0" maxHeight="-Infinity" prefHeight="94.0" prefWidth="53.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d07b26" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
-                  <Ellipse fill="#000000a9" layoutX="40.0" layoutY="50.0" radiusX="43.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />
-               </children>
-            </Group>
-            <Text fx:id="deckCount" layoutX="43.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30" textAlignment="JUSTIFY" wrappingWidth="25.0">
-               <font>
-                  <Font name="Caladea Bold" size="18.0" />
-               </font>
-            </Text>
-            <Group layoutX="37.0" layoutY="150.0">
-               <children>
-                  <AnchorPane layoutX="1.0">
+                  <AnchorPane layoutX="18.0" layoutY="61.0">
                      <children>
                         <Label fx:id="fireElement" layoutX="25.0" text="2">
                            <font>
@@ -41,7 +31,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutY="25.0">
+                  <AnchorPane layoutX="17.0" layoutY="86.0">
                      <children>
                         <ImageView layoutY="1.0">
                            <image>
@@ -55,7 +45,7 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutY="53.0">
+                  <AnchorPane layoutX="17.0" layoutY="114.0">
                      <children>
                         <ImageView>
                            <image>
@@ -69,7 +59,7 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutY="81.0">
+                  <AnchorPane layoutX="17.0" layoutY="142.0">
                      <children>
                         <ImageView>
                            <image>
@@ -83,6 +73,17 @@
                         </Label>
                      </children>
                   </AnchorPane>
+               </children>
+            </AnchorPane>
+            <Group layoutX="22.0" layoutY="32.0" onMouseClicked="#draw">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d07b26" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+                  <Ellipse fill="#000000a9" layoutX="40.0" layoutY="50.0" radiusX="43.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fx:id="deckCount" layoutX="28.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30" textAlignment="JUSTIFY" wrappingWidth="25.0">
+                     <font>
+                        <Font name="Caladea Bold" size="18.0" />
+                     </font>
+                  </Text>
                </children>
             </Group>
             <Label fx:id="playerLabel" layoutX="20.0" layoutY="275.0" text="Player 1">

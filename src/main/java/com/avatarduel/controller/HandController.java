@@ -1,7 +1,7 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.Card.Aura;
-import com.avatarduel.Card.Card;
+import com.avatarduel.Card.*;
+import com.avatarduel.Player;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -27,25 +27,29 @@ public class HandController {
 
     public void cardHover(Event evt) {
         int idx;
-        Group hoveredCard = (Group) evt.getSource();
-        hoveredCard.setTranslateY(-10);
-        idx = getIdx(hoveredCard);
+        Group hoveredCardGroup = (Group) evt.getSource();
+        hoveredCardGroup.setTranslateY(-10);
+        idx = getIdx(hoveredCardGroup);
+//        System.out.println("Index in hand is " + idx);
 //        System.out.println("Sending to field...");
         fieldController.setDescCard(fieldController.player.getHand().get(idx));
+        Player player = fieldController.getPlayer();
 
-        if (fieldController.player.getHand().get(idx).getType().equals("Monster")) {
-            Button attButton = new Button("Summon Att");
-            Button defButton = new Button("Summon Def");
-            attButton.setLayoutX(20);
-            attButton.setLayoutY(20);
-            attButton.setPrefWidth(70);
-            defButton.setLayoutX(20);
-            defButton.setLayoutY(60);
-            defButton.setPrefWidth(70);
-            attButton.setFont(Font.font(8));
-            defButton.setFont(Font.font(8));
+        Card hoveredCard = player.getHand().get(idx);
+        if (hoveredCard.getType().equals("Monster")) {
+            Monster monster = (Monster) hoveredCard;
+            if (player.getNumberOfMonstersOnField() < 6 && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Monster) hoveredCard).getPowerValue()) {
+                Button attButton = new Button("Summon Att");
+                Button defButton = new Button("Summon Def");
+                attButton.setLayoutX(20);
+                attButton.setLayoutY(20);
+                attButton.setPrefWidth(70);
+                defButton.setLayoutX(20);
+                defButton.setLayoutY(60);
+                defButton.setPrefWidth(70);
+                attButton.setFont(Font.font(8));
+                defButton.setFont(Font.font(8));
 
-            if (fieldController.player.getNumberOfMonstersOnField() < 6) {
                 attButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                         event -> {
                             System.out.println("Clicked summon att");
@@ -56,32 +60,25 @@ public class HandController {
                             System.out.println("Clicked summon def");
                             useCard(idx, false);
                         });
+                hoveredCardGroup.getChildren().addAll(attButton, defButton);
             }
 
-
-            hoveredCard.getChildren().addAll(attButton, defButton);
         } else {
-            Button actButton = new Button("Activate");
-            actButton.setLayoutX(20);
-            actButton.setLayoutY(20);
-            actButton.setPrefWidth(70);
-            actButton.setFont(Font.font(8));
-            actButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                    event -> {
-                        System.out.println("Clicked activate");
-                        if (fieldController.player.getHand().get(idx).getType().equals("Skill")) {
-                            if (fieldController.player.getNumberOfSkillsOnField() < 6) {
-                                useCard(idx, false);
-                            }
-                        } else {
+            if ((hoveredCard.getType().equals("Skill") && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Skill) hoveredCard).getPowerValue() && player.getNumberOfSkillsOnField() < 6) || hoveredCard.getType().equals("Land")) {
+                Button actButton = new Button("Activate");
+                actButton.setLayoutX(20);
+                actButton.setLayoutY(20);
+                actButton.setPrefWidth(70);
+                actButton.setFont(Font.font(8));
+                actButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        event -> {
+                            System.out.println("Clicked activate");
                             useCard(idx, false);
-                        }
-                    });
+                        });
+                hoveredCardGroup.getChildren().add(actButton);
+            }
 
-            hoveredCard.getChildren().add(actButton);
         }
-
-
 //        System.out.println("Source delivered successfully");
     }
 
