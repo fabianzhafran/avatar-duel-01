@@ -214,7 +214,7 @@ public class GameplayController implements NotifyPhase {
                 winLabel.setText("Player 2 Wins!");
             }
             p1FieldController.setHP(receivingPlayer.getHp());
-            p1FieldController.arenaController.resetHightlight();
+            p2FieldController.arenaController.resetHightlight();
         }
 
         isAttacking = false;

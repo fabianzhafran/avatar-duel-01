@@ -150,6 +150,7 @@ public class ArenaController {
                                     exitHover(evt);
                                 });
                         hoveredCard.getChildren().add(attackButton);
+                        existLess = false;
                     }
                 }
             } else {

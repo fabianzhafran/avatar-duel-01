@@ -165,9 +165,8 @@ public class Player {
     
     public Card draw() {
         Random randomNumber = new Random();
-        if (hand.size() > maxCardsOnHand) {
-            int randomHandIdx = randomNumber.nextInt(maxCardsOnHand - 1);
-            hand.remove(randomHandIdx);
+        if (hand.size() >= maxCardsOnHand) {
+            hand.remove(0);
         }
             ListOfCards listOfCards = new ListOfCards();
             boolean found = false;
@@ -175,7 +174,8 @@ public class Player {
             if (getDeckCount() > 0) {
 
                 int idx = randomNumber.nextInt(deck.size() - 1);
-                int topCardId = deck.remove(idx);
+                int topCardId = deck.get(idx);
+                deck.remove(idx);
                 // Draw land
                 for (String[] landRow : listOfCards.listOfLandCards) {
                     if (topCardId == Integer.parseInt(landRow[0])) {
