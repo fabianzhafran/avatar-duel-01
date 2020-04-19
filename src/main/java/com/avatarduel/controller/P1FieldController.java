@@ -5,6 +5,5 @@ public class P1FieldController extends FieldController {
     public void init(GameplayController g) {
         super.init(g);
         this.arenaController.init(this, true);
-        this.handController.setTurn(true);
     }
 }

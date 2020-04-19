@@ -35,7 +35,7 @@
                </font>
             </Label>
             <Text layoutX="31.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phase: " />
-            <Label fx:id="phaseLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="53.0" prefHeight="16.0" prefWidth="100.0" text="Main Phase">
+            <Label fx:id="phaseLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="53.0" prefHeight="16.0" prefWidth="100.0" text="Draw Phase">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

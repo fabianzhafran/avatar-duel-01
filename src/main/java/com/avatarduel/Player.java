@@ -13,12 +13,11 @@ public class Player {
 
     private static final int maxMonstersOnField = 6;
     private static final int maxSkillsOnField = 6;
-    private static final int maxCardsOnHand = 6;
+    private static final int maxCardsOnHand = 7;
 
     protected int playerID;
     protected String namePlayer;
     protected int hp;
-    protected int phaseNumber;
     protected Stack<Integer> deck;
     protected ArrayList<Card> hand;
     protected SummonedMonster[] monsterOnField;
@@ -31,7 +30,6 @@ public class Player {
         this.namePlayer = namePlayer;
         int id = namePlayer.charAt(namePlayer.length() - 1) - 48;
         this.playerID = id;
-        phaseNumber = -1;
         hp = 80;
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
@@ -72,21 +70,6 @@ public class Player {
 
     public void subtractHp(int damage) {
         hp = hp - damage;
-    }
-
-    public void notifyPhase(int phaseNumber) {
-        this.phaseNumber = phaseNumber;
-        if (phaseNumber == 1) {
-            for (int i = 0; i < maxMonstersOnField; i++) {
-                if (monsterOnField[i] != null) {
-                    monsterOnField[i].setHasAttacked(false);
-                }
-            }
-        }
-    }
-
-    private boolean isCorrectPhase(int correctPhase) {
-        return phaseNumber != -1 && phaseNumber == correctPhase;
     }
 
     public ArrayList<Card> getHand() {
@@ -163,7 +146,7 @@ public class Player {
     }
     
     public Card draw() {
-        if (hand.size() < 10) {
+        if (hand.size() < maxCardsOnHand) {
             ListOfCards listOfCards = new ListOfCards();
             boolean found = false;
             ElementDictionary elementDictionary = new ElementDictionary();

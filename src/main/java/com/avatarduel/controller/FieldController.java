@@ -4,6 +4,7 @@ import com.avatarduel.Card.Card;
 import com.avatarduel.Card.Element;
 import com.avatarduel.Card.SummonedMonster;
 import com.avatarduel.Player;
+import com.avatarduel.phase.*;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 
 import static com.avatarduel.Card.Element.*;
 
-abstract public class FieldController {
+abstract public class FieldController implements NotifyPhase {
     @FXML protected GameplayController gameplayController;
     @FXML protected HandController handController;
     @FXML protected ArenaController arenaController;
@@ -32,6 +33,8 @@ abstract public class FieldController {
     HashMap<Element, Label> elmtMap = new HashMap<Element, Label>();
 
     protected Player player;
+    protected int phaseNumber;
+    protected int playerTurn;
 
     public void init(GameplayController g) {
         this.gameplayController = g;
@@ -51,6 +54,17 @@ abstract public class FieldController {
         elmtMap.put(AIR, airElement);
         elmtMap.put(EARTH, earthElement);
     }
+
+    // Phase listener function 
+
+    public void notifyPhase(int phaseNumber, int playerTurn) {
+        this.phaseNumber = phaseNumber;
+        this.playerTurn = playerTurn;
+        this.handController.notifyPhaseToHand(phaseNumber, playerTurn);
+        if (phaseNumber == 1) {
+            draw();
+        }
+    } 
 
     // Label setter
 

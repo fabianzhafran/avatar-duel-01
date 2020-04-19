@@ -1,7 +1,7 @@
 package com.avatarduel.controller;
 
 import com.avatarduel.Card.*;
-
+import com.avatarduel.phase.NotifyPhase;
 import com.avatarduel.Player;
 import javafx.event.Event;
 import javafx.fxml.FXML;

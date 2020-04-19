@@ -22,18 +22,25 @@ public class HandController {
 
     private boolean isEquipping = false;
     private boolean isTurn; // Tar diganti sama PHASE
+    private int phaseNumber;
+    private int playerTurn;
 
     public void init(FieldController f) {
         this.fieldController = f;
     }
 
-    public void setTurn(boolean turn) {
-        this.isTurn = turn;
+    public void notifyPhaseToHand(int phaseNumber, int playerTurn) {
+        this.phaseNumber = phaseNumber;
+        this.playerTurn = playerTurn;
+        setTurn();
+    }
+
+    public void setTurn() {
         int opacity;
-        if (!this.isTurn) {
-            opacity = 1;
-        } else {
+        if (this.playerTurn != -1) {
             opacity = 0;
+        } else {
+            opacity = 1;
         }
 
         for (Node node: handHBox.getChildren()) {
@@ -56,7 +63,7 @@ public class HandController {
     }
 
     public void cardHover(Event evt) {
-        if (isTurn) {
+        if (playerTurn != -1) {
             int idx;
             Group hoveredCardGroup = (Group) evt.getSource();
             hoveredCardGroup.setTranslateY(-10);
@@ -66,7 +73,7 @@ public class HandController {
 
             if (!isEquipping) {
                 Card hoveredCard = player.getHand().get(idx);
-                if (hoveredCard.getType().equals("Monster")) {
+                if (hoveredCard.getType().equals("Monster") && phaseNumber == 2) {
                     Monster monster = (Monster) hoveredCard;
                     if (player.getNumberOfMonstersOnField() < 6 && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Monster) hoveredCard).getPowerValue()) {
                         Button attButton = CardUtils.createButton("Summon Att", 20, 20, 70, 8);
