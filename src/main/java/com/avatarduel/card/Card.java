@@ -1,5 +1,12 @@
-package com.avatarduel.Card;
+package com.avatarduel.card;
 
+/**
+ * Card is an abstract class that stores the info of cards
+ * used in the Avatar Duel game.
+ * This class is inherited by Monster, Skill, and Land class.
+ *
+ * @author K01_01_IF2210
+ */
 public abstract class Card {
 
     protected String name;
@@ -7,6 +14,19 @@ public abstract class Card {
     protected String description;
     protected String imagePath;
 
+    /**
+     * Creates a new Card from given parameters
+     * @param name name of the card
+     * @param element element of the card
+     * @param description description of the card
+     * @param imagePath imagePath of the card
+     */
+    public Card(String name, Element element, String description, String imagePath) {
+        this.name = name;
+        this.element = element;
+        this.description = description;
+        this.imagePath = imagePath;
+    }
     /**
      * Get the Name of the Card
      * @return Name of the Card

@@ -1,14 +1,9 @@
 package com.avatarduel.controller;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-import com.avatarduel.Card.Element;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
+import com.avatarduel.card.Element;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

@@ -1,4 +1,4 @@
-package com.avatarduel.Card;
+package com.avatarduel.card;
 
 public interface ISummoned {
 

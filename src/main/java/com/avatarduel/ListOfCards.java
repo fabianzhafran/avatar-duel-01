@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.avatarduel.Card.*;
 import com.avatarduel.util.CsvReader;
 
 public class ListOfCards {

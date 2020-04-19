@@ -1,9 +1,8 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.Card.*;
+import com.avatarduel.card.*;
 import com.avatarduel.Player;
 import com.avatarduel.phase.*;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -62,7 +61,7 @@ public class GameplayController implements NotifyPhase {
     public void setDescCard(Card card) {
 //        System.out.println("Setting description...");
         cardDescController.setName(card.getName());
-        cardDescController.setDesc(card.getDeskripsi());
+        cardDescController.setDesc(card.getDescription());
         cardDescController.setCardImage(card.getImagePath());
         cardDescController.setElementImage(card.getElement());
         cardDescController.setColor(card.getElement());
@@ -99,7 +98,7 @@ public class GameplayController implements NotifyPhase {
     public void setDescCard(SummonedMonster Summoned, Skill[] skillOnField) {
         Monster card = Summoned.getMonster();
         cardDescController.setName(card.getName());
-        cardDescController.setDesc(card.getDeskripsi());
+        cardDescController.setDesc(card.getDescription());
         cardDescController.setCardImage(card.getImagePath());
         cardDescController.setElementImage(card.getElement());
         cardDescController.setColor(card.getElement());

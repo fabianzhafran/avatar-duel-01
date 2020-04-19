@@ -1,6 +1,6 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.Card.*;
+import com.avatarduel.card.*;
 import com.avatarduel.Player;
 import javafx.event.Event;
 import javafx.fxml.FXML;

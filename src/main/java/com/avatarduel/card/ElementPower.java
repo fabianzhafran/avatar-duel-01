@@ -1,4 +1,4 @@
-package com.avatarduel.Card;
+package com.avatarduel.card;
 
 public class ElementPower {
     private Element element;

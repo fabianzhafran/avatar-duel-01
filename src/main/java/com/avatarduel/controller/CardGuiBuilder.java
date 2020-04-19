@@ -1,8 +1,6 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.Card.Card;
-import com.avatarduel.Card.Element;
-import com.avatarduel.Card.Monster;
+import com.avatarduel.card.Element;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;

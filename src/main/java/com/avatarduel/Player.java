@@ -2,12 +2,10 @@ package com.avatarduel;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
 
-import com.avatarduel.Card.*;
-import com.avatarduel.phase.PhaseEnum;
+import com.avatarduel.card.*;
 
-import static com.avatarduel.Card.Element.*;
+import static com.avatarduel.card.Element.*;
 
 public class Player {
 

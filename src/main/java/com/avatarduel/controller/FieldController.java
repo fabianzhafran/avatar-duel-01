@@ -1,10 +1,9 @@
 package com.avatarduel.controller;
 
-import com.avatarduel.Card.Card;
-import com.avatarduel.Card.Skill;
-import com.avatarduel.Card.Element;
-import com.avatarduel.Card.Skill;
-import com.avatarduel.Card.SummonedMonster;
+import com.avatarduel.card.Card;
+import com.avatarduel.card.Skill;
+import com.avatarduel.card.Element;
+import com.avatarduel.card.SummonedMonster;
 import com.avatarduel.Player;
 import com.avatarduel.phase.*;
 import javafx.fxml.FXML;
@@ -15,7 +14,7 @@ import javafx.scene.text.Text;
 
 import java.util.HashMap;
 
-import static com.avatarduel.Card.Element.*;
+import static com.avatarduel.card.Element.*;
 
 abstract public class FieldController implements NotifyPhase {
     @FXML protected GameplayController gameplayController;

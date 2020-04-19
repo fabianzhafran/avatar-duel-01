@@ -1,6 +1,4 @@
-package com.avatarduel.Card;
-
-import java.util.ArrayList;
+package com.avatarduel.card;
 
 public class PowerUp extends Skill {
 

@@ -1,25 +1,12 @@
-package com.avatarduel.Card;
+package com.avatarduel.card;
 
 public class Skill extends Card {
 
     protected int power;
     protected boolean isUsed;
 
-    public Skill(Skill other) {
-        name = other.getName();
-        element = other.getElement();
-        imagePath = other.getImagePath();
-        description = other.getDescription();
-        power = other.getPowerValue();
-        isUsed = other.getIsUsed();
-        System.out.println(name);
-    }
-
     public Skill(String name, Element element, String desc, String path, int pow) {
-        this.name = name;
-        this.element = element;
-        this.imagePath = path;
-        this.description = desc;
+        super(name, element, desc, path);
         this.power = pow;
         this.isUsed = false;
     }

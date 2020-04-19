@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-import com.avatarduel.Card.*;
-
 public class AvatarDuel extends Application {
   @Override
   public void start(Stage stage) throws IOException {

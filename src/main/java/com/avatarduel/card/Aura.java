@@ -1,7 +1,4 @@
-package com.avatarduel.Card;
-
-import java.util.ArrayList;
-import com.avatarduel.Player;
+package com.avatarduel.card;
 
 public class Aura extends Skill {
 
