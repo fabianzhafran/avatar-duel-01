@@ -36,7 +36,7 @@ public class Player {
         hp = 80;
         deck = new ArrayList<Integer>();
         Random randomNumber = new Random();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             deck.add(randomNumber.nextInt(48) + 21);
             if (i < 18) {
                 deck.add(randomNumber.nextInt(19) + 1);

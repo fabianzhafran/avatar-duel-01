@@ -137,6 +137,20 @@ public class GameplayController implements NotifyPhase {
         this.playerTurn = playerTurn;
         playerLabel.setText("Player " + String.valueOf(playerTurn));
         phaseLabel.setText(PhaseEnum.phaseEnum.get(phaseNumber));
+        Player sourcePlayer = getPlayerInTurn();
+        if (sourcePlayer.getDeckCount() == 0) {
+            winLabel.setVisible(true);
+            winLabel.setDisable(false);
+            winImage.setVisible(true);
+            winImage.setDisable(false);
+            winImageModal.setVisible(true);
+            winImageModal.setDisable(false);
+            if (playerTurn == 1) {
+                winLabel.setText("Player 2 Wins!");
+            } else {
+                winLabel.setText("Player 1 Wins!");
+            }
+        }
     }
 
     public void useDestroy(int idxSource) {
