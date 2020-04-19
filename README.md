@@ -9,7 +9,8 @@ Wow seru banget wawawaw
 
 ### Install
 - Clone this repository : `todo`
-- Go to project folder, and run on your terminal `./gradlew run`
+- If you are a windows user, go to project folder, and run on your terminal `gradlew run`
+- Otherwise (You are on either mac or linux), go to the project folder and run `./gradlew run`. Simple stuff.
 
 ## Credits
 
