@@ -14,7 +14,6 @@ public class AvatarDuel extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     Text text = new Text();
-    text.setText("Loading...");
     text.setX(50);
     text.setY(50);
 
@@ -43,31 +42,6 @@ public class AvatarDuel extends Application {
     System.out.println("                 .'.eeeeeeeeeeeeeeeeee.'.      :___:");
     System.out.println("    fsc        .'.eeeeeeeeeeeeeeeeeeeeee.'.         ");
     System.out.println("              :____________________________:        ");
-    
-    try {
-      text.setText("Avatar Duel!");
-      // Player player1 = new Player("Player 1");
-      // player1.draw(); player1.draw(); player1.draw(); player1.draw(); player1.draw(); 
-      // player1.printCardsOnHand();
-      // player1.putToField(0, true);
-      // player1.putToField(0, true);
-      // player1.putToField(0, true);
-      // player1.putToField(0, true);
-      // player1.putToField(0, true);
-      // player1.putToField(0, true);
-      // player1.printCardsOnHand();
-      // player1.printMonsterCardsOnField();
-      // player1.printSkillCardsOnField();
-    //  Player player2 = new Player("Player 2");
-    //  ListOfCards temp = new ListOfCards();
-    //  for (String[] s : temp.listOfLandCards) {
-    //    System.out.println(s[0]);
-    //  }
-    //  System.out.println("Draw on main");
-    //  player1.draw();
-    } catch (Exception e) {
-      text.setText("Failed to load cards: " + e);
-    }
   }
 
   public static void main(String[] args) {

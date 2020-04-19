@@ -49,11 +49,9 @@ public class Phase {
         }
         gameplayController.notifyPhase(phaseNumber, playerTurn);
         if (playerTurn == 1) {
-            System.out.println("Giliran 1");
             p1FieldController.notifyPhase(phaseNumber, playerTurn);
             p2FieldController.notifyPhase(phaseNumber, -1);
         } else {
-            System.out.println("Giliran 2");
             p1FieldController.notifyPhase(phaseNumber, -1);
             p2FieldController.notifyPhase(phaseNumber, playerTurn);
         }

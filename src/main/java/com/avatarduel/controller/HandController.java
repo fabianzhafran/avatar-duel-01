@@ -141,12 +141,10 @@ public class HandController {
 
                         attButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                 event -> {
-                                    System.out.println("Clicked summon att");
                                     useCard(idx, true);
                                 });
                         defButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                 event -> {
-                                    System.out.println("Clicked summon def");
                                     useCard(idx, false);
                                 });
                         hoveredCardGroup.getChildren().addAll(attButton, defButton);
@@ -160,7 +158,6 @@ public class HandController {
                         boolean isDestroy = false;
                         if (isSkill) {
                             Skill skillCard = (Skill) hoveredCard;
-//                            System.out.println(skillCard.getSkillType());
                             if (skillCard.getSkillType().equals("Aura") || skillCard.getSkillType().equals("Power Up")) {
                                 if (player.getNumberOfMonstersOnField() > 0) {
                                     isAuraOrPowerUp = true;
@@ -168,7 +165,6 @@ public class HandController {
                             } else if (skillCard.getSkillType().equals("Destroy")) {
                                 // Nanti kasih condition buat aktifin destroy
                                 if (fieldController.getEnemy().getNumberOfMonstersOnField() > 0) {
-                                    System.out.println("Is Destroy");
                                     isDestroy = true;
                                 }
                             }
@@ -177,7 +173,6 @@ public class HandController {
                             Button actButton = CardUtils.createButton("Activate", 20, 20, 70, 8);
                             actButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                     event -> {
-                                        System.out.println("Clicked activate");
                                         fieldController.useCard(idx, false);
                                     });
                             hoveredCardGroup.getChildren().add(actButton);

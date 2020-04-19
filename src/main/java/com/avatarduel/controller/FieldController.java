@@ -253,7 +253,6 @@ abstract public class FieldController implements NotifyPhase {
      * @param atkValue the attacking monster's attack value
      */
     public void receiveAttack(int idxAttacker, int atkValue) {
-        System.out.println("Field Receive Attack");
         if (player.getNumberOfMonstersOnField() > 0) {
             arenaController.receiveAttack(idxAttacker, atkValue);
         } else {
