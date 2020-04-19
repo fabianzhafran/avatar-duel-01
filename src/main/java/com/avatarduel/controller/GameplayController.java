@@ -104,5 +104,6 @@ public class GameplayController {
         System.out.println("Monster after battle: ");
         receivingPlayer.printMonsterCardsOnField();
         System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
+        p2FieldController.setHP(receivingPlayer.getHp());
     }
 }

@@ -239,7 +239,12 @@ public class Player {
 
     public void removeMonsterOnField(int monsterIndex) {
         ArrayList<Integer> linkedSkill = monsterOnField[monsterIndex].getSkillLinked();
-        for (int i = 0; i < linkedSkill.size(); i++) {
+//        int totalSize = linkedSkill.size();
+//        for (int i = 0; i < totalSize; i++) {
+//            removeSkillOnField(linkedSkill.get(i));
+//        }
+
+        for (int i = linkedSkill.size() - 1; i >= 0; i--) {
             removeSkillOnField(linkedSkill.get(i));
         }
         monsterOnField[monsterIndex] = null;
@@ -271,10 +276,9 @@ public class Player {
     }
 
     // return true kalo sukses
-    public boolean putToField(int cardOnHandIndex, boolean isAttackPosition) {
+    public void putToField(int cardOnHandIndex, boolean isAttackPosition) {
         int i = 0;
         System.out.println("~~~Put to field~~~");
-        boolean putCardIsSuccessful = false;
         if (hand.size() > 0) {
         // if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1)) {
             Card handGet = hand.get(cardOnHandIndex);
@@ -287,7 +291,7 @@ public class Player {
                     while (i < maxMonstersOnField && monsterOnField[i] != null) {
                         i++;
                     }
-                    System.out.println("Got on index " + i);
+//                    System.out.println("Got on index " + i);
                     setLandPowerByElement(monsterElement, currentElementPower - monsterPower);
                     System.out.println(getLandPowerByElement(EARTH));
                     System.out.println(getLandPowerByElement(WATER));
@@ -295,11 +299,11 @@ public class Player {
                     System.out.println(getLandPowerByElement(AIR));
                     monsterOnField[i] = new SummonedMonster(((Monster)handGet), isAttackPosition);
                     numberOfMonstersOnField++;
-                    putCardIsSuccessful = true;
+//                    putCardIsSuccessful = true;
                 }
             } else if (handGet.getType().equals("Land")) {
                 addLandMaxPowerByElement(handGet.getElement());
-                putCardIsSuccessful = true;
+//                putCardIsSuccessful = true;
             } else {
                 int skillPower = ((Skill)handGet).getPowerValue();
                 Element skillElement = handGet.getElement();
@@ -311,12 +315,12 @@ public class Player {
                     setLandPowerByElement(skillElement, currentElementPower - skillPower);
                     skillOnField[i] = (Skill)handGet;
                     numberOfSkillsOnField++;
-                    putCardIsSuccessful = true;
+//                    putCardIsSuccessful = true;
                 }
             }
             hand.remove(cardOnHandIndex);
          }
-        return putCardIsSuccessful;
+//        return putCardIsSuccessful;
 //        System.out.println("End of putToField");
     }
 
@@ -410,17 +414,23 @@ public class Player {
     }
 
     public void printSkillCardsOnField() {
-        System.out.println("~~~ print skill cards on field lets ngentot okey ~~~");
         for (int i = 0; i < maxSkillsOnField; i++) {
             if (skillOnField[i] != null) {
-                printShit(skillOnField[i]);
-                System.out.println("TYPE " + skillOnField[i].getSkillType() + " POWER " + String.valueOf(skillOnField[i].getPowerValue()));
+                System.out.println("Card name is: " + skillOnField[i].getName());
             }
         }
     }
 
     public void printShit(Card card) {
         System.out.println("Name: " + card.getName() + ", Type: " + card.getType());
+    }
+
+    public void printLinkedSkill(int idxMonster) {
+        ArrayList<Integer> linkedSkill = getMonsterOnField()[idxMonster].getSkillLinked();
+        System.out.println("Skill linked to" + getMonsterOnField()[idxMonster].getMonster().getName());
+        for (int idxSkill:linkedSkill) {
+            System.out.println("Skill: " + getSkillOnField()[idxSkill].getName());
+        }
     }
 
 }
