@@ -2,7 +2,7 @@ package com.testing;
 
 import static org.junit.Assert.assertEquals;
 import com.avatarduel.Player;
-import com.avatarduel.Card.*;
+import com.avatarduel.card.*;
 import org.junit.Test;
 
 public class CardTest {
