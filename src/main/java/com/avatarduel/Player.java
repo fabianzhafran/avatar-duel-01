@@ -13,7 +13,7 @@ public class Player {
 
     private static final int maxMonstersOnField = 6;
     private static final int maxSkillsOnField = 6;
-    private static final int maxCardsOnHand = 9;
+    private static final int maxCardsOnHand = 7;
 
     protected int playerID;
     protected String namePlayer;
@@ -55,26 +55,13 @@ public class Player {
         elementPower[4] = new ElementPower(ENERGY);
 
         // DEBUG
-        addLandMaxPowerByElement(EARTH);
-        addLandMaxPowerByElement(WATER);
-        addLandMaxPowerByElement(FIRE);
-        addLandMaxPowerByElement(AIR);
-        addLandMaxPowerByElement(ENERGY);
-        addLandMaxPowerByElement(EARTH);
-        addLandMaxPowerByElement(WATER);
-        addLandMaxPowerByElement(FIRE);
-        addLandMaxPowerByElement(AIR);
-        addLandMaxPowerByElement(ENERGY);
-        addLandMaxPowerByElement(EARTH);
-        addLandMaxPowerByElement(WATER);
-        addLandMaxPowerByElement(FIRE);
-        addLandMaxPowerByElement(AIR);
-        addLandMaxPowerByElement(ENERGY);
-        addLandMaxPowerByElement(EARTH);
-        addLandMaxPowerByElement(WATER);
-        addLandMaxPowerByElement(FIRE);
-        addLandMaxPowerByElement(AIR);
-        addLandMaxPowerByElement(ENERGY);
+        for (int k = 0; k < 4; k++) {
+            addLandMaxPowerByElement(EARTH);
+            addLandMaxPowerByElement(WATER);
+            addLandMaxPowerByElement(FIRE);
+            addLandMaxPowerByElement(AIR);
+            addLandMaxPowerByElement(ENERGY);       
+        }
     }
 
     public int getPlayerID() {
@@ -162,8 +149,8 @@ public class Player {
     public void addLandMaxPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
-                elPow.setCurrentPow(elPow.getCurrentPow() + 1);
-                elPow.setMaxPow(elPow.getMaxPow() + 1);
+                elPow.setCurrentPow(elPow.getCurrentPow() + 10);
+                elPow.setMaxPow(elPow.getMaxPow() + 10);
             }
         }
     }
@@ -188,8 +175,7 @@ public class Player {
             if (getDeckCount() > 0) {
 
                 int idx = randomNumber.nextInt(deck.size() - 1);
-                int topCardId = 65;
-                deck.remove(idx);
+                int topCardId = deck.remove(idx);
                 // Draw land
                 for (String[] landRow : listOfCards.listOfLandCards) {
                     if (topCardId == Integer.parseInt(landRow[0])) {

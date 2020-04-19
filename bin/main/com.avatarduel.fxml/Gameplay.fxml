@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -43,14 +44,22 @@
             <Button fx:id="nextPhaseButton" layoutX="5.0" layoutY="71.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Next Phase" />
          </children>
       </AnchorPane>
-      <ImageView fx:id="winImage" disable="true" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" visible="false">
+      <ImageView fx:id="winBackground" disable="true" fitHeight="720.0" fitWidth="1280.0" opacity="0.62" pickOnBounds="true" visible="false">
          <image>
-            <Image url="@../assets/win.jpg" />
+            <Image url="@../assets/Blank.png" />
          </image>
       </ImageView>
-      <Text fx:id="winLabel" disable="true" layoutX="438.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAYER 1 WINS" visible="false" wrappingWidth="390.00000762939453">
+      <ImageView fx:id="winModal" disable="true" fitHeight="415.0" fitWidth="783.0" layoutX="249.0" layoutY="153.0" opacity="0.45" pickOnBounds="true" style="-fx-background-color: #2969c0; -fx-background-radius: 50px;" visible="false">
+         <image>
+            <Image url="@../assets/Blank.png" />
+         </image>
+         <effect>
+            <DropShadow height="109.04" radius="63.125" spread="0.26" width="145.46" />
+         </effect>
+      </ImageView>
+      <Text fx:id="winLabel" disable="true" fill="WHITE" layoutX="437.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1 Wins!" visible="false">
          <font>
-            <Font name="AR PL UKai TW" size="67.0" />
+            <Font name="AR PL UKai HK" size="58.0" />
          </font>
       </Text>
     </children>

@@ -1,9 +1,9 @@
 id	name	element	description	imagepath	power
-93	The Drill	FIRE	The weapon used to attack Ba Sing Se's wall.	@/../com/avatarduel/card/image/skill/The Drill.png	3
-94	Ice Shards	WATER	Deadly ice bended by waterbending masters.	@/../com/avatarduel/card/image/skill/Ice Shards.png	3
-95	Air Blasts	AIR	An offensive maneuver involving a direct pulse or jet of compressed air shot from the hands, feet, or mouth.	@/../com/avatarduel/card/image/skill/Air Blasts.png	3
-96	Massive Air Breath	AIR	Inhale a gigantic amount of air and exhale it in a deadly force.	@/../com/avatarduel/card/image/skill/Massive Air Breath.png	3
-97	Fire Kick	FIRE	Create a fire blast from a kick.	@/../com/avatarduel/card/image/skill/Fire Kick.png	3
-98	Water Gimbal	WATER	two rotating rings of water, around waterbending master's bodies.	@/../com/avatarduel/card/image/skill/Water Gimbal.png	3
-99	Rock Slide	EARTH	Rocks raining down from the mountains.	@/../com/avatarduel/card/image/skill/Rock Slide.png	3
-100	The Serpent	EARTH	The serpent that dwells deep within the Serpent's Pass.	@/../com/avatarduel/card/image/skill/Serpent.png	3
+93	The Drill	FIRE	The weapon used to attack Ba Sing Se's wall.	@/../com/avatarduel/card/image/skill/The Drill.png	2
+94	Ice Shards	WATER	Deadly ice bended by waterbending masters.	@/../com/avatarduel/card/image/skill/Ice Shards.png	2
+95	Air Blasts	AIR	An offensive maneuver involving a direct pulse or jet of compressed air shot from the hands, feet, or mouth.	@/../com/avatarduel/card/image/skill/Air Blasts.png	2
+96	Massive Air Breath	AIR	Inhale a gigantic amount of air and exhale it in a deadly force.	@/../com/avatarduel/card/image/skill/Massive Air Breath.png	2
+97	Fire Kick	FIRE	Create a fire blast from a kick.	@/../com/avatarduel/card/image/skill/Fire Kick.png	2
+98	Spirit Energy Cannon	ENERGY	Giant cannon fueld by the power of spirits.	@/../com/avatarduel/card/image/skill/Water Gimbal.png	2
+99	Rock Slide	EARTH	Rocks raining down from the mountains.	@/../com/avatarduel/card/image/skill/Rock Slide.png	2
+100	The Serpent	EARTH	The serpent that dwells deep within the Serpent's Pass.	@/../com/avatarduel/card/image/skill/Serpent.png	2
