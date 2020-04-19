@@ -24,6 +24,7 @@ public class GameplayController implements NotifyPhase {
     @FXML private Button nextPhaseButton;
     @FXML private Text winLabel;
     @FXML private ImageView winImage;
+    @FXML private ImageView winImageModal;
 
 
     private Phase phase;
@@ -51,6 +52,8 @@ public class GameplayController implements NotifyPhase {
             });
         winImage.setVisible(false);
         winImage.setDisable(true);
+        winImageModal.setVisible(false);
+        winImageModal.setDisable(true);
         winLabel.setVisible(false);
         winLabel.setDisable(true);
 
@@ -191,23 +194,25 @@ public class GameplayController implements NotifyPhase {
         System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
         
         boolean win = false;
-        if (receivingPlayer.getHp() == 0) {
+        if (receivingPlayer.getHp() <= 0) {
             win = true;
             winLabel.setVisible(true);
             winLabel.setDisable(false);
             winImage.setVisible(true);
             winImage.setDisable(false);
+            winImageModal.setVisible(true);
+            winImageModal.setDisable(false);
         } 
 
         if (playerTurn == 1) {
             if (win) {
-                winLabel.setText("Player 1 Won The War!");
+                winLabel.setText("Player 1 Wins!");
             }
             p2FieldController.setHP(receivingPlayer.getHp());
             p1FieldController.arenaController.resetHightlight();
         } else {
             if (win) {
-                winLabel.setText("Player 2 Won The War!");
+                winLabel.setText("Player 2 Wins!");
             }
             p1FieldController.setHP(receivingPlayer.getHp());
             p2FieldController.arenaController.resetHightlight();
