@@ -23,8 +23,7 @@ public class GameplayController implements NotifyPhase {
     @FXML private Label phaseLabel;
     @FXML private Button nextPhaseButton;
     @FXML private Text winLabel;
-    @FXML private ImageView winBackground;
-    @FXML private ImageView winModal;
+    @FXML private ImageView winImage;
 
 
     private Phase phase;
@@ -50,12 +49,11 @@ public class GameplayController implements NotifyPhase {
                     phase.nextPhase();
                 }
             });
-        winBackground.setVisible(false);
-        winBackground.setDisable(true); 
-        winModal.setVisible(false);
-        winModal.setDisable(true);
+        winImage.setVisible(false);
+        winImage.setDisable(true);
         winLabel.setVisible(false);
         winLabel.setDisable(true);
+
     }
 
     public void setDescCard(Card card) {
@@ -81,7 +79,7 @@ public class GameplayController implements NotifyPhase {
                 cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
                 cardDescController.setAtt("Atk: " + String.valueOf(castedCard.getAttackValue()));
                 cardDescController.setDef("Def: " + String.valueOf(castedCard.getDefenseValue()));
-            } else if (skillCard.getSkillType().equals("Power Up") || skillCard.getSkillType().equals("Destroy")) {
+            } else if (skillCard.getSkillType().equals("Power Up")) {
                 PowerUp castedCard = (PowerUp) skillCard;
                 cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
                 cardDescController.setAtt(" ");
@@ -193,25 +191,23 @@ public class GameplayController implements NotifyPhase {
         System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
         
         boolean win = false;
-        if (receivingPlayer.getHp() <= 0) {
+        if (receivingPlayer.getHp() == 0) {
             win = true;
-            winBackground.setVisible(true);
-            winBackground.setDisable(false);
-            winModal.setVisible(true);
-            winModal.setDisable(false);
             winLabel.setVisible(true);
             winLabel.setDisable(false);
+            winImage.setVisible(true);
+            winImage.setDisable(false);
         } 
 
         if (playerTurn == 1) {
             if (win) {
-                winLabel.setText("Player 1 Wins!");
+                winLabel.setText("Player 1 Won The War!");
             }
             p2FieldController.setHP(receivingPlayer.getHp());
             p1FieldController.arenaController.resetHightlight();
         } else {
             if (win) {
-                winLabel.setText("Player 2 Wins!");
+                winLabel.setText("Player 2 Won The War!");
             }
             p1FieldController.setHP(receivingPlayer.getHp());
             p2FieldController.arenaController.resetHightlight();
