@@ -42,4 +42,12 @@ public class Phase {
         }
     }
 
+    public int getPhaseNumber() {
+        return phaseNumber;
+    }
+
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
 }
