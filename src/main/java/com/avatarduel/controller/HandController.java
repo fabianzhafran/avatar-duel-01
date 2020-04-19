@@ -74,7 +74,7 @@ public class HandController {
             if (!isEquipping) {
                 Card hoveredCard = player.getHand().get(idx);
                 if (hoveredCard.getType().equals("Monster") && phaseNumber == 2) {
-                    Monster monster = (Monster) hoveredCard;
+                    // Monster monster = (Monster) hoveredCard;
                     if (player.getNumberOfMonstersOnField() < 6 && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Monster) hoveredCard).getPowerValue()) {
                         Button attButton = CardUtils.createButton("Summon Att", 20, 20, 70, 8);
                         Button defButton = CardUtils.createButton("Summon Def", 20, 60, 70, 8);

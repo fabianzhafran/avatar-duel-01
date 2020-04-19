@@ -50,10 +50,10 @@ public class Player {
         elementPower[3] = new ElementPower(AIR);
 
         // DEBUG
-        addLandMaxPowerByElement(EARTH);
-        addLandMaxPowerByElement(WATER);
-        addLandMaxPowerByElement(FIRE);
-        addLandMaxPowerByElement(AIR);
+        // addLandMaxPowerByElement(EARTH);
+        // addLandMaxPowerByElement(WATER);
+        // addLandMaxPowerByElement(FIRE);
+        // addLandMaxPowerByElement(AIR);
     }
 
     public int getPlayerID() {
@@ -69,6 +69,9 @@ public class Player {
     }
 
     public void subtractHp(int damage) {
+        if (hp < damage) {
+            hp = 0;
+        }
         hp = hp - damage;
     }
 
@@ -139,8 +142,8 @@ public class Player {
     public void addLandMaxPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
-                elPow.setCurrentPow(elPow.getCurrentPow() + 100);
-                elPow.setMaxPow(elPow.getMaxPow() + 100);
+                elPow.setCurrentPow(elPow.getCurrentPow() + 1);
+                elPow.setMaxPow(elPow.getMaxPow() + 1);
             }
         }
     }
@@ -270,6 +273,8 @@ public class Player {
                 int currentElementPower = getLandPowerByElement(handGet.getElement());
                 int monsterPower = ((Monster)handGet).getPowerValue();
                 Element monsterElement = handGet.getElement();
+                System.out.println("monster power : " + String.valueOf(monsterPower));
+                System.out.println("current element power : " + String.valueOf(currentElementPower));
                 if (monsterPower <= currentElementPower && numberOfMonstersOnField < maxMonstersOnField) {
                     while (i < maxMonstersOnField && monsterOnField[i] != null) {
                         i++;
@@ -316,10 +321,19 @@ public class Player {
         }
     }
 
+    // Reset monsters that are summoned to be able to attack
+    public void resetMonsterIsJustSummoned() {
+        for (SummonedMonster monster : monsterOnField) {
+            if (monster != null) {
+                monster.setIsJustSummonedToFalse();
+            }
+        }
+    }
+
     public void attack(int sourceMonsterOnFieldIndex, int targetMonsterOnFieldIndex, Player targetPlayer) {
         System.out.println("Masuk attack");
         SummonedMonster attackingMonster = this.monsterOnField[sourceMonsterOnFieldIndex];
-        if (!attackingMonster.getHasAttacked()) {
+        if (!attackingMonster.getHasAttacked() && attackingMonster.getIsJustSummoned()) {
             if (targetMonsterOnFieldIndex != -1) { // -1 kalau nggak ada monster di field lawan
                 SummonedMonster[] targetMonsterField = targetPlayer.getMonsterOnField();
                 SummonedMonster targetMonster = targetMonsterField[targetMonsterOnFieldIndex];

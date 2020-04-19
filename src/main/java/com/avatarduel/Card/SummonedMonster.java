@@ -8,6 +8,7 @@ public class SummonedMonster implements ISummoned {
     private Monster monster;
     boolean isAttackPos;
     private boolean hasAttacked;
+    private boolean isJustSummoned;
 
     int buffAtk;
     int buffDef;
@@ -25,6 +26,7 @@ public class SummonedMonster implements ISummoned {
         buffDef = 0;
         buffAtk = 0;
         hasAttacked = false;
+        isJustSummoned = true;
     }
 
     public Monster getMonster() {
@@ -41,6 +43,14 @@ public class SummonedMonster implements ISummoned {
 
     public boolean getIsAttackPosition() {
         return isAttackPos;
+    }
+
+    public boolean getIsJustSummoned() {
+        return isJustSummoned;
+    }
+
+    public void setIsJustSummonedToFalse() {
+        isJustSummoned = false;
     }
     
     public void rotate() {
