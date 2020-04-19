@@ -85,8 +85,10 @@ public class CardDescController {
             url = "@/../assets/rocks.png";
         } else if (element.equals(Element.FIRE)) {
             url = "@/../assets/fire.png";
-        } else {
+        } else if (element.equals(Element.AIR)) {
             url = "@/../assets/wind.png";
+        } else {
+            url = "@/../assets/energy.png";
         }
         Image img = new Image(url);
         elementImg.setImage(img);
@@ -123,8 +125,10 @@ public class CardDescController {
             color = "#f73131";
         } else if (element.equals(Element.EARTH)) {
             color = "#efd040";
-        } else {
+        } else if(element.equals(Element.AIR)) {
             color = "#41f282";
+        } else {
+            color = "#82968a";
         }
 
         nameRect.setFill(Color.web(color));

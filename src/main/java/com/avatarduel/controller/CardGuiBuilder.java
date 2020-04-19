@@ -82,9 +82,9 @@ public class CardGuiBuilder {
             Label powLabel = CardUtils.createLabel(this.pow, 45, 92, 10);
             Label attLabel = CardUtils.createLabel(this.att, 45, 80, 10);
             Label defLabel = CardUtils.createLabel(this.def, 78, 80, 10);
-            Label elmtLabel = CardUtils.createLabel(this.elmt.toString(), 60, 95, 8);
+            Label elmtLabel = CardUtils.createLabel(this.elmt.toString(), 55, 95, 8);
             Text powText = CardUtils.createText("Pow:", 22, 103, 10);
-            Text attText = CardUtils.createText("Att:", 22, 91, 10);
+            Text attText = CardUtils.createText("Att:", 20, 91, 10);
             Text defText = CardUtils.createText("Def:", 55, 91, 10);
             newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, cardImg, backCardImg);
         }
