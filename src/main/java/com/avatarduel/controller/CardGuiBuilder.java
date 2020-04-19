@@ -7,6 +7,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+/**
+ * CardGuiBuilder is a class that implements the
+ * Builder Design Pattern to ease the creation of
+ * the visualization of a card in the GUI of the
+ * Avatar Duel Game.
+ */
 public class CardGuiBuilder {
     private String name;
     private String type;
@@ -16,6 +22,9 @@ public class CardGuiBuilder {
     private Element elmt;
     private String imgPath;
 
+    /**
+     * Set the default Card in the constructor
+     */
     public CardGuiBuilder() {
         this.name = "Spirit Oasis";
         this.elmt = Element.WATER;
@@ -26,41 +35,80 @@ public class CardGuiBuilder {
         this.type = "Land";
     }
 
+    /**
+     * Set the name of the builder
+     * @param n
+     * @return Builder with a name
+     */
     public CardGuiBuilder name(String n) {
         this.name = n;
         return this;
     }
 
+    /**
+     * Set the power value of the builder
+     * @param p
+     * @return Builder with a power value
+     */
     public CardGuiBuilder pow(int p) {
         this.pow = String.valueOf(p);
         return this;
     }
 
+    /**
+     * Set the attack value of the builder
+     * @param a
+     * @return Builder with a attack value
+     */
     public CardGuiBuilder att(int a) {
         this.att = String.valueOf(a);
         return this;
     }
 
+    /**
+     * Set the defense value of the builder
+     * @param d
+     * @return Builder with a defense value
+     */
     public CardGuiBuilder def(int d) {
         this.def = String.valueOf(d);
         return this;
     }
 
+    /**
+     * Set the element of the builder
+     * @param e
+     * @return Builder with an element
+     */
     public CardGuiBuilder element(Element e) {
         this.elmt = e;
         return this;
     }
 
+    /**
+     * Set the image path of the builder
+     * @param url
+     * @return Builder with a image path
+     */
     public CardGuiBuilder imagePath(String url) {
         this.imgPath = url;
         return this;
     }
 
+    /**
+     * Set the type of the builder
+     * @param t
+     * @return Builder with a type
+     */
     public CardGuiBuilder type(String t) {
         this.type = t;
         return this;
     }
 
+    /**
+     * Build the card visualization
+     * @return the card visualization in the form of a Group
+     */
     public Group build() {
         Group newCard = new Group();
         Rectangle outer = CardUtils.createRectCard(80, 110, 15, 5, this.elmt);

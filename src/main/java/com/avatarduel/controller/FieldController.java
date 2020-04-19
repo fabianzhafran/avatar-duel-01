@@ -16,11 +16,31 @@ import java.util.HashMap;
 
 import static com.avatarduel.card.Element.*;
 
+/**
+ * HandController is a controller to the Hand.fxml file.
+ * This class controls the GUI of a card that is in a Player's hand.
+ * This controller is linked to a FieldController class.
+ * FieldController is a controller to the P1Field.fxml or P2Field.fxml.
+ * FieldController acts as an intermediary between ArenaController, HandController, and GamePlayController.
+ */
 abstract public class FieldController implements NotifyPhase {
+    /**
+     * A linked GameplayController class.
+     * Interacts with enemy FieldController through GameplayController.
+     */
     @FXML protected GameplayController gameplayController;
+    /**
+     * A linked HandController class.
+     */
     @FXML protected HandController handController;
+    /**
+     * A linked ArenaController class.
+     */
     @FXML protected ArenaController arenaController;
 
+    /**
+     * The pane that contains the whole field GUI
+     */
     @FXML protected AnchorPane fieldPane;
 
     @FXML protected Text deckCount;
@@ -32,14 +52,40 @@ abstract public class FieldController implements NotifyPhase {
     @FXML protected Label hpLabel;
     @FXML protected Label playerLabel;
 
+    /**
+     * Maps an Element to its corresponding Label
+     */
     HashMap<Element, Label> elmtMap = new HashMap<Element, Label>();
 
+    /**
+     * The player that is linked to this controller
+     */
     protected Player player;
+    /**
+     * Indicates the phase that the player is in.
+     * 1 == Draw Phase
+     * 2 == Main Phase
+     * 3 == Battle Phase
+     * 4 == End Phase
+     */
     protected int phaseNumber;
+    /**
+     * The value is -1 if player is not in turn
+     * The value can be 1 or 2 according to the player
+     */
     protected int playerTurn;
 
+    /**
+     * The value is true if a skill is activating in the game
+     */
     protected boolean skillActivating = false;
 
+    /**
+     * Link this class to a GameplayController class.
+     * Make HandController and ArenaController class link to this class.
+     * Prepare GUI for Player
+     * @param g
+     */
     public void init(GameplayController g) {
         this.gameplayController = g;
         handController.init(this);
@@ -63,6 +109,14 @@ abstract public class FieldController implements NotifyPhase {
 
     // Phase listener function 
 
+    /**
+     * Get notified by GameplayController for the current phase and turn.
+     * This method is run through a linked GameplayController.
+     * Notify HandController and ArenaController.
+     * Update Player's information on GUI
+     * @param phaseNumber
+     * @param playerTurn
+     */
     public void notifyPhase(int phaseNumber, int playerTurn) {
         this.phaseNumber = phaseNumber;
         this.playerTurn = playerTurn;
@@ -85,18 +139,34 @@ abstract public class FieldController implements NotifyPhase {
 
     // Label setter
 
+    /**
+     * Set the player's HP on GUI
+     * @param hp
+     */
     public void setHP(int hp) {
         hpLabel.setText("HP " + String.valueOf(hp));
     }
 
+    /**
+     * Send a Card information to GameplayController to be displayed
+     * @param c the sent card (Card in hand or skill on field)
+     */
     public void setDescCard(Card c) {
         gameplayController.setDescCard(c);
     }
 
+    /**
+     * Send a SummonedMonster information to GameplayController to be displayed
+     * @param sm Monster on field
+     */
     public void setDescCard(SummonedMonster sm) {
         gameplayController.setDescCard(sm, player.getSkillOnField());
     }
 
+    /**
+     * Set skillActivating to true when a skill is activating
+     * @param skillActivating
+     */
     public void setSkillActivating(boolean skillActivating) {
         this.skillActivating = skillActivating;
     }
@@ -125,6 +195,9 @@ abstract public class FieldController implements NotifyPhase {
 
     // Basic methods
 
+    /**
+     * Visualize draw on GUI
+     */
     public void draw() {
         if (player.getHand().size() >= 9) {
             handController.removeCard(0);
@@ -137,26 +210,26 @@ abstract public class FieldController implements NotifyPhase {
         deckCount.setText(String.valueOf(this.player.getDeckCount()));
     }
 
+    /**
+     * Use Card that is sent from HandController to be
+     * used in ArenaController corresponding
+     * to each of its type
+     * @param idx the index of the card in the player's hand
+     * @param isAtt equals to true is monster want to be summoned in attack position
+     */
     public void useCard(int idx, boolean isAtt) {
         Card card = player.getHand().get(idx);
-        System.out.println("~~~FieldController~~~");
-        System.out.println("Card: " + card.getName());
         player.putToField(idx, isAtt);
-
-
             if (card.getType().equals("Land")) {
                 handController.setLandUsed(true);
             } else if (card.getType().equals("Monster")) {
                 arenaController.summon(card, isAtt);
             } else {
                 Skill skillCard = (Skill) card;
-                    setSkillActivating(true);
-                    arenaController.activateCardEff(skillCard);
-//                    handController.setIsEquipping(true);
-
+                setSkillActivating(true);
+                arenaController.activateCardEff(skillCard);
             }
             handController.removeCard(idx);
-
         elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
     }
 
@@ -164,38 +237,66 @@ abstract public class FieldController implements NotifyPhase {
 
     // Battle Methods
 
+    /**
+     * Receive attacking player's monster's index and give to GameplayController
+     * @param idx attacking monster's index in Player's array of SummonedMonster
+     */
     public void startAttack(int idx) {
-        System.out.println("Field start Attack");
         gameplayController.startAttack(idx);
     }
 
+    /**
+     * Received from GameplayController when enemy is attacking.
+     * Send signal to ArenaController if there is a defending monster,
+     * send signal to GameplayController for a direct attack if there is none
+     * @param idxAttacker index of monster in attacking player
+     * @param atkValue the attacking monster's attack value
+     */
     public void receiveAttack(int idxAttacker, int atkValue) {
         System.out.println("Field Receive Attack");
         if (player.getNumberOfMonstersOnField() > 0) {
             arenaController.receiveAttack(idxAttacker, atkValue);
         } else {
-            // Direct Attack
+            // Making a direct attack
             gameplayController.startBattle(idxAttacker, -1);
         }
     }
 
+    /**
+     * Send attacker and receiver index to GameplayController.
+     * Activated from ArenaController
+     * @param idxAttacker Index of monster in attacking player
+     * @param idxReceiver Index of monster in receiving player
+     */
     public void startBattle(int idxAttacker, int idxReceiver) {
-        System.out.println("Field Start Battle");
         gameplayController.startBattle(idxAttacker, idxReceiver);
     }
 
+    /**
+     * Receive the destroy index in the field that a player uses from ArenaController.
+     * Send signal to GameplayController
+     * @param idxSource Destroy skill index that is owned by a player that activates it
+     */
     public void useDestroy(int idxSource) {
-        System.out.println("Activating destroy from Field");
         gameplayController.useDestroy(idxSource);
     }
 
+    /**
+     * Receive signal that enemy is using destroy skill from GameplayController.
+     * Send signal to ArenaController
+     * @param idxSource Destroy skill index that is owned by a player that activates it
+     */
     public void receiveDestroy(int idxSource) {
-        System.out.println("Field receive destroy");
         arenaController.receiveDestroy(idxSource);
     }
 
+    /**
+     * Send activator and receiver index to GameplayController.
+     * Activated from ArenaController
+     * @param idxSource Index of Destroy in activating player
+     * @param idxReceiver Index of Monster targeted to destroy in receiving player
+     */
     public void startDestroy(int idxSource, int idxReceiver) {
-        System.out.println("Field Start Destroy");
         gameplayController.startDestroy(idxSource, idxReceiver);
     }
 }
