@@ -42,16 +42,16 @@ public class GameplayController implements NotifyPhase {
             });
     }
 
-    public void testPhaseButton() {
-        if(p1FieldController.handController.getTurn()) {
-            p1FieldController.handController.setTurn(false);
-            p2FieldController.handController.setTurn(true);
-        } else {
-            p1FieldController.handController.setTurn(true);
-            p2FieldController.handController.setTurn(false);
-        }
-
-    }
+//    public void testPhaseButton() {
+//        if(p1FieldController.handController.getTurn()) {
+//            p1FieldController.handController.setTurn(false);
+//            p2FieldController.handController.setTurn(true);
+//        } else {
+//            p1FieldController.handController.setTurn(true);
+//            p2FieldController.handController.setTurn(false);
+//        }
+//
+//    }
 
     public void setDescCard(Card card) {
 //        System.out.println("Setting description...");
