@@ -37,10 +37,7 @@ public class Player {
             deck.push(randomNumber.nextInt(99) + 1);
         }
         // Debugging
-        deck.pop();
-        deck.pop();
-        deck.push(new Integer(1));
-        deck.push(new Integer(2));
+
         //
         hand = new ArrayList<Card>();
         monsterOnField = new SummonedMonster[maxMonstersOnField];

@@ -181,10 +181,13 @@ public class GameplayController implements NotifyPhase {
 //        receivingPlayer.printMonsterCardsOnField();
         System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
 
+
         if (playerTurn == 1) {
             p2FieldController.setHP(receivingPlayer.getHp());
+            p1FieldController.arenaController.resetHightlight();
         } else {
             p1FieldController.setHP(receivingPlayer.getHp());
+            p1FieldController.arenaController.resetHightlight();
         }
     }
 }
