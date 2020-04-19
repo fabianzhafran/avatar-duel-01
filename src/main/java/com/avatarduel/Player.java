@@ -41,6 +41,17 @@ public class Player {
                 deck.push(randomNumber.nextInt(90) + 1);
             }
         }
+
+        deck.pop();
+        deck.pop();
+        deck.pop();
+        deck.pop();
+        deck.pop();
+        deck.push(1);
+        deck.push(20);
+        deck.push(72);
+        deck.push(100);
+        deck.push(101);
         hand = new ArrayList<Card>();
         monsterOnField = new SummonedMonster[maxMonstersOnField];
         numberOfMonstersOnField = 0;

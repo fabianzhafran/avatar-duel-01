@@ -66,82 +66,69 @@ public class CardUtils {
         return newButton;
     }
 
+    public static ImageView createImageView(String path, double width, double height, double layoutX, double layoutY) {
+        ImageView imgView = new ImageView();
+        Image img = new Image(path);
+        imgView.setImage(img);
+        imgView.setFitWidth(width);
+        imgView.setFitHeight(height);
+        imgView.setSmooth(true);
+        imgView.setCache(true);
+        imgView.setLayoutX(layoutX);
+        imgView.setLayoutY(layoutY);
+
+        return imgView;
+    }
+
 
 
     public static Group createCard(Card cardInput) {
-        Group newCard = new Group();
-        ImageView cardImg = new ImageView();
-        ImageView backCardImg = new ImageView();
-        try {
-            Image img = new Image(cardInput.getImagePath());
-            cardImg.setImage(img);
-            cardImg.setFitWidth(70);
-            cardImg.setFitHeight(50);
-            cardImg.setSmooth(true);
-            cardImg.setCache(true);
-            cardImg.setLayoutX(20);
-            cardImg.setLayoutY(28);
-
-            Image backImg = new Image("@/../assets/card-background.jpg");
-            backCardImg.setImage(backImg);
-            backCardImg.setFitWidth(80);
-            backCardImg.setFitHeight(110);
-            backCardImg.setSmooth(true);
-            backCardImg.setCache(true);
-            backCardImg.setLayoutX(15);
-            backCardImg.setLayoutY(5);
-            backCardImg.setOpacity(0);
-        } catch (Exception e) {
-            System.out.println("Image not found!");
-        } finally {
-            Element element = cardInput.getElement();
-            Rectangle outer = createRectCard(80, 110, 15, 5, element);
-            Rectangle nameRect = createRectCard(70, 15, 20, 10, element);
-            Rectangle imgRect = createRectCard(70,50, 20, 28, element);
-            Rectangle descRect = createRectCard(70, 30, 20, 80, element);
-            Label nameLabel = createLabel(cardInput.getName(), 22, 12, 8);
-            nameLabel.setPrefWidth(70);
-            // Monster
-            if (cardInput.getType().equals("Land")) {
-                Land castedCard = (Land) cardInput;
-                Label elmtLabel = createLabel(castedCard.getElement().toString(), 40, 80, 10);
-                newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, elmtLabel,cardImg, backCardImg);
-            } else if (cardInput.getType().equals("Monster")) {
-                Monster castedCard = (Monster) cardInput;
-                Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 45, 92, 10);
-                Label attLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 80, 10);
-                Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 78, 80, 10);
-                Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
-                Text powText = createText("Pow:", 22, 103, 10);
-                Text attText = createText("Att:", 22, 91, 10);
-                Text defText = createText("Def:", 55, 91, 10);
-                newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, cardImg, backCardImg);
+        Group newCard;
+        boolean isLand = cardInput.getType().equals("Land");
+        boolean isMonster = cardInput.getType().equals("Monster");
+        boolean isSkill = cardInput.getType().equals("Skill");
+        boolean isAura = false;
+        boolean isDestroyOrPowerUp = false;
+        if (isSkill) {
+            Skill skillCard = (Skill) cardInput;
+            if (skillCard.getSkillType().equals("Aura")) {
+                isAura = true;
             } else {
-                Skill skillCard = (Skill) cardInput;
-                Label powLabel = createLabel(String.valueOf(skillCard.getPowerValue()), 45, 92, 10);
-                Text powText = createText("Pow:", 22, 103, 10);
-                if (skillCard.getSkillType().equals("Aura")) {
-                    Aura castedCard = (Aura) skillCard;
-                    Label attLabel = createLabel(String.valueOf(castedCard.getAttackValue()), 45, 80, 10);
-                    Label defLabel = createLabel(String.valueOf(castedCard.getDefenseValue()), 78, 80, 10);
-                    Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
-                    Text attText = createText("Att:", 22, 91, 10);
-                    Text defText = createText("Def:", 55, 91, 10);
-                    newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, cardImg, backCardImg);
-                } else if (skillCard.getSkillType().equals("Destroy")) {
-                    newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, powText, cardImg, backCardImg);
-                } else if (skillCard.getSkillType().equals("Power Up")) {
-                    PowerUp castedCard = (PowerUp) skillCard;
-                    Label attLabel = createLabel("-", 45, 80, 10);
-                    Label defLabel = createLabel("-", 78, 80, 10);
-                    Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
-                    Text attText = createText("Att:", 22, 91, 10);
-                    Text defText = createText("Def:", 55, 91, 10);
-                    newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, cardImg, backCardImg);
-                }
+                isDestroyOrPowerUp = true;
             }
-
-            return newCard;
         }
+        if (isLand || isDestroyOrPowerUp) {
+            newCard = new CardGuiBuilder()
+                    .type(cardInput.getType())
+                    .name(cardInput.getName())
+                    .element(cardInput.getElement())
+                    .imagePath(cardInput.getImagePath()).build();
+        } else {
+            if (isMonster) {
+                Monster castedCard = (Monster) cardInput;
+                newCard = new CardGuiBuilder()
+                        .type(castedCard.getType())
+                        .name(castedCard.getName())
+                        .element(castedCard.getElement())
+                        .imagePath(castedCard.getImagePath())
+                        .att(castedCard.getAttackValue())
+                        .def(castedCard.getDefenseValue())
+                        .pow(castedCard.getPowerValue())
+                        .build();
+            } else {
+                Aura castedCard = (Aura) cardInput;
+                newCard = new CardGuiBuilder()
+                        .type(castedCard.getType())
+                        .name(castedCard.getName())
+                        .element(castedCard.getElement())
+                        .imagePath(castedCard.getImagePath())
+                        .att(castedCard.getAttackValue())
+                        .def(castedCard.getDefenseValue())
+                        .pow(castedCard.getPowerValue())
+                        .build();
+            }
+        }
+
+        return newCard;
     }
 }
