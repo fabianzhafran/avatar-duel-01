@@ -59,10 +59,10 @@ public class SummonedMonster implements ISummoned {
     
     public int getPositionValue() {
         if (this.isAttackPos) {
-            return this.monster.getAttackValue();
+            return this.getAttackValue();
         }
         else {
-            return this.monster.getDefenseValue();
+            return this.getDefenseValue();
         }
     }
     

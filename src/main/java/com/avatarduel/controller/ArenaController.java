@@ -1,7 +1,6 @@
 package com.avatarduel.controller;
 
 import com.avatarduel.Card.*;
-import com.avatarduel.phase.NotifyPhase;
 import com.avatarduel.Player;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -11,7 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -27,11 +27,13 @@ public class ArenaController {
     private boolean receivingAttack = false;
     private int idxAttacker = -1;
     private int atkValue = 0;
+
+    private boolean receivingDestroy = false;
     
     private int phaseNumber;
     private int playerTurn;
 
-    private boolean skillActivating;
+    private boolean equippingSkill;
     private boolean skillPowerUpActivating;
 
     private int idxActivatedSkill;
@@ -40,7 +42,8 @@ public class ArenaController {
         this.fieldController = f;
         emptyMonster = new PriorityQueue<Integer>();
         emptySkill = new PriorityQueue<Integer>();
-        skillActivating = false;
+        equippingSkill = false;
+        skillPowerUpActivating = false;
         for (int i = 0; i < 6; i++) {
             emptyMonster.add(i);
             emptySkill.add(i);
@@ -66,6 +69,11 @@ public class ArenaController {
         this.atkValue = atkValue;
     }
 
+    public void receiveDestroy(int idxSource) {
+        receivingDestroy = true;
+        this.idxAttacker = idxSource;
+    }
+
     public void cardHover(Event evt) {
         int i;
         Group hoveredCard = (Group) evt.getSource();
@@ -73,41 +81,27 @@ public class ArenaController {
         if (monsterArena.getChildren().contains(hoveredCard) && phaseNumber != 1 && phaseNumber != 4) {
             i = (monsterArena.getColumnIndex(hoveredCard));
             fieldController.setDescCard((fieldController.player.getMonsterOnField())[i]);
-
-            if (skillActivating || skillPowerUpActivating) {
-                Button equipButton = CardUtils.createButton("Equip", 20, 20, 70, 8);
-                equipButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                        event -> {
-                            System.out.println("Clicked Equip");
-                            if (skillActivating) {
-                                equipSkill(i, true);
-                            } else if (skillPowerUpActivating) {
-                                equipSkill(i, false);
-                            }
-                            fieldController.getHandController().setIsEquipping(false);
-                            Label attLabel = (Label) hoveredCard.getChildren().get(6);
-                            attLabel.setText(String.valueOf(player.getMonsterOnField()[i].getAttackValue()));
-                            exitHover(evt);
-                        });
-                hoveredCard.getChildren().add(equipButton);
-            } else if (!receivingAttack && playerTurn != -1) {
-                // ditaro kondisi klo lagi battle
-                System.out.println("====== HOVER BATTLE =======");
-                SummonedMonster hoveredPlayerMonster = player.getMonsterOnField()[i];
-                if (hoveredPlayerMonster.getIsAttackPosition() 
-                    && !hoveredPlayerMonster.getIsJustSummoned() 
-                    && !hoveredPlayerMonster.getHasAttacked()
-                    && phaseNumber == 3) {
-                    Button attackButton = CardUtils.createButton("Attack", 20, 20, 70, 8);
-                    attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+            if (playerTurn != -1) {
+                if (fieldController.isSkillActivating()) {
+                    Button equipButton = CardUtils.createButton("Equip", 20, 20, 70, 8);
+                    equipButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
-                                System.out.println("Clicked Attack");
-                                fieldController.startAttack(i);
+                                System.out.println("Clicked Equip");
+                                if (skillPowerUpActivating) {
+                                    equipSkill(i, false);
+                                } else  {
+                                    equipSkill(i, true);
+                                }
+                                fieldController.setSkillActivating(false);
+                                Label attLabel = (Label) hoveredCard.getChildren().get(6);
+                                attLabel.setText(String.valueOf(player.getMonsterOnField()[i].getAttackValue()));
+                                Label defLabel = (Label) hoveredCard.getChildren().get(7);
+                                defLabel.setText(String.valueOf(player.getMonsterOnField()[i].getDefenseValue()));
+                                exitHover(evt);
+                                resetHightlight();
                             });
-                    hoveredCard.getChildren().add(attackButton);
-                }
-
-                if (phaseNumber == 2) {
+                    hoveredCard.getChildren().add(equipButton);
+                } else if (phaseNumber == 2) {
                     Button changeButton = CardUtils.createButton("Change Position", 20, 60, 70, 8);
                     changeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
@@ -120,27 +114,69 @@ public class ArenaController {
                                 exitHover(evt);
                                 changePosition(i);
                             });
-                    hoveredCard.getChildren().add(changeButton);
+                    Button destroyButton = CardUtils.createButton("Destroy", 20, 20, 70, 8);
+                    destroyButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            event -> {
+                                System.out.println("Clicked Destroy");
+                                destroy(evt);
+                            });
+
+                    hoveredCard.getChildren().addAll(changeButton, destroyButton);
+                } else if (phaseNumber == 3) {
+                    // ditaro kondisi klo lagi battle
+                    System.out.println("====== HOVER BATTLE =======");
+                    SummonedMonster hoveredPlayerMonster = player.getMonsterOnField()[i];
+                    Player enemy = fieldController.getEnemy();
+                    boolean existLess = false;
+                    for (SummonedMonster enemyMonster: enemy.getMonsterOnField()) {
+                        if (player.getMonsterOnField()[i].getPositionValue() > enemyMonster.getPositionValue()) {
+                            existLess = true;
+                            break;
+                        }
+                    }
+                    if (hoveredPlayerMonster.getIsAttackPosition()
+                            && !hoveredPlayerMonster.getIsJustSummoned()
+                            && !hoveredPlayerMonster.getHasAttacked()
+                            && existLess) {
+                        Button attackButton = CardUtils.createButton("Attack", 20, 20, 70, 8);
+                        attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                                event -> {
+                                    System.out.println("Clicked Attack");
+                                    Rectangle outerRect = (Rectangle) hoveredCard.getChildren().get(0);
+                                    highlightCard(hoveredCard);
+                                    fieldController.startAttack(i);
+                                    exitHover(evt);
+                                });
+                        hoveredCard.getChildren().add(attackButton);
+                    }
                 }
-            } else if (receivingAttack && player.getMonsterOnField()[i].getAttackValue() < atkValue && playerTurn == -1 && phaseNumber == 3) { // lagi bukan turn player ini
-                // ditaro kondisi klo lagi battle
-                Button attackButton = CardUtils.createButton("Attack this", 20, 20, 70, 8);
-                attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                        event -> {
-                            System.out.println("Arena start Attack");
-                            destroy(evt);
-                            startBattle(i);
-                        });
-                hoveredCard.getChildren().add(attackButton);
+            } else {
+                if (receivingAttack && player.getMonsterOnField()[i].getPositionValue() < atkValue) { // lagi bukan turn player ini
+                    // ditaro kondisi klo lagi battle
+                    Button attackButton = CardUtils.createButton("Attack this", 20, 20, 70, 8);
+                    attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            event -> {
+                                System.out.println("Arena start Attack");
+                                startBattle(i, evt);
+                            });
+                    hoveredCard.getChildren().add(attackButton);
+                } else if (receivingDestroy) {
+                    Button attackButton = CardUtils.createButton("Destroy this", 20, 20, 70, 8);
+                    attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            event -> {
+                                System.out.println("Arena start Destroy");
+                                startDestroy(i, evt);
+                            });
+                    hoveredCard.getChildren().add(attackButton);
+                }
             }
 
         } else {
-//            player.printSkillCardsOnField();
             i = (skillArena.getColumnIndex(hoveredCard));
             fieldController.setDescCard((player.getSkillOnField())[i]);
 
             // Kalo lagi Main Phase
-            if (!skillActivating) {
+            if (playerTurn == 1 && !equippingSkill) {
                 Button destroyButton = CardUtils.createButton("Destroy", 20, 20, 70, 8);
                 destroyButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                         event -> {
@@ -151,24 +187,60 @@ public class ArenaController {
         }
     }
 
-    public void startBattle(int idxReceiver) {
+    public void highlightCard (Group cardGroup) {
+        Rectangle outerRect = (Rectangle) cardGroup.getChildren().get(0);
+        outerRect.setStroke(Color.RED);
+        outerRect.setStrokeWidth(5);
+    }
+
+    public void resetHightlight () {
+        for (int i = 0; i < 6; i++) {
+            if (getGridPaneNode(skillArena, i) != null) {
+                Group card = (Group) getGridPaneNode(skillArena, i);
+                Rectangle outerRect = (Rectangle) card.getChildren().get(0);
+                outerRect.setStroke(Color.BLACK);
+                outerRect.setStrokeWidth(1);
+            }
+
+            if (getGridPaneNode(monsterArena, i) != null) {
+                Group card = (Group) getGridPaneNode(monsterArena, i);
+                Rectangle outerRect = (Rectangle) card.getChildren().get(0);
+                outerRect.setStroke(Color.BLACK);
+                outerRect.setStrokeWidth(1);
+            }
+        }
+    }
+
+    public void startBattle(int idxReceiver, Event evt) {
         System.out.println("Arena Start Battle");
+        System.out.println("Position value receiver: " + fieldController.player.getMonsterOnField()[idxReceiver].getPositionValue());
+        if (fieldController.player.getMonsterOnField()[idxReceiver].getPositionValue() < atkValue) {
+            destroy(evt);
+            fieldController.startBattle(idxAttacker, idxReceiver);
+
+        } else {
+            System.out.println("The targeted monster atk/def is higher");
+        }
+
         receivingAttack = false;
-        fieldController.startBattle(idxAttacker, idxReceiver);
+    }
+
+    public void startDestroy(int idxReceiver, Event evt) {
+        System.out.println("Arena Start Destroy");
+        destroy(evt);
+        fieldController.startDestroy(idxAttacker, idxReceiver);
+        receivingDestroy = false;
     }
 
     public void equipSkill(int monsterIdx, boolean isAura) {
-//        System.out.println("Skill index: " + idxActivatedSkill);
-//        fieldController.player.printSkillCardsOnField();
-//        System.out.println("Monster index: " + monsterIdx);
-//        fieldController.player.printMonsterCardsOnField();
         if (isAura) {
             fieldController.player.activateAuraSkill(idxActivatedSkill, monsterIdx);
-            skillActivating = false;
         } else {
             fieldController.player.activatePowerUpSkill(idxActivatedSkill, monsterIdx);
             skillPowerUpActivating = false;
         }
+
+        equippingSkill = false;
     }
 
     public void changePosition(int idxMonster) {
@@ -183,27 +255,26 @@ public class ArenaController {
         }
         newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
                 event -> cardHover(event));
-        newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> destroy(event));
         newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
                 event -> exitHover(event));
         monsterArena.add(newCard, emptyCol, 0,  1, 1);
     }
 
-    public void activateCardEff(Card card) {
+    public void activateCardEff(Skill card) {
         int emptyCol = emptySkill.poll();
         Group newCard = CardUtils.createCard(card);
         newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
                 event -> cardHover(event));
-//        newCard.addEventHandler(MouseEvent.MOUSE_CLICKED,
-//                event -> destroy(event));
         newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
                 event -> exitHover(event));
         skillArena.add(newCard, emptyCol, 0,  1, 1);
-        String skillType = ((Skill)card).getSkillType();
-        if (skillType.equals("Aura")) {
-            skillActivating = true;
-        }  else if (skillType.equals("Power Up")) {
+        highlightCard(newCard);
+        if (card.getSkillType().equals("Aura")) {
+            equippingSkill = true;
+        } else if (card.getSkillType().equals("Destroy")) {
+            System.out.println("Activating destroy card from arena");
+            fieldController.useDestroy(emptyCol);
+        } else {
             skillPowerUpActivating = true;
         }
         idxActivatedSkill = emptyCol;
@@ -222,6 +293,18 @@ public class ArenaController {
         }
 
         return null;
+    }
+
+    public void destroyByIndex(int intDestroy, boolean isMonster) {
+        Group destroyCard;
+        if (isMonster) {
+            destroyCard = (Group) getGridPaneNode(monsterArena, intDestroy);
+            monsterArena.getChildren().remove(destroyCard);
+        } else {
+            destroyCard = (Group) getGridPaneNode(skillArena, intDestroy);
+            skillArena.getChildren().remove(destroyCard);
+        }
+
     }
 
     public void destroy(Event evt) {
@@ -247,7 +330,7 @@ public class ArenaController {
                 skillArena.getChildren().remove(destroySkill);
                 emptySkill.add(linkedSkill.get(i));
             }
-            if (!receivingAttack) {
+            if (!receivingAttack && !receivingDestroy) {
                 player.removeMonsterOnField(idx);
             }
         } else {
@@ -285,7 +368,6 @@ public class ArenaController {
         for (Node node: hoveredCard.getChildren()) {
             if (node instanceof Button) {
                 removeIdx.add(0, i);
-//                System.out.println("Index " + i);
             }
             i++;
         }

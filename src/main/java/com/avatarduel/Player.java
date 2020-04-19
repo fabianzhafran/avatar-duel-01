@@ -41,22 +41,35 @@ public class Player {
                 deck.push(randomNumber.nextInt(90) + 1);
             }
         }
+
+        deck.pop();
+        deck.pop();
+        deck.pop();
+        deck.pop();
+        deck.pop();
+        deck.push(1);
+        deck.push(20);
+        deck.push(72);
+        deck.push(100);
+        deck.push(101);
         hand = new ArrayList<Card>();
         monsterOnField = new SummonedMonster[maxMonstersOnField];
         numberOfMonstersOnField = 0;
         numberOfSkillsOnField = 0;
         skillOnField = new Skill[maxSkillsOnField];
-        elementPower = new ElementPower[4];
+        elementPower = new ElementPower[5];
         elementPower[0] = new ElementPower(EARTH);
         elementPower[1] = new ElementPower(WATER);
         elementPower[2] = new ElementPower(FIRE);
         elementPower[3] = new ElementPower(AIR);
+        elementPower[4] = new ElementPower(ENERGY);
 
         // DEBUG
         addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); 
         addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER);
         addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); 
-        addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); 
+        addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR);
+        addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY);
     }
 
     public int getPlayerID() {
@@ -144,8 +157,8 @@ public class Player {
     public void addLandMaxPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
-                elPow.setCurrentPow(elPow.getCurrentPow() + 1);
-                elPow.setMaxPow(elPow.getMaxPow() + 1);
+                elPow.setCurrentPow(elPow.getCurrentPow() + 100);
+                elPow.setMaxPow(elPow.getMaxPow() + 100);
             }
         }
     }
@@ -216,6 +229,21 @@ public class Player {
                         }
                     }
                 }
+                 if (!found) {
+                     for (String[] skillDestroyRow : listOfCards.listOfSkillDestroyCards) {
+                         if (topCardId == Integer.parseInt(skillDestroyRow[0])) {
+                             Destroy skillDestroyCard = new Destroy(skillDestroyRow[1],
+                                                           elementDictionary.getElement(skillDestroyRow[2]),
+                                     skillDestroyRow[3],
+                                     skillDestroyRow[4],
+                                                           Integer.parseInt(skillDestroyRow[5])
+                                                          );
+                             this.hand.add(skillDestroyCard);
+     //                        System.out.println(skillAuraCard.getName());
+                             return skillDestroyCard;
+                         }
+                     }
+                 }
                 // Draw skill power up
                 if (!found) {
                     for (String[] skillPowerUpRow : listOfCards.listOfSkillPowerUpCards) {
@@ -232,21 +260,6 @@ public class Player {
                         }
                     }
                 }
-    //             if (!found) {
-    //                 for (String[] destroyAuraRow : listOfCards.listOfSkillDestroyCards) {
-    //                     if (topCardId == Integer.parseInt(destroyAuraRow[0])) {
-    //                         Destroy skillDestroyCard = new Destroy(destroyAuraRow[1],
-    //                                                       elementDictionary.getElement(destroyAuraRow[2]),
-    //                                                       destroyAuraRow[3],
-    //                                                       destroyAuraRow[4],
-    //                                                       Integer.parseInt(destroyAuraRow[5])
-    //                                                      );
-    //                         this.hand.add(skillDestroyCard);
-    // //                        System.out.println(skillAuraCard.getName());
-    //                         return skillDestroyCard;
-    //                     }
-    //                 }
-    //             }
             }
         }
         return null;
@@ -364,6 +377,7 @@ public class Player {
         SummonedMonster attackingMonster = this.monsterOnField[sourceMonsterOnFieldIndex];
         if (!attackingMonster.getHasAttacked() && !attackingMonster.getIsJustSummoned()) {
             if (targetMonsterOnFieldIndex != -1) { // -1 kalau nggak ada monster di field lawan
+                System.out.println("Attack Monster");
                 SummonedMonster[] targetMonsterField = targetPlayer.getMonsterOnField();
                 SummonedMonster targetMonster = targetMonsterField[targetMonsterOnFieldIndex];
                 int attackingMonsterAtk = attackingMonster.getAttackValue();
@@ -373,13 +387,14 @@ public class Player {
                     if (attackingMonsterAtk > targetMonsterAtk) {
                         targetPlayer.removeMonsterOnField(targetMonsterOnFieldIndex);
                         targetPlayer.subtractHp(attackingMonsterAtk - targetMonsterAtk);
+                        System.out.println("Target Player HP: " + targetPlayer.getHp());
                         attackingMonster.setHasAttacked(true);
                     }
                 } else {
                     if (attackingMonsterAtk > targetMonsterDef) {
                         targetPlayer.removeMonsterOnField(targetMonsterOnFieldIndex);
                         if (attackingMonster.getPierce()) {
-                            targetPlayer.subtractHp(attackingMonsterAtk - targetMonsterAtk);
+                            targetPlayer.subtractHp(attackingMonsterAtk - targetMonsterDef);
                         }
                     }
                 }
@@ -387,6 +402,8 @@ public class Player {
                 targetPlayer.subtractHp(attackingMonster.getAttackValue());
                 attackingMonster.setHasAttacked(true);
             }
+        } else {
+            System.out.println("Monster has attacked");
         }
     }
 

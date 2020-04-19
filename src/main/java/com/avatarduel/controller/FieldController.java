@@ -3,6 +3,7 @@ package com.avatarduel.controller;
 import com.avatarduel.Card.Card;
 import com.avatarduel.Card.Skill;
 import com.avatarduel.Card.Element;
+import com.avatarduel.Card.Skill;
 import com.avatarduel.Card.SummonedMonster;
 import com.avatarduel.Player;
 import com.avatarduel.phase.*;
@@ -28,6 +29,7 @@ abstract public class FieldController implements NotifyPhase {
     @FXML private Label waterElement;
     @FXML private Label earthElement;
     @FXML private Label airElement;
+    @FXML private Label energyElement;
     @FXML private Label hpLabel;
     @FXML private Label playerLabel;
 
@@ -36,6 +38,8 @@ abstract public class FieldController implements NotifyPhase {
     protected Player player;
     protected int phaseNumber;
     protected int playerTurn;
+
+    protected boolean skillActivating = false;
 
     public void init(GameplayController g) {
         this.gameplayController = g;
@@ -50,10 +54,12 @@ abstract public class FieldController implements NotifyPhase {
         fireElement.setText(String.valueOf(player.getLandPowerByElement(FIRE)) + " / " + player.getMaxLandPowerByElement(FIRE));
         airElement.setText(String.valueOf(player.getLandPowerByElement(AIR)) + " / " + player.getMaxLandPowerByElement(AIR));
         earthElement.setText(String.valueOf(player.getLandPowerByElement(EARTH)) + " / " + player.getMaxLandPowerByElement(EARTH));
+        energyElement.setText(String.valueOf(player.getLandPowerByElement(ENERGY)) + " / " + player.getMaxLandPowerByElement(ENERGY));
         elmtMap.put(WATER, waterElement);
         elmtMap.put(FIRE, fireElement);
         elmtMap.put(AIR, airElement);
         elmtMap.put(EARTH, earthElement);
+        elmtMap.put(ENERGY, energyElement);
     }
 
     // Phase listener function 
@@ -91,14 +97,30 @@ abstract public class FieldController implements NotifyPhase {
         gameplayController.setDescCard(sm, player.getSkillOnField());
     }
 
+    public void setSkillActivating(boolean skillActivating) {
+        this.skillActivating = skillActivating;
+    }
+
     // Getter
 
     public Player getPlayer() {
         return player;
     }
 
+    public boolean isSkillActivating() {
+        return skillActivating;
+    }
+
     public HandController getHandController() {
         return handController;
+    }
+
+    public ArenaController getArenaController() {
+        return arenaController;
+    }
+
+    public Player getEnemy() {
+        return (playerTurn != -1) ? gameplayController.getPlayerNotInTurn() : null;
     }
 
     // Basic methods
@@ -121,17 +143,22 @@ abstract public class FieldController implements NotifyPhase {
 
 
             if (card.getType().equals("Land")) {
-                // Insert method here
+                handController.setLandUsed(true);
             } else if (card.getType().equals("Monster")) {
                 arenaController.summon(card, isAtt);
             } else {
-                arenaController.activateCardEff(card);
-                handController.setIsEquipping(true);
+                Skill skillCard = (Skill) card;
+                    setSkillActivating(true);
+                    arenaController.activateCardEff(skillCard);
+//                    handController.setIsEquipping(true);
+
             }
             handController.removeCard(idx);
 
         elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
     }
+
+
 
     // Battle Methods
 
@@ -153,5 +180,20 @@ abstract public class FieldController implements NotifyPhase {
     public void startBattle(int idxAttacker, int idxReceiver) {
         System.out.println("Field Start Battle");
         gameplayController.startBattle(idxAttacker, idxReceiver);
+    }
+
+    public void useDestroy(int idxSource) {
+        System.out.println("Activating destroy from Field");
+        gameplayController.useDestroy(idxSource);
+    }
+
+    public void receiveDestroy(int idxSource) {
+        System.out.println("Field receive destroy");
+        arenaController.receiveDestroy(idxSource);
+    }
+
+    public void startDestroy(int idxSource, int idxReceiver) {
+        System.out.println("Field Start Destroy");
+        gameplayController.startDestroy(idxSource, idxReceiver);
     }
 }

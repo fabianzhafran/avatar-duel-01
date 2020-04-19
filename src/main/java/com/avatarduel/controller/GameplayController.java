@@ -24,6 +24,7 @@ public class GameplayController implements NotifyPhase {
     private Phase phase;
     private int phaseNumber;
     private int playerTurn;
+    private boolean isAttacking;
 
     @FXML public void initialize() {
         System.out.println("App started");
@@ -36,10 +37,14 @@ public class GameplayController implements NotifyPhase {
         phase = new Phase(p1FieldController, p2FieldController, this);
         phase.nextPhase();
         // handle next phase
+        isAttacking = false;
         nextPhaseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
             event -> {
-                phase.nextPhase();
+                if (!p1FieldController.isSkillActivating() && !p2FieldController.isSkillActivating() && !isAttacking) {
+                    phase.nextPhase();
+                }
             });
+
     }
 
     public void setDescCard(Card card) {
@@ -108,9 +113,46 @@ public class GameplayController implements NotifyPhase {
         phaseLabel.setText(PhaseEnum.phaseEnum.get(phaseNumber));
     }
 
+    public void useDestroy(int idxSource) {
+        System.out.println("Gameplay use Destroy");
+        if (playerTurn == 1) {
+            p2FieldController.receiveDestroy(idxSource);
+        } else {
+            p1FieldController.receiveDestroy(idxSource);
+        }
+    }
+
+    public void startDestroy(int idxSource, int idxReceiver) {
+        System.out.println("Gameplay Start Destroy");
+        Player sourcePlayer = getPlayerInTurn();
+        Player receivingPlayer = getPlayerNotInTurn();
+
+        System.out.println("Monster before battle: ");
+        receivingPlayer.printMonsterCardsOnField();
+        sourcePlayer.activateDestroySkill(true, idxSource, idxReceiver, receivingPlayer);
+        System.out.println("Monster after battle: ");
+        receivingPlayer.printMonsterCardsOnField();
+
+        if (playerTurn == 1) {
+            p1FieldController.getArenaController().destroyByIndex(idxSource, false);
+        } else {
+            p2FieldController.getArenaController().destroyByIndex(idxSource, false);
+        }
+    }
+
+    public Player getPlayerInTurn() {
+        return (playerTurn == 1) ? p1FieldController.getPlayer() : p2FieldController.getPlayer();
+    }
+
+    public Player getPlayerNotInTurn() {
+        return (playerTurn == 1) ? p2FieldController.getPlayer() : p1FieldController.getPlayer();
+    }
+
     public void startAttack(int idx) {
         // Nanti di chek turn siapa, misalnya skarang turn P1 Yang nyerang
         System.out.println("Gameplay Start Attack");
+        isAttacking = true;
+
         if (playerTurn == 1) {
             SummonedMonster p1AttackingMonster = p1FieldController.getPlayer().getMonsterOnField()[idx];
             if (!p1AttackingMonster.getHasAttacked()) {
@@ -129,27 +171,25 @@ public class GameplayController implements NotifyPhase {
     public void startBattle(int idxAttacker, int idxReceiver) {
         // Misalkan yang nyerang p1
         System.out.println("Gameplay Start Battle");
-        Player attackingPlayer;
-        Player receivingPlayer;
-        if (playerTurn == 1) {
-            attackingPlayer = p1FieldController.getPlayer();
-            receivingPlayer = p2FieldController.getPlayer();
-            // Nanti dibikin if klo lagi giliran p2
-        } else {
-            attackingPlayer = p2FieldController.getPlayer();
-            receivingPlayer = p1FieldController.getPlayer();
-        }
+        Player attackingPlayer = getPlayerInTurn();
+        Player receivingPlayer = getPlayerNotInTurn();
 
-        System.out.println("Monster before battle: ");
-        receivingPlayer.printMonsterCardsOnField();
+//        System.out.println("Monster before battle: ");
+//        receivingPlayer.printMonsterCardsOnField();
         attackingPlayer.attack(idxAttacker, idxReceiver, receivingPlayer);
-        System.out.println("Monster after battle: ");
-        receivingPlayer.printMonsterCardsOnField();
+//        System.out.println("Monster after battle: ");
+//        receivingPlayer.printMonsterCardsOnField();
         System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
+
+
         if (playerTurn == 1) {
             p2FieldController.setHP(receivingPlayer.getHp());
+            p1FieldController.arenaController.resetHightlight();
         } else {
             p1FieldController.setHP(receivingPlayer.getHp());
+            p1FieldController.arenaController.resetHightlight();
         }
+
+        isAttacking = false;
     }
 }
