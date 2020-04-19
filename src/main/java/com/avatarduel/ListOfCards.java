@@ -16,8 +16,8 @@ public class ListOfCards {
 
     public ListOfCards() {
         listOfLandCards = this.loadCards("land");
-        listOfMonsterCards = this.loadCards("characterDebug");
-        listOfSkillAuraCards = this.loadCards("skill_auraDebug");
+        listOfMonsterCards = this.loadCards("character");
+        listOfSkillAuraCards = this.loadCards("skill_aura");
         listOfSkillDestroyCards = this.loadCards("skill_destroy");
     }
 
