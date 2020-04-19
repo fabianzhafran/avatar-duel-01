@@ -175,7 +175,11 @@ public class Player {
 //            System.out.println(elPow.getCurrentPow());
         }
     }
-    
+
+    public void setNamePlayer(String namePlayer) {
+        this.namePlayer = namePlayer;
+    }
+
     public Card draw() {
         Random randomNumber = new Random();
         if (hand.size() >= maxCardsOnHand) {
