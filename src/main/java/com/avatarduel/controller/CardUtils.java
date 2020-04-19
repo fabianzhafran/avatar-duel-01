@@ -1,4 +1,7 @@
 package com.avatarduel.controller;
+/** GUI Handler for the small cards on arena
+ * @author K01_01_IF2210
+ */
 
 import com.avatarduel.card.*;
 import javafx.scene.Group;
@@ -84,12 +87,11 @@ public class CardUtils {
 
             return imgView;
         }
-
-
     }
 
-
-
+    /** Builder pattern to create the view for the small cards on the field
+     *  @param cardInput card as an input for the builder
+     */
     public static Group createCard(Card cardInput) {
         Group newCard;
         boolean isLand = cardInput.getType().equals("Land");

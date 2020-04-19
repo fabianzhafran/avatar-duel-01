@@ -1,5 +1,11 @@
 package com.avatarduel.controller;
 
+/** ArenaController is the GUI controller for the monsters and 
+ * skills field
+ * 
+ * @author K01_01_IF2210
+ */
+
 import com.avatarduel.card.*;
 import com.avatarduel.Player;
 import javafx.event.Event;
@@ -86,7 +92,6 @@ public class ArenaController {
                     Button equipButton = CardUtils.createButton("Equip", 20, 20, 70, 8);
                     equipButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
-                                System.out.println("Clicked Equip");
                                 if (skillPowerUpActivating) {
                                     equipSkill(i, false);
                                 } else  {
@@ -105,7 +110,6 @@ public class ArenaController {
                     Button changeButton = CardUtils.createButton("Change Position", 20, 60, 70, 8);
                     changeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
-                                System.out.println("Clicked Change Position");
                                 if (player.getMonsterOnField()[i].getIsAttackPosition()) {
                                     hoveredCard.setRotate(90);
                                 } else {
@@ -117,14 +121,12 @@ public class ArenaController {
                     Button destroyButton = CardUtils.createButton("Destroy", 20, 20, 70, 8);
                     destroyButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
-                                System.out.println("Clicked Destroy");
                                 destroy(evt);
                             });
 
                     hoveredCard.getChildren().addAll(changeButton, destroyButton);
                 } else if (phaseNumber == 3) {
                     // ditaro kondisi klo lagi battle
-                    System.out.println("====== HOVER BATTLE =======");
                     SummonedMonster hoveredPlayerMonster = player.getMonsterOnField()[i];
                     Player enemy = fieldController.getEnemy();
                     boolean existLess = false;
@@ -147,7 +149,6 @@ public class ArenaController {
                         Button attackButton = CardUtils.createButton("Attack", 20, 20, 70, 8);
                         attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                 event -> {
-                                    System.out.println("Clicked Attack");
                                     Rectangle outerRect = (Rectangle) hoveredCard.getChildren().get(0);
                                     highlightCard(hoveredCard);
                                     fieldController.startAttack(i);
@@ -163,7 +164,6 @@ public class ArenaController {
                     Button attackButton = CardUtils.createButton("Attack this", 20, 20, 70, 8);
                     attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
-                                System.out.println("Arena start Attack");
                                 startBattle(i, evt);
                             });
                     hoveredCard.getChildren().add(attackButton);
@@ -171,7 +171,6 @@ public class ArenaController {
                     Button attackButton = CardUtils.createButton("Destroy this", 20, 20, 70, 8);
                     attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
-                                System.out.println("Arena start Destroy");
                                 startDestroy(i, evt);
                             });
                     hoveredCard.getChildren().add(attackButton);
@@ -219,21 +218,15 @@ public class ArenaController {
     }
 
     public void startBattle(int idxReceiver, Event evt) {
-        System.out.println("Arena Start Battle");
-        System.out.println("Position value receiver: " + fieldController.player.getMonsterOnField()[idxReceiver].getPositionValue());
         if (fieldController.player.getMonsterOnField()[idxReceiver].getPositionValue() < atkValue) {
             destroy(evt);
             fieldController.startBattle(idxAttacker, idxReceiver);
-
-        } else {
-            System.out.println("The targeted monster atk/def is higher");
         }
 
         receivingAttack = false;
     }
 
     public void startDestroy(int idxReceiver, Event evt) {
-        System.out.println("Arena Start Destroy");
         destroy(evt);
         fieldController.startDestroy(idxAttacker, idxReceiver);
         receivingDestroy = false;
@@ -279,7 +272,6 @@ public class ArenaController {
         if (card.getSkillType().equals("Aura")) {
             equippingSkill = true;
         } else if (card.getSkillType().equals("Destroy")) {
-            System.out.println("Activating destroy card from arena");
             fieldController.useDestroy(emptyCol);
         } else {
             skillPowerUpActivating = true;
@@ -326,15 +318,9 @@ public class ArenaController {
             monsterArena.getChildren().remove(clickedCard);
             SummonedMonster monsterData = player.getMonsterOnField()[idx];
             ArrayList<Integer> linkedSkill = monsterData.getSkillLinked();
-            ArrayList<Integer> idxSkillArena = new ArrayList<Integer>();
-            System.out.println("Destroying skill Card");
-
             // Percobaan 3
-            System.out.println("Size linked skill: " + linkedSkill.size());
             player.printLinkedSkill(idx);
             for (int i = linkedSkill.size() - 1; i >= 0; i--) {
-                System.out.println("Index iterasi: " + i);
-                System.out.println("Index skill: " + linkedSkill.get(i));
                 Group destroySkill = (Group) getGridPaneNode(skillArena, linkedSkill.get(i));
                 skillArena.getChildren().remove(destroySkill);
                 emptySkill.add(linkedSkill.get(i));
