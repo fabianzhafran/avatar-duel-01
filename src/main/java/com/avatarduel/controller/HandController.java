@@ -101,14 +101,14 @@ public class HandController {
                     if (phaseNumber == 2) {
                         boolean isSkill = (hoveredCard.getType().equals("Skill") && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Skill) hoveredCard).getPowerValue() && player.getNumberOfSkillsOnField() < 6);
                         boolean isLand = hoveredCard.getType().equals("Land") && (!landUsed);
-                        boolean isAura = false;
+                        boolean isAuraOrPowerUp = false;
                         boolean isDestroy = false;
                         if (isSkill) {
                             Skill skillCard = (Skill) hoveredCard;
 //                            System.out.println(skillCard.getSkillType());
-                            if (skillCard.getSkillType().equals("Aura")) {
+                            if (skillCard.getSkillType().equals("Aura") || skillCard.getSkillType().equals("Power Up")) {
                                 if (player.getNumberOfMonstersOnField() > 0) {
-                                    isAura = true;
+                                    isAuraOrPowerUp = true;
                                 }
                             } else if (skillCard.getSkillType().equals("Destroy")) {
                                 // Nanti kasih condition buat aktifin destroy
@@ -118,7 +118,7 @@ public class HandController {
                                 }
                             }
                         }
-                        if (isDestroy || isAura || isLand) {
+                        if (isDestroy || isAuraOrPowerUp || isLand) {
                             Button actButton = CardUtils.createButton("Activate", 20, 20, 70, 8);
                             actButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                     event -> {

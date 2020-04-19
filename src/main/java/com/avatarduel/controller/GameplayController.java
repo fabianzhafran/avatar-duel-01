@@ -24,6 +24,7 @@ public class GameplayController implements NotifyPhase {
     private Phase phase;
     private int phaseNumber;
     private int playerTurn;
+    private boolean isAttacking;
 
     @FXML public void initialize() {
         System.out.println("App started");
@@ -36,22 +37,15 @@ public class GameplayController implements NotifyPhase {
         phase = new Phase(p1FieldController, p2FieldController, this);
         phase.nextPhase();
         // handle next phase
+        isAttacking = false;
         nextPhaseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
             event -> {
-                phase.nextPhase();
+                if (!p1FieldController.isSkillActivating() && !p2FieldController.isSkillActivating() && !isAttacking) {
+                    phase.nextPhase();
+                }
             });
-    }
 
-//    public void testPhaseButton() {
-//        if(p1FieldController.handController.getTurn()) {
-//            p1FieldController.handController.setTurn(false);
-//            p2FieldController.handController.setTurn(true);
-//        } else {
-//            p1FieldController.handController.setTurn(true);
-//            p2FieldController.handController.setTurn(false);
-//        }
-//
-//    }
+    }
 
     public void setDescCard(Card card) {
 //        System.out.println("Setting description...");
@@ -76,6 +70,11 @@ public class GameplayController implements NotifyPhase {
                 cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
                 cardDescController.setAtt("Atk: " + String.valueOf(castedCard.getAttackValue()));
                 cardDescController.setDef("Def: " + String.valueOf(castedCard.getDefenseValue()));
+            } else if (skillCard.getSkillType().equals("Power Up")) {
+                PowerUp castedCard = (PowerUp) skillCard;
+                cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
+                cardDescController.setAtt(" ");
+                cardDescController.setDef(" "); 
             }
 
         } else {
@@ -152,6 +151,7 @@ public class GameplayController implements NotifyPhase {
     public void startAttack(int idx) {
         // Nanti di chek turn siapa, misalnya skarang turn P1 Yang nyerang
         System.out.println("Gameplay Start Attack");
+        isAttacking = true;
 
         if (playerTurn == 1) {
             SummonedMonster p1AttackingMonster = p1FieldController.getPlayer().getMonsterOnField()[idx];
@@ -189,5 +189,7 @@ public class GameplayController implements NotifyPhase {
             p1FieldController.setHP(receivingPlayer.getHp());
             p1FieldController.arenaController.resetHightlight();
         }
+
+        isAttacking = false;
     }
 }

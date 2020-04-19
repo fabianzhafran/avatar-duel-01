@@ -33,7 +33,12 @@ public class ArenaController {
     private int phaseNumber;
     private int playerTurn;
 
+//<<<<<<< HEAD
     private boolean equippingSkill;
+//=======
+//    private boolean skillActivating;
+    private boolean skillPowerUpActivating;
+//>>>>>>> b8760a98bd63fc1039773f1c455cdebefe558292
 
     private int idxActivatedSkill;
 
@@ -42,6 +47,7 @@ public class ArenaController {
         emptyMonster = new PriorityQueue<Integer>();
         emptySkill = new PriorityQueue<Integer>();
         equippingSkill = false;
+        skillPowerUpActivating = false;
         for (int i = 0; i < 6; i++) {
             emptyMonster.add(i);
             emptySkill.add(i);
@@ -80,13 +86,33 @@ public class ArenaController {
             i = (monsterArena.getColumnIndex(hoveredCard));
             fieldController.setDescCard((fieldController.player.getMonsterOnField())[i]);
 
+//<<<<<<< HEAD
             if (playerTurn != -1) {
                 if (fieldController.isSkillActivating()) {
                     Button equipButton = CardUtils.createButton("Equip", 20, 20, 70, 8);
                     equipButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+//=======
+//            if (skillActivating || skillPowerUpActivating) {
+//                Button equipButton = CardUtils.createButton("Equip", 20, 20, 70, 8);
+//                equipButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+//                        event -> {
+//                            System.out.println("Clicked Equip");
+
+//                            fieldController.getHandController().setIsEquipping(false);
+//                            Label attLabel = (Label) hoveredCard.getChildren().get(6);
+//                            attLabel.setText(String.valueOf(player.getMonsterOnField()[i].getAttackValue()));
+//                            exitHover(evt);
+//                        });
+//                hoveredCard.getChildren().add(equipButton);
+//            }
+//>>>>>>> b8760a98bd63fc1039773f1c455cdebefe558292
                             event -> {
                                 System.out.println("Clicked Equip");
-                                equip(i);
+                                if (skillPowerUpActivating) {
+                                    equipSkill(i, false);
+                                } else  {
+                                    equipSkill(i, true);
+                                }
                                 fieldController.setSkillActivating(false);
 //                                fieldController.getHandController().setIsEquipping(false);
                                 Label attLabel = (Label) hoveredCard.getChildren().get(6);
@@ -111,13 +137,13 @@ public class ArenaController {
                                 changePosition(i);
                             });
                     Button destroyButton = CardUtils.createButton("Destroy", 20, 20, 70, 8);
-                    changeButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                    destroyButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
                                 System.out.println("Clicked Destroy");
                                 destroy(evt);
                             });
 
-                    hoveredCard.getChildren().add(changeButton);
+                    hoveredCard.getChildren().addAll(changeButton, destroyButton);
                 } else if (phaseNumber == 3) {
                     // ditaro kondisi klo lagi battle
                     System.out.println("====== HOVER BATTLE =======");
@@ -220,9 +246,25 @@ public class ArenaController {
         receivingDestroy = false;
     }
 
-    public void equip(int monsterIdx) {
-        fieldController.player.activateAuraSkill(idxActivatedSkill, monsterIdx);
+//<<<<<<< HEAD
+//    public void equip(int monsterIdx) {
+//        fieldController.player.activateAuraSkill(idxActivatedSkill, monsterIdx);
+//        equippingSkill = false;
+//=======
+    public void equipSkill(int monsterIdx, boolean isAura) {
+//        System.out.println("Skill index: " + idxActivatedSkill);
+//        fieldController.player.printSkillCardsOnField();
+//        System.out.println("Monster index: " + monsterIdx);
+//        fieldController.player.printMonsterCardsOnField();
+        if (isAura) {
+            fieldController.player.activateAuraSkill(idxActivatedSkill, monsterIdx);
+        } else {
+            fieldController.player.activatePowerUpSkill(idxActivatedSkill, monsterIdx);
+            skillPowerUpActivating = false;
+        }
+
         equippingSkill = false;
+//>>>>>>> b8760a98bd63fc1039773f1c455cdebefe558292
     }
 
     public void changePosition(int idxMonster) {
@@ -254,13 +296,23 @@ public class ArenaController {
         newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
                 event -> exitHover(event));
         skillArena.add(newCard, emptyCol, 0,  1, 1);
+//<<<<<<< HEAD
         highlightCard(newCard);
         if (card.getSkillType().equals("Aura")) {
             equippingSkill = true;
         } else if (card.getSkillType().equals("Destroy")) {
             System.out.println("Activating destroy card from arena");
             fieldController.useDestroy(emptyCol);
+        } else {
+            skillPowerUpActivating = true;
         }
+//=======
+//        String skillType = ((Skill)card).getSkillType();
+//        if (skillType.equals("Aura")) {
+//            skillActivating = true;
+//        }  else if (skillType.equals("Power Up")) {
+//
+//>>>>>>> b8760a98bd63fc1039773f1c455cdebefe558292
         idxActivatedSkill = emptyCol;
     }
 
@@ -341,11 +393,6 @@ public class ArenaController {
             Group affectedMonsterGroup = (Group) getGridPaneNode(monsterArena, idxMonster);
             Label attLabel = (Label) affectedMonsterGroup.getChildren().get(6);
             attLabel.setText(String.valueOf(player.getMonsterOnField()[idxMonster].getAttackValue()));
-
-
-
-
-
         }
 
     }
