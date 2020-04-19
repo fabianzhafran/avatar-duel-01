@@ -13,7 +13,16 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 
+/**
+ * HandController is a controller to the Hand.fxml file.
+ * This class controls the GUI of a card that is in a Player's hand.
+ * This controller is linked to a FieldController class.
+ */
 public class HandController {
+    /**
+     * A HBox Container that contains the visualization
+     * of the cards that a player has in his/her hand.
+     */
     @FXML private HBox handHBox;
     @FXML private FieldController fieldController;
 

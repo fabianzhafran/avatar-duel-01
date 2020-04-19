@@ -12,10 +12,19 @@ package com.avatarduel.card;
  */
 public class Land extends Card {
 
+    /**
+     * Creates a new Monster Card from given parameters using parent constructor
+     * @param name name of the card
+     * @param element element of the card
+     * @param desc description of the card
+     * @param path imagePath of the card
+     */
     public Land(String name, Element element, String desc, String path) {
         super(name, element, desc, path);
     }
-
+    /**
+     * @return "Land"
+     */
     public String getType() {
         return "Land";
     }

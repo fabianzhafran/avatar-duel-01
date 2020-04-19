@@ -23,6 +23,7 @@ public class Monster extends Card {
      * @param path imagePath of the card
      * @param atk attack point of the card
      * @param def defense point of the card
+     * @param pow power point of the card
      */
     public Monster(String name, Element element, String desc, String path, int atk, int def, int pow) {
         super(name, element, desc, path);
@@ -32,7 +33,7 @@ public class Monster extends Card {
     }
 
     /**
-     * @return Monster
+     * @return "Monster"
      */
     public String getType() {
         return "Monster";

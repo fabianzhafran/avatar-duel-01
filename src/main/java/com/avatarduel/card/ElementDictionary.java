@@ -2,6 +2,11 @@ package com.avatarduel.card;
 
 import java.util.Hashtable;
 
+/**
+ * ElementDictionary is a class that maps an element
+ * in the form of a string to that element in the form of
+ * Element enum.
+ */
 public class ElementDictionary {
     private Hashtable<String, Element> elementDictionary;
 
