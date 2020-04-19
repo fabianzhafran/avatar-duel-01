@@ -187,7 +187,7 @@ public class Player {
             if (getDeckCount() > 0) {
 
                 int idx = randomNumber.nextInt(deck.size() - 1);
-                int topCardId = 65;
+                int topCardId = deck.get(idx);
                 deck.remove(idx);
                 // Draw land
                 for (String[] landRow : listOfCards.listOfLandCards) {
