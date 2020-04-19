@@ -29,6 +29,7 @@ abstract public class FieldController implements NotifyPhase {
     @FXML private Label waterElement;
     @FXML private Label earthElement;
     @FXML private Label airElement;
+    @FXML private Label energyElement;
     @FXML private Label hpLabel;
     @FXML private Label playerLabel;
 
@@ -53,10 +54,12 @@ abstract public class FieldController implements NotifyPhase {
         fireElement.setText(String.valueOf(player.getLandPowerByElement(FIRE)) + " / " + player.getMaxLandPowerByElement(FIRE));
         airElement.setText(String.valueOf(player.getLandPowerByElement(AIR)) + " / " + player.getMaxLandPowerByElement(AIR));
         earthElement.setText(String.valueOf(player.getLandPowerByElement(EARTH)) + " / " + player.getMaxLandPowerByElement(EARTH));
+        energyElement.setText(String.valueOf(player.getLandPowerByElement(ENERGY)) + " / " + player.getMaxLandPowerByElement(ENERGY));
         elmtMap.put(WATER, waterElement);
         elmtMap.put(FIRE, fireElement);
         elmtMap.put(AIR, airElement);
         elmtMap.put(EARTH, earthElement);
+        elmtMap.put(ENERGY, energyElement);
     }
 
     // Phase listener function 

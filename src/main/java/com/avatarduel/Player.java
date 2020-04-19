@@ -46,17 +46,19 @@ public class Player {
         numberOfMonstersOnField = 0;
         numberOfSkillsOnField = 0;
         skillOnField = new Skill[maxSkillsOnField];
-        elementPower = new ElementPower[4];
+        elementPower = new ElementPower[5];
         elementPower[0] = new ElementPower(EARTH);
         elementPower[1] = new ElementPower(WATER);
         elementPower[2] = new ElementPower(FIRE);
         elementPower[3] = new ElementPower(AIR);
+        elementPower[4] = new ElementPower(ENERGY);
 
         // DEBUG
         addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); 
         addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER);
         addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); 
         addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR);
+        addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY);
     }
 
     public int getPlayerID() {
