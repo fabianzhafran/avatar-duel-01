@@ -127,8 +127,10 @@ abstract public class FieldController implements NotifyPhase {
     // Basic methods
 
     public void draw() {
+        if (player.getHand().size() >= 9) {
+            handController.removeCard(0);
+        }
         Card cardToPutOnHand = player.draw();
-        System.out.println("WOWOWOW");
         if (cardToPutOnHand != null) {
             Group newCard = CardUtils.createCard(cardToPutOnHand);
             handController.addCard(newCard);
