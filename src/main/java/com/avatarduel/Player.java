@@ -229,6 +229,7 @@ public class Player {
                         }
                     }
                 }
+                // Draw skill destroy
                  if (!found) {
                      for (String[] skillDestroyRow : listOfCards.listOfSkillDestroyCards) {
                          if (topCardId == Integer.parseInt(skillDestroyRow[0])) {

@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="350.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.controller.P2FieldController">
     <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="175.0" layoutX="887.0" layoutY="1.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="94.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="190.0" layoutX="887.0" layoutY="1.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="94.0" />
         <AnchorPane layoutX="880.0" prefHeight="297.0" prefWidth="110.0">
             <children>
                 <Group layoutX="18.0" layoutY="210.0" onMouseClicked="#draw">
@@ -91,6 +91,20 @@
                            </image>
                         </ImageView>
                         <Label fx:id="airElement" layoutX="25.0" text="2">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="17.0" layoutY="162.0">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@../assets/energy.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="energyElement" layoutX="25.0" layoutY="2.0" text="2">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>

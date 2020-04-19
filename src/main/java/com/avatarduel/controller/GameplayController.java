@@ -7,7 +7,9 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,9 @@ public class GameplayController implements NotifyPhase {
     @FXML private Label playerLabel;
     @FXML private Label phaseLabel;
     @FXML private Button nextPhaseButton;
+    @FXML private Text winLabel;
+    @FXML private ImageView winImage;
+
 
     private Phase phase;
     private int phaseNumber;
@@ -44,6 +49,10 @@ public class GameplayController implements NotifyPhase {
                     phase.nextPhase();
                 }
             });
+        winImage.setVisible(false);
+        winImage.setDisable(true);
+        winLabel.setVisible(false);
+        winLabel.setDisable(true);
 
     }
 
@@ -180,12 +189,26 @@ public class GameplayController implements NotifyPhase {
 //        System.out.println("Monster after battle: ");
 //        receivingPlayer.printMonsterCardsOnField();
         System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
-
+        
+        boolean win = false;
+        if (receivingPlayer.getHp() == 0) {
+            win = true;
+            winLabel.setVisible(true);
+            winLabel.setDisable(false);
+            winImage.setVisible(true);
+            winImage.setDisable(false);
+        } 
 
         if (playerTurn == 1) {
+            if (win) {
+                winLabel.setText("Player 1 Won The War!");
+            }
             p2FieldController.setHP(receivingPlayer.getHp());
             p1FieldController.arenaController.resetHightlight();
         } else {
+            if (win) {
+                winLabel.setText("Player 2 Won The War!");
+            }
             p1FieldController.setHP(receivingPlayer.getHp());
             p1FieldController.arenaController.resetHightlight();
         }
