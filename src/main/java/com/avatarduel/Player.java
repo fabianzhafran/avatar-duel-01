@@ -1,4 +1,9 @@
 package com.avatarduel;
+/** Represents the state of the player playing the game.
+ * @author Fabian Zhafransyah
+ * @author Ananda Yulizar
+ * @author Rafi Adyatma 
+*/
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -279,13 +284,11 @@ public class Player {
         return null;
     }
 
+    /** Removes a monster from the monster field
+     * @param monsterIndex index of the monster on field to be removed 
+     */
     public void removeMonsterOnField(int monsterIndex) {
         ArrayList<Integer> linkedSkill = monsterOnField[monsterIndex].getSkillLinked();
-//        int totalSize = linkedSkill.size();
-//        for (int i = 0; i < totalSize; i++) {
-//            removeSkillOnField(linkedSkill.get(i));
-//        }
-
         for (int i = linkedSkill.size() - 1; i >= 0; i--) {
             removeSkillOnField(linkedSkill.get(i));
         }
@@ -293,6 +296,9 @@ public class Player {
         numberOfMonstersOnField--;
     }
 
+    /** Removes a skill from the skill field.
+     * @param skillIndex index of the skill on field to be removed
+     */
     public void removeSkillOnField(int skillIndex) {
         boolean removed = false;
         if (skillOnField[skillIndex].getSkillType().equals("Aura")) {
@@ -317,12 +323,14 @@ public class Player {
         numberOfSkillsOnField--;
     }
 
-    // return true kalo sukses
+    /** Put a card to the field
+     * @param cardOnHandIndex index of card on hand to be put on player's field
+     * @param isAttackPosition denotes whether the card is put on attack position or not. If the card is not a monster card, it is not used.
+     */
     public void putToField(int cardOnHandIndex, boolean isAttackPosition) {
         int i = 0;
         System.out.println("~~~Put to field~~~");
         if (hand.size() > 0) {
-        // if (hand.size() > 0 && (isCorrectPhase(PhaseEnum.MAIN_PHASE_1)) {
             Card handGet = hand.get(cardOnHandIndex);
             if (handGet.getType().equals("Monster")) {
                System.out.println("Card is monster");
@@ -368,7 +376,9 @@ public class Player {
 //        System.out.println("End of putToField");
     }
 
-    // Reset all attacking condition before battle phase
+    /** Resets every monster's attacking status to false. It is called when players start their round.
+     * 
+     */
     public void resetMonsterHasAttacked() {
         for (SummonedMonster monster : monsterOnField) {
             if (monster != null) {
@@ -377,7 +387,9 @@ public class Player {
         }
     }
 
-    // Reset monsters that are summoned to be able to attack
+    /** Resets every monster's "just summoned" status to false. It is called when players start their round.
+     * 
+     */
     public void resetMonsterIsJustSummoned() {
         for (SummonedMonster monster : monsterOnField) {
             if (monster != null) {
@@ -386,6 +398,11 @@ public class Player {
         }
     }
 
+    /** Conduct an attack towards other player. 
+     * @param sourceMonsterOnFieldIndex attacking monster's index on player's monster field
+     * @param targetMonsterOnFieldIndex attacked monster's index on attacked player's monster field
+     * @param targetPlayer player who is targeted for the attack
+     */
     public void attack(int sourceMonsterOnFieldIndex, int targetMonsterOnFieldIndex, Player targetPlayer) {
         System.out.println("Masuk attack");
         SummonedMonster attackingMonster = this.monsterOnField[sourceMonsterOnFieldIndex];
@@ -421,6 +438,10 @@ public class Player {
         }
     }
 
+    /** Activates an aura skill to be applied to a monster
+     * @param sourceSkillOnFieldIndex source aura's index from skill field
+     * @param monsterOnFieldIndex target monster's index from monster field
+     */
     public void activateAuraSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
         System.out.println("Masuk activate Aura");
 //        System.out.println(sm.getMonster().getName());
@@ -436,12 +457,22 @@ public class Player {
         // }
     }
 
+    /** Activates power up skill to be applied to a monster. Power up applies a piercing attack for a monster.
+     * @param sourceSkillOnFieldIndex source powerup's index from skill field
+     * @param monsterOnFieldIndex target monster's index from monster field
+     */
     public void activatePowerUpSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
         monsterOnField[monsterOnFieldIndex].setPierce();
         skillOnField[sourceSkillOnFieldIndex].setIsUsedToTrue();
         monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
     }
 
+    /** Activates destroy skill to be applied to a monster. Destroy destroys a card on the field.
+     * @param isTargetMonster indicates whether the target is a monster or not. If it is, then it is true, otherwise it is false.
+     * @param sourceSkillOnFieldIndex source destroy's index from skill field
+     * @param targetOnFieldIndex target card's index from monster and skill field
+     * @param targetPlayer player whose card is targeted by the destroy skill.
+     */
     public void activateDestroySkill(boolean isTargetMonster, int sourceSkillOnFieldIndex, int targetOnFieldIndex, Player targetPlayer) {
         if (isTargetMonster) {
             targetPlayer.removeMonsterOnField(targetOnFieldIndex);
@@ -460,7 +491,7 @@ public class Player {
     public void printCardsOnHand() {
         System.out.println("~~~ print cards on hand  ~~~");
         for (int i = 0; i < hand.size(); i++) {
-            printShit(hand.get(i));
+            printCard(hand.get(i));
         }
     }
 
@@ -468,7 +499,7 @@ public class Player {
         System.out.println("~~~ print monster cards on field ~~~");
         for (int i = 0; i < maxMonstersOnField; i++) {
             if (monsterOnField[i] != null) {
-                printShit(monsterOnField[i].getMonster());
+                printCard(monsterOnField[i].getMonster());
                 System.out.println("ATK " 
                                    + String.valueOf(monsterOnField[i].getMonster().getAttackValue())
                                    + " DEF "
@@ -488,7 +519,7 @@ public class Player {
         }
     }
 
-    public void printShit(Card card) {
+    public void printCard(Card card) {
         System.out.println("Name: " + card.getName() + ", Type: " + card.getType());
     }
 
