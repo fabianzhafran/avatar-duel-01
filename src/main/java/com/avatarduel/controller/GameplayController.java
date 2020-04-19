@@ -187,7 +187,7 @@ public class GameplayController implements NotifyPhase {
             p1FieldController.arenaController.resetHightlight();
         } else {
             p1FieldController.setHP(receivingPlayer.getHp());
-            p1FieldController.arenaController.resetHightlight();
+            p2FieldController.arenaController.resetHightlight();
         }
 
         isAttacking = false;
