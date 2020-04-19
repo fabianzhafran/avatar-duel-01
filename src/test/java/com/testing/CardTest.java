@@ -9,7 +9,7 @@ public class CardTest {
 
     @Test
     public void testCreateMonster() {
-        Monster dummy = new Monster("Fabian", Element.WATER, "Jon ketiduran", "Evan ngantuk", 10, 10, 10);
+        Monster dummy = new Monster("Fabian", Element.WATER, "Jon ketiduran", "tidak di root", 10, 10, 10);
         assertEquals("Name must be Fabian", "Fabian", dummy.getName());
         assertEquals("Attack value must be 10", 10, dummy.getAttackValue());
         assertEquals("Defense value must be 10", 10, dummy.getDefenseValue());
@@ -51,6 +51,14 @@ public class CardTest {
         assertEquals("desc must be fakboi if", "fakboi if", dummy.getDescription());
         assertEquals("Power must be 10", 10, dummy.getPowerValue());
 
+    }
+
+    @Test
+    public void testCreateSkill() {
+        Skill dummy = new Skill("Coding", Element.WATER, "Ini skill gan", "~", 5);
+        assertEquals("Nama must be Coding", "Coding", dummy.getName());
+        assertEquals("Type must be Skill", "Skill", dummy.getType());
+        assertEquals("Power value must be 5", 5, dummy.getPowerValue());
     }
     
 }

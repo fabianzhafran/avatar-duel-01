@@ -44,6 +44,11 @@ public class ArenaController {
 
     private int idxActivatedSkill;
 
+    /** Initial setup for the arena controller
+     * 
+     * @param f arena controller's field assignee
+     * @param isPlayer1 indicates whether this arena is owned by player 1 or not. 
+     */
     public void init(FieldController f, boolean isPlayer1) {
         this.fieldController = f;
         emptyMonster = new PriorityQueue<Integer>();
@@ -80,6 +85,10 @@ public class ArenaController {
         this.idxAttacker = idxSource;
     }
 
+    /** handle on hover event for cards on field
+     * 
+     * @param evt the event source, contains the hovered card to apply action to
+     */
     public void cardHover(Event evt) {
         int i;
         Group hoveredCard = (Group) evt.getSource();
@@ -193,6 +202,7 @@ public class ArenaController {
         }
     }
 
+    
     public void highlightCard (Group cardGroup) {
         Rectangle outerRect = (Rectangle) cardGroup.getChildren().get(0);
         outerRect.setStroke(Color.RED);
