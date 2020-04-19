@@ -71,7 +71,7 @@ public class HandController {
             fieldController.setDescCard(fieldController.player.getHand().get(idx));
             Player player = fieldController.getPlayer();
 
-            if (!isEquipping) {
+            if (!fieldController.isSkillActivating()) {
                 Card hoveredCard = player.getHand().get(idx);
                 if (hoveredCard.getType().equals("Monster") && phaseNumber == 2) {
                     // Monster monster = (Monster) hoveredCard;
@@ -94,7 +94,9 @@ public class HandController {
 
                 } else {
                     if (phaseNumber == 2) {
-                        if ((hoveredCard.getType().equals("Skill") && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Skill) hoveredCard).getPowerValue() && player.getNumberOfSkillsOnField() < 6) && player.getNumberOfMonstersOnField() > 0 || hoveredCard.getType().equals("Land")) {
+                        boolean isSkill = (hoveredCard.getType().equals("Skill") && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Skill) hoveredCard).getPowerValue() && player.getNumberOfSkillsOnField() < 6) && player.getNumberOfMonstersOnField() > 0;
+                        boolean isLand = hoveredCard.getType().equals("Land");
+                        if (isSkill || isLand) {
                             Button actButton = CardUtils.createButton("Activate", 20, 20, 70, 8);
                             actButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                     event -> {

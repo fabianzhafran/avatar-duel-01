@@ -34,10 +34,13 @@ public class Player {
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
         for (int i = 0; i < 50; i++) {
-            deck.push(randomNumber.nextInt(91) + 1);
+            deck.push(randomNumber.nextInt(99) + 1);
         }
+        // Debugging Destroy
         deck.pop();
-        deck.push(new Integer(1));
+        deck.pop();
+        deck.push(new Integer(98));
+        deck.push(new Integer(72));
         hand = new ArrayList<Card>();
         monsterOnField = new SummonedMonster[maxMonstersOnField];
         numberOfMonstersOnField = 0;
@@ -50,10 +53,10 @@ public class Player {
         elementPower[3] = new ElementPower(AIR);
 
         // DEBUG
-        // addLandMaxPowerByElement(EARTH);
-        // addLandMaxPowerByElement(WATER);
-        // addLandMaxPowerByElement(FIRE);
-        // addLandMaxPowerByElement(AIR);
+         addLandMaxPowerByElement(EARTH);
+         addLandMaxPowerByElement(WATER);
+         addLandMaxPowerByElement(FIRE);
+         addLandMaxPowerByElement(AIR);
     }
 
     public int getPlayerID() {
@@ -142,8 +145,8 @@ public class Player {
     public void addLandMaxPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
-                elPow.setCurrentPow(elPow.getCurrentPow() + 1);
-                elPow.setMaxPow(elPow.getMaxPow() + 1);
+                elPow.setCurrentPow(elPow.getCurrentPow() + 100);
+                elPow.setMaxPow(elPow.getMaxPow() + 100);
             }
         }
     }
@@ -333,8 +336,9 @@ public class Player {
     public void attack(int sourceMonsterOnFieldIndex, int targetMonsterOnFieldIndex, Player targetPlayer) {
         System.out.println("Masuk attack");
         SummonedMonster attackingMonster = this.monsterOnField[sourceMonsterOnFieldIndex];
-        if (!attackingMonster.getHasAttacked() && attackingMonster.getIsJustSummoned()) {
+        if (!attackingMonster.getHasAttacked() && !attackingMonster.getIsJustSummoned()) {
             if (targetMonsterOnFieldIndex != -1) { // -1 kalau nggak ada monster di field lawan
+                System.out.println("Attack Monster");
                 SummonedMonster[] targetMonsterField = targetPlayer.getMonsterOnField();
                 SummonedMonster targetMonster = targetMonsterField[targetMonsterOnFieldIndex];
                 int attackingMonsterAtk = attackingMonster.getAttackValue();
@@ -344,6 +348,7 @@ public class Player {
                     if (attackingMonsterAtk > targetMonsterAtk) {
                         targetPlayer.removeMonsterOnField(targetMonsterOnFieldIndex);
                         targetPlayer.subtractHp(attackingMonsterAtk - targetMonsterAtk);
+                        System.out.println("Target Player HP: " + targetPlayer.getHp());
                         attackingMonster.setHasAttacked(true);
                     }
                 } else {
@@ -358,6 +363,8 @@ public class Player {
                 targetPlayer.subtractHp(attackingMonster.getAttackValue());
                 attackingMonster.setHasAttacked(true);
             }
+        } else {
+            System.out.println("Monster has attacked");
         }
     }
 
