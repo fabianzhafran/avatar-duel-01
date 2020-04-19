@@ -49,7 +49,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="251.0" layoutX="3.0" layoutY="463.0" stroke="BLACK" strokeType="INSIDE" width="274.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="251.0" layoutX="3.0" layoutY="463.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="274.0" />
       <Text layoutX="15.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" underline="true">
          <font>
             <Font name="AR PL UKai CN" size="13.0" />

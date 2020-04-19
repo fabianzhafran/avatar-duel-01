@@ -2,17 +2,16 @@ package com.avatarduel.controller;
 
 import com.avatarduel.Card.*;
 import com.avatarduel.Player;
-import com.avatarduel.phase.Phase;
+import com.avatarduel.phase.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
-public class GameplayController {
-
-    private Phase phase;
+public class GameplayController implements NotifyPhase {
 
     @FXML private CardDescController cardDescController;
     @FXML private P1FieldController p1FieldController;
@@ -22,13 +21,25 @@ public class GameplayController {
     @FXML private Label phaseLabel;
     @FXML private Button nextPhaseButton;
 
+    private Phase phase;
+    private int phaseNumber;
+    private int playerTurn;
+
     @FXML public void initialize() {
         System.out.println("App started");
 //        System.out.println("Linking cardDescController...");
         cardDescController.init(this);
         p1FieldController.init(this);
         p2FieldController.init(this);
-        phase = new Phase(p1FieldController, p2FieldController);
+        this.phaseNumber = 1;
+        this.playerTurn = 1;
+        phase = new Phase(p1FieldController, p2FieldController, this);
+        phase.nextPhase();
+        // handle next phase
+        nextPhaseButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+            event -> {
+                phase.nextPhase();
+            });
     }
 
     public void setDescCard(Card card) {
@@ -82,6 +93,14 @@ public class GameplayController {
         }
 
         cardDescController.setAttachedSkill(attachedSkillName);
+    }
+
+    // Observer pattern
+    public void notifyPhase(int phaseNumber, int playerTurn) {
+        this.phaseNumber = phaseNumber;
+        this.playerTurn = playerTurn;
+        playerLabel.setText("Player " + String.valueOf(playerTurn));
+        phaseLabel.setText(PhaseEnum.phaseEnum.get(phaseNumber));
     }
 
     public void startAttack(int idx) {
