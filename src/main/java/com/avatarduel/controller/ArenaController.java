@@ -260,10 +260,14 @@ public class ArenaController {
         if (!isAtt) {
             newCard.setRotate(90);
         }
-        newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                event -> cardHover(event));
-        newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
-                event -> exitHover(event));
+        try {
+            newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                    event -> cardHover(event));
+            newCard.addEventHandler(MouseEvent.MOUSE_EXITED,
+                    event -> exitHover(event));
+        } catch (Exception e){
+            //unhandled exception
+        }
         monsterArena.add(newCard, emptyCol, 0,  1, 1);
     }
 
