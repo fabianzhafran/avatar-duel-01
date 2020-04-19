@@ -130,12 +130,14 @@ public class ArenaController {
                     boolean existLess = false;
                     if (enemy.getNumberOfMonstersOnField() > 0) {
                         for (SummonedMonster enemyMonster: enemy.getMonsterOnField()) {
-                            if (player.getMonsterOnField()[i].getPositionValue() > enemyMonster.getPositionValue() 
-                                || (player.getMonsterOnField()[i].getIsAttackPosition() && player.getMonsterOnField()[i].getAttackValue() > enemyMonster.getDefenseValue() && !enemyMonster.getIsAttackPosition()))
-                            {
-                                existLess = true;
-                                break;
+                            if (enemyMonster != null) {
+                                if (player.getMonsterOnField()[i].getPositionValue() > enemyMonster.getPositionValue())
+                                {
+                                    existLess = true;
+                                    break;
+                                }
                             }
+
                         }
                     }
                     if (hoveredPlayerMonster.getIsAttackPosition()
@@ -305,9 +307,11 @@ public class ArenaController {
         if (isMonster) {
             destroyCard = (Group) getGridPaneNode(monsterArena, intDestroy);
             monsterArena.getChildren().remove(destroyCard);
+            emptyMonster.add(intDestroy);
         } else {
             destroyCard = (Group) getGridPaneNode(skillArena, intDestroy);
             skillArena.getChildren().remove(destroyCard);
+            emptySkill.add(intDestroy);
         }
 
     }

@@ -147,8 +147,10 @@ public class GameplayController implements NotifyPhase {
 
         if (playerTurn == 1) {
             p1FieldController.getArenaController().destroyByIndex(idxSource, false);
+            p1FieldController.setSkillActivating(false);
         } else {
             p2FieldController.getArenaController().destroyByIndex(idxSource, false);
+            p2FieldController.setSkillActivating(false);
         }
     }
 

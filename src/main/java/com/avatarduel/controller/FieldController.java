@@ -22,16 +22,16 @@ abstract public class FieldController implements NotifyPhase {
     @FXML protected HandController handController;
     @FXML protected ArenaController arenaController;
 
-    @FXML private AnchorPane fieldPane;
+    @FXML protected AnchorPane fieldPane;
 
-    @FXML private Text deckCount;
-    @FXML private Label fireElement;
-    @FXML private Label waterElement;
-    @FXML private Label earthElement;
-    @FXML private Label airElement;
-    @FXML private Label energyElement;
-    @FXML private Label hpLabel;
-    @FXML private Label playerLabel;
+    @FXML protected Text deckCount;
+    @FXML protected Label fireElement;
+    @FXML protected Label waterElement;
+    @FXML protected Label earthElement;
+    @FXML protected Label airElement;
+    @FXML protected Label energyElement;
+    @FXML protected Label hpLabel;
+    @FXML protected Label playerLabel;
 
     HashMap<Element, Label> elmtMap = new HashMap<Element, Label>();
 
@@ -48,7 +48,7 @@ abstract public class FieldController implements NotifyPhase {
         for (int i = 0; i < 7; i++) {
             this.draw();
         }
-        playerLabel.setText(player.getNamePlayer());
+
         setHP(player.getHp());
         waterElement.setText(String.valueOf(player.getLandPowerByElement(WATER)) + " / " + player.getMaxLandPowerByElement(WATER));
         fireElement.setText(String.valueOf(player.getLandPowerByElement(FIRE)) + " / " + player.getMaxLandPowerByElement(FIRE));
