@@ -14,7 +14,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="190.0" layoutX="887.0" layoutY="1.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="94.0" />
         <AnchorPane layoutX="880.0" prefHeight="297.0" prefWidth="110.0">
             <children>
-                <Group layoutX="18.0" layoutY="210.0" onMouseClicked="#draw">
+                <Group layoutX="18.0" layoutY="210.0">
                     <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d07b26" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
                   <ImageView fitHeight="100.0" fitWidth="80.0" pickOnBounds="true">

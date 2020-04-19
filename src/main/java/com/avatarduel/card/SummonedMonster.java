@@ -1,7 +1,7 @@
 package com.avatarduel.card;
 
 import java.util.ArrayList;
-import com.avatarduel.Player;
+// import com.avatarduel.Player;
 
 /**
  * SummonedMonster is a Monster class that has been summoned
