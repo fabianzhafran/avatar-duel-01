@@ -31,6 +31,17 @@ public class GameplayController {
         phase = new Phase(p1FieldController, p2FieldController);
     }
 
+    public void testPhaseButton() {
+        if(p1FieldController.handController.getTurn()) {
+            p1FieldController.handController.setTurn(false);
+            p2FieldController.handController.setTurn(true);
+        } else {
+            p1FieldController.handController.setTurn(true);
+            p2FieldController.handController.setTurn(false);
+        }
+
+    }
+
     public void setDescCard(Card card) {
 //        System.out.println("Setting description...");
         cardDescController.setName(card.getName());
@@ -87,15 +98,30 @@ public class GameplayController {
     public void startAttack(int idx) {
         // Nanti di chek turn siapa, misalnya skarang turn P1 Yang nyerang
         System.out.println("Gameplay Start Attack");
-        int atkValue = p1FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
-        p2FieldController.receiveAttack(idx,atkValue);
+        int atkValue;
+        if (p1FieldController.handController.getTurn()) {
+            atkValue = p1FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
+            p2FieldController.receiveAttack(idx,atkValue);
+        } else {
+            atkValue = p2FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
+            p1FieldController.receiveAttack(idx,atkValue);
+        }
+
     }
 
     public void startBattle(int idxAttacker, int idxReceiver) {
         // Misalkan yang nyerang p1
         System.out.println("Gameplay Start Battle");
-        Player attackingPlayer = p1FieldController.getPlayer();
-        Player receivingPlayer = p2FieldController.getPlayer();
+        Player attackingPlayer;
+        Player receivingPlayer;
+        if (p1FieldController.handController.getTurn()) {
+            attackingPlayer = p1FieldController.getPlayer();
+            receivingPlayer = p2FieldController.getPlayer();
+        } else {
+            attackingPlayer = p2FieldController.getPlayer();
+            receivingPlayer = p1FieldController.getPlayer();
+        }
+
         // Nanti dibikin if klo lagi giliran p2
 
         System.out.println("Monster before battle: ");
@@ -104,6 +130,11 @@ public class GameplayController {
         System.out.println("Monster after battle: ");
         receivingPlayer.printMonsterCardsOnField();
         System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
-        p2FieldController.setHP(receivingPlayer.getHp());
+        if (p1FieldController.handController.getTurn()) {
+            p2FieldController.setHP(receivingPlayer.getHp());
+        } else {
+            p1FieldController.setHP(receivingPlayer.getHp());
+        }
+
     }
 }

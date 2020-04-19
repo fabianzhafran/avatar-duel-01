@@ -217,21 +217,21 @@ public class Player {
                         }
                     }
                 }
-    //             if (!found) {
-    //                 for (String[] destroyAuraRow : listOfCards.listOfSkillDestroyCards) {
-    //                     if (topCardId == Integer.parseInt(destroyAuraRow[0])) {
-    //                         Destroy skillDestroyCard = new Destroy(destroyAuraRow[1],
-    //                                                       elementDictionary.getElement(destroyAuraRow[2]),
-    //                                                       destroyAuraRow[3],
-    //                                                       destroyAuraRow[4],
-    //                                                       Integer.parseInt(destroyAuraRow[5])
-    //                                                      );
-    //                         this.hand.add(skillDestroyCard);
-    // //                        System.out.println(skillAuraCard.getName());
-    //                         return skillDestroyCard;
-    //                     }
-    //                 }
-    //             }
+                 if (!found) {
+                     for (String[] skillDestroyRow : listOfCards.listOfSkillDestroyCards) {
+                         if (topCardId == Integer.parseInt(skillDestroyRow[0])) {
+                             Destroy skillDestroyCard = new Destroy(skillDestroyRow[1],
+                                                           elementDictionary.getElement(skillDestroyRow[2]),
+                                     skillDestroyRow[3],
+                                     skillDestroyRow[4],
+                                                           Integer.parseInt(skillDestroyRow[5])
+                                                          );
+                             this.hand.add(skillDestroyCard);
+     //                        System.out.println(skillAuraCard.getName());
+                             return skillDestroyCard;
+                         }
+                     }
+                 }
             }
         }
         return null;

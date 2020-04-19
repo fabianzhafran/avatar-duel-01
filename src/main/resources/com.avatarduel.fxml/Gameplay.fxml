@@ -40,7 +40,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="nextPhaseButton" layoutX="5.0" layoutY="71.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Next Phase" />
+            <Button fx:id="nextPhaseButton" layoutX="5.0" layoutY="71.0" mnemonicParsing="false" onMouseClicked="#testPhaseButton" prefHeight="25.0" prefWidth="90.0" text="Next Phase" />
          </children>
       </AnchorPane>
     </children>

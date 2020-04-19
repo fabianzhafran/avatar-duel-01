@@ -102,14 +102,15 @@ public class ArenaController {
                             changePosition(i);
                         });
                 hoveredCard.getChildren().add(changeButton);
-            } else if (receivingAttack && player.getMonsterOnField()[i].getAttackValue() < atkValue) {
+            } else if (receivingAttack) {
+//                 && player.getMonsterOnField()[i].getAttackValue() < atkValue
                 // ditaro kondisi klo lagi battle
                 Button attackButton = CardUtils.createButton("Attack this", 20, 20, 70, 8);
                 attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                         event -> {
                             System.out.println("Arena start Attack");
-                            destroy(evt);
-                            startBattle(i);
+
+                            startBattle(i, evt);
                         });
                 hoveredCard.getChildren().add(attackButton);
             }
@@ -131,10 +132,15 @@ public class ArenaController {
         }
     }
 
-    public void startBattle(int idxReceiver) {
+    public void startBattle(int idxReceiver, Event evt) {
         System.out.println("Arena Start Battle");
         receivingAttack = false;
-        fieldController.startBattle(idxAttacker, idxReceiver);
+        if (fieldController.player.getMonsterOnField()[idxReceiver].getPositionValue() < atkValue) {
+            fieldController.startBattle(idxAttacker, idxReceiver);
+            destroy(evt);
+        } else {
+            System.out.println("The targeted monster atk/def is higher");
+        }
     }
 
     public void equip(int monsterIdx) {

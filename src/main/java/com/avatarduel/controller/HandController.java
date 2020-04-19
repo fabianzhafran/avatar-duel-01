@@ -43,6 +43,10 @@ public class HandController {
         }
     }
 
+    public boolean getTurn() {
+        return isTurn;
+    }
+
     public void addCard(Group newCard) {
         newCard.addEventHandler(MouseEvent.MOUSE_ENTERED,
                 event ->  cardHover(event));
