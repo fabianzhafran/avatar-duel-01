@@ -25,8 +25,10 @@ public class CardUtils {
             color = "#f73131";
         } else if (element.equals(Element.EARTH)) {
             color = "#efd040";
-        } else {
+        } else if (element.equals(Element.AIR)){
             color = "#41f282";
+        } else {
+            color = "#82968a";
         }
         rect.setFill(Color.web(color));
         rect.setStroke(Color.BLACK);
@@ -68,16 +70,23 @@ public class CardUtils {
 
     public static ImageView createImageView(String path, double width, double height, double layoutX, double layoutY) {
         ImageView imgView = new ImageView();
-        Image img = new Image(path);
-        imgView.setImage(img);
-        imgView.setFitWidth(width);
-        imgView.setFitHeight(height);
-        imgView.setSmooth(true);
-        imgView.setCache(true);
-        imgView.setLayoutX(layoutX);
-        imgView.setLayoutY(layoutY);
+        try {
+            Image img = new Image(path);
+            imgView.setImage(img);
+        } catch (Exception e) {
+            System.out.println("Picture not found");
+        } finally {
+            imgView.setFitWidth(width);
+            imgView.setFitHeight(height);
+            imgView.setSmooth(true);
+            imgView.setCache(true);
+            imgView.setLayoutX(layoutX);
+            imgView.setLayoutY(layoutY);
 
-        return imgView;
+            return imgView;
+        }
+
+
     }
 
 

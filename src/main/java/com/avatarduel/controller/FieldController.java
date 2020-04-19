@@ -80,6 +80,7 @@ abstract public class FieldController implements NotifyPhase {
             fireElement.setText(String.valueOf(player.getLandPowerByElement(FIRE)) + " / " + player.getMaxLandPowerByElement(FIRE));
             airElement.setText(String.valueOf(player.getLandPowerByElement(AIR)) + " / " + player.getMaxLandPowerByElement(AIR));
             earthElement.setText(String.valueOf(player.getLandPowerByElement(EARTH)) + " / " + player.getMaxLandPowerByElement(EARTH));
+            energyElement.setText(String.valueOf(player.getLandPowerByElement(ENERGY)) + " / " + player.getMaxLandPowerByElement(ENERGY));
         }
     } 
 
