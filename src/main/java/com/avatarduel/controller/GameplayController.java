@@ -114,13 +114,39 @@ public class GameplayController implements NotifyPhase {
         phaseLabel.setText(PhaseEnum.phaseEnum.get(phaseNumber));
     }
 
-    public void useDestroy() {
+    public void useDestroy(int idxSource) {
         System.out.println("Gameplay use Destroy");
         if (playerTurn == 1) {
-            p2FieldController.receiveDestroy();
+            p2FieldController.receiveDestroy(idxSource);
         } else {
-            p1FieldController.receiveDestroy();
+            p1FieldController.receiveDestroy(idxSource);
         }
+    }
+
+    public void startDestroy(int idxSource, int idxReceiver) {
+        System.out.println("Gameplay Start Destroy");
+        Player sourcePlayer = getPlayerInTurn();
+        Player receivingPlayer = getPlayerNotInTurn();
+
+        System.out.println("Monster before battle: ");
+        receivingPlayer.printMonsterCardsOnField();
+        sourcePlayer.activateDestroySkill(true, idxSource, idxReceiver, receivingPlayer);
+        System.out.println("Monster after battle: ");
+        receivingPlayer.printMonsterCardsOnField();
+
+        if (playerTurn == 1) {
+            p1FieldController.getArenaController().destroyByIndex(idxSource, false);
+        } else {
+            p2FieldController.getArenaController().destroyByIndex(idxSource, false);
+        }
+    }
+
+    public Player getPlayerInTurn() {
+        return (playerTurn == 1) ? p1FieldController.getPlayer() : p2FieldController.getPlayer();
+    }
+
+    public Player getPlayerNotInTurn() {
+        return (playerTurn == 1) ? p2FieldController.getPlayer() : p1FieldController.getPlayer();
     }
 
     public void startAttack(int idx) {
@@ -145,16 +171,8 @@ public class GameplayController implements NotifyPhase {
     public void startBattle(int idxAttacker, int idxReceiver) {
         // Misalkan yang nyerang p1
         System.out.println("Gameplay Start Battle");
-        Player attackingPlayer;
-        Player receivingPlayer;
-
-        if (playerTurn == 1) {
-            attackingPlayer = p1FieldController.getPlayer();
-            receivingPlayer = p2FieldController.getPlayer();
-        } else {
-            attackingPlayer = p2FieldController.getPlayer();
-            receivingPlayer = p1FieldController.getPlayer();
-        }
+        Player attackingPlayer = getPlayerInTurn();
+        Player receivingPlayer = getPlayerNotInTurn();
 
 //        System.out.println("Monster before battle: ");
 //        receivingPlayer.printMonsterCardsOnField();

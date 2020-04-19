@@ -36,11 +36,12 @@ public class Player {
         for (int i = 0; i < 50; i++) {
             deck.push(randomNumber.nextInt(99) + 1);
         }
-        // Debugging Destroy
+        // Debugging
         deck.pop();
         deck.pop();
-        deck.push(new Integer(98));
-        deck.push(new Integer(72));
+        deck.push(new Integer(1));
+        deck.push(new Integer(2));
+        //
         hand = new ArrayList<Card>();
         monsterOnField = new SummonedMonster[maxMonstersOnField];
         numberOfMonstersOnField = 0;

@@ -104,6 +104,14 @@ abstract public class FieldController implements NotifyPhase {
         return handController;
     }
 
+    public ArenaController getArenaController() {
+        return arenaController;
+    }
+
+    public Player getEnemy() {
+        return (playerTurn != -1) ? gameplayController.getPlayerNotInTurn() : null;
+    }
+
     // Basic methods
 
     public void draw() {
@@ -123,7 +131,7 @@ abstract public class FieldController implements NotifyPhase {
 
 
             if (card.getType().equals("Land")) {
-                // Insert method here
+                handController.setLandUsed(true);
             } else if (card.getType().equals("Monster")) {
                 arenaController.summon(card, isAtt);
             } else {
@@ -137,6 +145,8 @@ abstract public class FieldController implements NotifyPhase {
 
         elmtMap.get(card.getElement()).setText(String.valueOf(player.getLandPowerByElement(card.getElement())) + " / " + player.getMaxLandPowerByElement(card.getElement()));
     }
+
+
 
     // Battle Methods
 
@@ -160,7 +170,18 @@ abstract public class FieldController implements NotifyPhase {
         gameplayController.startBattle(idxAttacker, idxReceiver);
     }
 
-    public void receiveDestroy() {
-        arenaController.receiveDestroy();
+    public void useDestroy(int idxSource) {
+        System.out.println("Activating destroy from Field");
+        gameplayController.useDestroy(idxSource);
+    }
+
+    public void receiveDestroy(int idxSource) {
+        System.out.println("Field receive destroy");
+        arenaController.receiveDestroy(idxSource);
+    }
+
+    public void startDestroy(int idxSource, int idxReceiver) {
+        System.out.println("Field Start Destroy");
+        gameplayController.startDestroy(idxSource, idxReceiver);
     }
 }

@@ -65,8 +65,9 @@ public class ArenaController {
         this.atkValue = atkValue;
     }
 
-    public void receiveDestroy() {
+    public void receiveDestroy(int idxSource) {
         receivingDestroy = true;
+        this.idxAttacker = idxSource;
     }
 
     public void cardHover(Event evt) {
@@ -141,7 +142,7 @@ public class ArenaController {
                     attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {
                                 System.out.println("Arena start Destroy");
-                                startBattle(i, evt);
+                                startDestroy(i, evt);
                             });
                     hoveredCard.getChildren().add(attackButton);
                 }
@@ -175,6 +176,13 @@ public class ArenaController {
         }
 
         receivingAttack = false;
+    }
+
+    public void startDestroy(int idxReceiver, Event evt) {
+        System.out.println("Arena Start Destroy");
+        destroy(evt);
+        fieldController.startDestroy(idxAttacker, idxReceiver);
+        receivingDestroy = false;
     }
 
     public void equip(int monsterIdx) {
@@ -213,6 +221,9 @@ public class ArenaController {
         skillArena.add(newCard, emptyCol, 0,  1, 1);
         if (card.getSkillType().equals("Aura")) {
             equippingSkill = true;
+        } else if (card.getSkillType().equals("Destroy")) {
+            System.out.println("Activating destroy card from arena");
+            fieldController.useDestroy(emptyCol);
         }
         idxActivatedSkill = emptyCol;
     }
@@ -230,6 +241,18 @@ public class ArenaController {
         }
 
         return null;
+    }
+
+    public void destroyByIndex(int intDestroy, boolean isMonster) {
+        Group destroyCard;
+        if (isMonster) {
+            destroyCard = (Group) getGridPaneNode(monsterArena, intDestroy);
+            monsterArena.getChildren().remove(destroyCard);
+        } else {
+            destroyCard = (Group) getGridPaneNode(skillArena, intDestroy);
+            skillArena.getChildren().remove(destroyCard);
+        }
+
     }
 
     public void destroy(Event evt) {
@@ -255,7 +278,7 @@ public class ArenaController {
                 skillArena.getChildren().remove(destroySkill);
                 emptySkill.add(linkedSkill.get(i));
             }
-            if (!receivingAttack) {
+            if (!receivingAttack && !receivingDestroy) {
                 player.removeMonsterOnField(idx);
             }
         } else {
