@@ -1,5 +1,13 @@
 package com.avatarduel.phase;
 
+/** Handles the phase and turn for the game.
+ * Uses the "Observer" design pattern, with 
+ * phase as its "observer" and its attributes 
+ * as its "listener"
+ * 
+ * @author K01_01_IF2210
+ */
+
 import com.avatarduel.Player;
 import com.avatarduel.controller.P1FieldController;
 import com.avatarduel.controller.P2FieldController;
@@ -15,6 +23,12 @@ public class Phase {
     private int phaseNumber;
     private int playerTurn;
 
+    /** Creates a new phase
+     * 
+     * @param p1FieldController Player 1's field controller, acts as the listener to this class
+     * @param p2FieldController Player 2's field controller, acts as the listener to this class
+     * @param gameplayController The core GUI controller, acts as the listener to this class
+     */
     public Phase(P1FieldController p1FieldController, P2FieldController p2FieldController, GameplayController gameplayController) {
         phaseNumber = 0;
         playerTurn = 1;
@@ -23,6 +37,9 @@ public class Phase {
         this.gameplayController = gameplayController;
     }
 
+    /** Changes the phase (and player turn) of the game to the next one.
+     * Notifies the changes of phase to all listeners.
+     */
     public void nextPhase() {
         if (phaseNumber == PhaseEnum.END_PHASE) {
             phaseNumber = 1;

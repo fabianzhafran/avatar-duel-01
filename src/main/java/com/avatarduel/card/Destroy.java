@@ -31,4 +31,5 @@ public class Destroy extends Skill {
     public String getSkillType() {
         return "Destroy";
     }
+    
 }

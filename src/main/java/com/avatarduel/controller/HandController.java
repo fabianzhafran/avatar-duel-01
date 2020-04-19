@@ -1,5 +1,10 @@
 package com.avatarduel.controller;
 
+/** GUI Controller for the cards on the hand
+ * 
+ * @author K01_01_IF2210
+ */
+
 import com.avatarduel.card.*;
 import com.avatarduel.Player;
 import javafx.event.Event;

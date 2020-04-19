@@ -1,5 +1,11 @@
 package com.avatarduel.controller;
 
+/** The core gameplay GUI. Holds the instantiation data of phase,
+ * which means it also handles player. 
+ * 
+ * @author K01_01_IF2210
+ */
+
 import com.avatarduel.card.*;
 import com.avatarduel.Player;
 import com.avatarduel.phase.*;
@@ -31,9 +37,10 @@ public class GameplayController implements NotifyPhase {
     private int playerTurn;
     private boolean isAttacking;
 
+    /** Initialize the GUI, is called automatically
+     * by JavaFx
+     */
     @FXML public void initialize() {
-        System.out.println("App started");
-//        System.out.println("Linking cardDescController...");
         cardDescController.init(this);
         p1FieldController.init(this);
         p2FieldController.init(this);
@@ -58,16 +65,18 @@ public class GameplayController implements NotifyPhase {
 
     }
 
+    /** Sets the giant card description located on the left
+     * side of the whole application window
+     * 
+     * @param card card to be displayed on the window
+     */
     public void setDescCard(Card card) {
-//        System.out.println("Setting description...");
         cardDescController.setName(card.getName());
         cardDescController.setDesc(card.getDescription());
         cardDescController.setCardImage(card.getImagePath());
         cardDescController.setElementImage(card.getElement());
         cardDescController.setColor(card.getElement());
         cardDescController.setType(card.getType());
-        // Set DEscription
-        // SEt ELement
         if (card.getType().equals("Monster")) {
             Monster castedCard = (Monster) card;
             cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
@@ -87,7 +96,6 @@ public class GameplayController implements NotifyPhase {
                 cardDescController.setAtt(" ");
                 cardDescController.setDef(" "); 
             }
-
         } else {
             cardDescController.setPwr(String.valueOf(" "));
             cardDescController.setAtt(String.valueOf(" "));
@@ -95,6 +103,13 @@ public class GameplayController implements NotifyPhase {
         }
     }
 
+    /** Sets the giant card description on the left side
+     * of the whole application window, but for the monster cards
+     * on the field 
+     * 
+     * @param Summoned
+     * @param skillOnField
+     */
     public void setDescCard(SummonedMonster Summoned, Skill[] skillOnField) {
         Monster card = Summoned.getMonster();
         cardDescController.setName(card.getName());
@@ -125,7 +140,6 @@ public class GameplayController implements NotifyPhase {
     }
 
     public void useDestroy(int idxSource) {
-        System.out.println("Gameplay use Destroy");
         if (playerTurn == 1) {
             p2FieldController.receiveDestroy(idxSource);
         } else {
@@ -134,14 +148,11 @@ public class GameplayController implements NotifyPhase {
     }
 
     public void startDestroy(int idxSource, int idxReceiver) {
-        System.out.println("Gameplay Start Destroy");
         Player sourcePlayer = getPlayerInTurn();
         Player receivingPlayer = getPlayerNotInTurn();
 
-        System.out.println("Monster before battle: ");
         receivingPlayer.printMonsterCardsOnField();
         sourcePlayer.activateDestroySkill(true, idxSource, idxReceiver, receivingPlayer);
-        System.out.println("Monster after battle: ");
         receivingPlayer.printMonsterCardsOnField();
 
         if (playerTurn == 1) {
@@ -161,11 +172,12 @@ public class GameplayController implements NotifyPhase {
         return (playerTurn == 1) ? p2FieldController.getPlayer() : p1FieldController.getPlayer();
     }
 
+    /** Initiates attack event, invoked originally from arena.
+     * 
+     * @param idx Attacking monster's index on player's field
+     */
     public void startAttack(int idx) {
-        // Nanti di chek turn siapa, misalnya skarang turn P1 Yang nyerang
-        System.out.println("Gameplay Start Attack");
         isAttacking = true;
-
         if (playerTurn == 1) {
             SummonedMonster p1AttackingMonster = p1FieldController.getPlayer().getMonsterOnField()[idx];
             if (!p1AttackingMonster.getHasAttacked()) {
@@ -181,18 +193,15 @@ public class GameplayController implements NotifyPhase {
         }
     }
 
+    /** Initiates battle between two monsters from two different players
+     * 
+     * @param idxAttacker attacking monster's index on attacking player's monster field
+     * @param idxReceiver target monster's index on target player's monster field
+     */
     public void startBattle(int idxAttacker, int idxReceiver) {
-        // Misalkan yang nyerang p1
-        System.out.println("Gameplay Start Battle");
         Player attackingPlayer = getPlayerInTurn();
         Player receivingPlayer = getPlayerNotInTurn();
-
-//        System.out.println("Monster before battle: ");
-//        receivingPlayer.printMonsterCardsOnField();
         attackingPlayer.attack(idxAttacker, idxReceiver, receivingPlayer);
-//        System.out.println("Monster after battle: ");
-//        receivingPlayer.printMonsterCardsOnField();
-        System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
         
         boolean win = false;
         if (receivingPlayer.getHp() <= 0) {

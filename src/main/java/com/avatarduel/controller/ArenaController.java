@@ -202,13 +202,19 @@ public class ArenaController {
         }
     }
 
-    
+    /** highlights a chosen card
+     * 
+     * @param cardGroup the chosen card on the field to be highlighted
+     */
     public void highlightCard (Group cardGroup) {
         Rectangle outerRect = (Rectangle) cardGroup.getChildren().get(0);
         outerRect.setStroke(Color.RED);
         outerRect.setStrokeWidth(5);
     }
 
+    /** Resets highlight effect for the previously chosen card 
+     * 
+     */
     public void resetHightlight () {
         for (int i = 0; i < 6; i++) {
             if (getGridPaneNode(skillArena, i) != null) {
@@ -227,6 +233,11 @@ public class ArenaController {
         }
     }
 
+    /** Invokes battle when a Group's (small cards on field) attack button on battle phase is clicked 
+     * 
+     * @param idxReceiver Player card's attacking monster's index on his/her field
+     * @param evt Event envoker's source (Group on GUI)
+     */
     public void startBattle(int idxReceiver, Event evt) {
         if (fieldController.player.getMonsterOnField()[idxReceiver].getPositionValue() < atkValue) {
             destroy(evt);
@@ -236,12 +247,22 @@ public class ArenaController {
         receivingAttack = false;
     }
 
+    /** Destroys a card on the field
+     * 
+     * @param idxReceiver Player card's target card to be destroyed
+     * @param evt Event envoker's source (Group on GUI)
+     */
     public void startDestroy(int idxReceiver, Event evt) {
         destroy(evt);
         fieldController.startDestroy(idxAttacker, idxReceiver);
         receivingDestroy = false;
     }
 
+    /** Equip skill to a monster on the GUI level
+     * 
+     * @param monsterIdx Monster card on player's field (not on GUI) to be eqiupped with skill
+     * @param isAura Indicates whether the skill to be equipped is aura. If true, then it is an Aura skill. Otherwise it is a power up skill.
+     */
     public void equipSkill(int monsterIdx, boolean isAura) {
         if (isAura) {
             fieldController.player.activateAuraSkill(idxActivatedSkill, monsterIdx);
@@ -270,6 +291,10 @@ public class ArenaController {
         monsterArena.add(newCard, emptyCol, 0,  1, 1);
     }
 
+    /** Activates card effect after the card is put on field
+     * 
+     * @param card card whose effect is activated
+     */
     public void activateCardEff(Skill card) {
         int emptyCol = emptySkill.poll();
         Group newCard = CardUtils.createCard(card);
@@ -318,6 +343,10 @@ public class ArenaController {
 
     }
 
+    /** Destroy a card on the field
+     * 
+     * @param evt Event envoker's target to be destroyed (Group on GUI)
+     */
     public void destroy(Event evt) {
         Group clickedCard = (Group) evt.getSource();
         int idx;
