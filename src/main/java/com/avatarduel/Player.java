@@ -18,7 +18,7 @@ public class Player {
     protected int playerID;
     protected String namePlayer;
     protected int hp;
-    protected Stack<Integer> deck;
+    protected ArrayList<Integer> deck;
     protected ArrayList<Card> hand;
     protected SummonedMonster[] monsterOnField;
     protected int numberOfMonstersOnField;
@@ -31,14 +31,15 @@ public class Player {
         int id = namePlayer.charAt(namePlayer.length() - 1) - 48;
         this.playerID = id;
         hp = 80;
-        deck = new Stack<Integer>();
+        deck = new ArrayList<Integer>();
         Random randomNumber = new Random();
-        for (int i = 0; i < 50; i++) {
-            int randomNum = randomNumber.nextInt(10);
-            if (randomNum == 1) {
-                deck.push(randomNumber.nextInt(7) + 101);
-            } else {
-                deck.push(randomNumber.nextInt(90) + 1);
+        for (int i = 0; i < 20; i++) {
+            deck.add(randomNumber.nextInt(48) + 21);
+            if (i < 18) {
+                deck.add(randomNumber.nextInt(19) + 1);
+            }
+            if (i < 12) {
+                deck.add(randomNumber.nextInt(38) + 70);
             }
         }
         hand = new ArrayList<Card>();
@@ -54,11 +55,26 @@ public class Player {
         elementPower[4] = new ElementPower(ENERGY);
 
         // DEBUG
-        addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); 
-        addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER);
-        addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); 
-        addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR);
-        addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY); addLandMaxPowerByElement(ENERGY);
+        addLandMaxPowerByElement(EARTH);
+        addLandMaxPowerByElement(WATER);
+        addLandMaxPowerByElement(FIRE);
+        addLandMaxPowerByElement(AIR);
+        addLandMaxPowerByElement(ENERGY);
+        addLandMaxPowerByElement(EARTH);
+        addLandMaxPowerByElement(WATER);
+        addLandMaxPowerByElement(FIRE);
+        addLandMaxPowerByElement(AIR);
+        addLandMaxPowerByElement(ENERGY);
+        addLandMaxPowerByElement(EARTH);
+        addLandMaxPowerByElement(WATER);
+        addLandMaxPowerByElement(FIRE);
+        addLandMaxPowerByElement(AIR);
+        addLandMaxPowerByElement(ENERGY);
+        addLandMaxPowerByElement(EARTH);
+        addLandMaxPowerByElement(WATER);
+        addLandMaxPowerByElement(FIRE);
+        addLandMaxPowerByElement(AIR);
+        addLandMaxPowerByElement(ENERGY);
     }
 
     public int getPlayerID() {
@@ -146,8 +162,8 @@ public class Player {
     public void addLandMaxPowerByElement(Element e) {
         for (ElementPower elPow : elementPower) {
             if (elPow.getElement() == e) {
-                elPow.setCurrentPow(elPow.getCurrentPow() + 100);
-                elPow.setMaxPow(elPow.getMaxPow() + 100);
+                elPow.setCurrentPow(elPow.getCurrentPow() + 1);
+                elPow.setMaxPow(elPow.getMaxPow() + 1);
             }
         }
     }
@@ -155,18 +171,24 @@ public class Player {
     public void setLandPowerToMax() {
         for (ElementPower elPow : elementPower) {
             elPow.setCurrentPow(elPow.getMaxPow());
-            System.out.println(elPow.getElement());
-            System.out.println(elPow.getCurrentPow());
+//            System.out.println(elPow.getElement());
+//            System.out.println(elPow.getCurrentPow());
         }
     }
     
     public Card draw() {
-        if (hand.size() < maxCardsOnHand) {
+        Random randomNumber = new Random();
+        if (hand.size() >= maxCardsOnHand) {
+            hand.remove(0);
+        }
             ListOfCards listOfCards = new ListOfCards();
             boolean found = false;
             ElementDictionary elementDictionary = new ElementDictionary();
             if (getDeckCount() > 0) {
-                int topCardId = deck.pop();
+
+                int idx = randomNumber.nextInt(deck.size() - 1);
+                int topCardId = deck.get(idx);
+                deck.remove(idx);
                 // Draw land
                 for (String[] landRow : listOfCards.listOfLandCards) {
                     if (topCardId == Integer.parseInt(landRow[0])) {
@@ -218,6 +240,7 @@ public class Player {
                         }
                     }
                 }
+                // Draw skill destroy
                  if (!found) {
                      for (String[] skillDestroyRow : listOfCards.listOfSkillDestroyCards) {
                          if (topCardId == Integer.parseInt(skillDestroyRow[0])) {
@@ -250,7 +273,7 @@ public class Player {
                     }
                 }
             }
-        }
+
         return null;
     }
 

@@ -74,7 +74,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <Group layoutX="18.0" layoutY="32.0" onMouseClicked="#draw">
+            <Group layoutX="18.0" layoutY="32.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d07b26" height="100.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
                   <Text fx:id="deckCount" layoutX="28.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30" textAlignment="JUSTIFY" wrappingWidth="25.0">

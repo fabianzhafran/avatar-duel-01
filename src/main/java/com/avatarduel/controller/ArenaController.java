@@ -128,16 +128,20 @@ public class ArenaController {
                     SummonedMonster hoveredPlayerMonster = player.getMonsterOnField()[i];
                     Player enemy = fieldController.getEnemy();
                     boolean existLess = false;
-                    for (SummonedMonster enemyMonster: enemy.getMonsterOnField()) {
-                        if (player.getMonsterOnField()[i].getPositionValue() > enemyMonster.getPositionValue()) {
-                            existLess = true;
-                            break;
+                    if (enemy.getNumberOfMonstersOnField() > 0) {
+                        for (SummonedMonster enemyMonster: enemy.getMonsterOnField()) {
+                            if (player.getMonsterOnField()[i].getPositionValue() > enemyMonster.getPositionValue() 
+                                || (player.getMonsterOnField()[i].getIsAttackPosition() && player.getMonsterOnField()[i].getAttackValue() > enemyMonster.getDefenseValue() && !enemyMonster.getIsAttackPosition()))
+                            {
+                                existLess = true;
+                                break;
+                            }
                         }
                     }
                     if (hoveredPlayerMonster.getIsAttackPosition()
                             && !hoveredPlayerMonster.getIsJustSummoned()
                             && !hoveredPlayerMonster.getHasAttacked()
-                            && existLess) {
+                            && (existLess || enemy.getNumberOfMonstersOnField() == 0)) {
                         Button attackButton = CardUtils.createButton("Attack", 20, 20, 70, 8);
                         attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                 event -> {
@@ -148,6 +152,7 @@ public class ArenaController {
                                     exitHover(evt);
                                 });
                         hoveredCard.getChildren().add(attackButton);
+                        existLess = false;
                     }
                 }
             } else {
