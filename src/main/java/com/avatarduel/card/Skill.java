@@ -9,7 +9,7 @@ public class Skill extends Card {
         name = other.getName();
         element = other.getElement();
         imagePath = other.getImagePath();
-        description = other.getDeskripsi();
+        description = other.getDescription();
         power = other.getPowerValue();
         isUsed = other.getIsUsed();
         System.out.println(name);
