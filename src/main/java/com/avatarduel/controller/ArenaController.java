@@ -88,7 +88,11 @@ public class ArenaController {
             } else if (!receivingAttack && playerTurn != -1){
                 // ditaro kondisi klo lagi battle
                 System.out.println("====== HOVER BATTLE =======");
-                if (player.getMonsterOnField()[i].getIsAttackPosition() && phaseNumber == 3 && !player.getMonsterOnField()[i].getHasAttacked()) {
+                SummonedMonster hoveredPlayerMonster = player.getMonsterOnField()[i];
+                if (hoveredPlayerMonster.getIsAttackPosition() 
+                    && !hoveredPlayerMonster.getIsJustSummoned() 
+                    && !hoveredPlayerMonster.getHasAttacked()
+                    && phaseNumber == 3) {
                     Button attackButton = CardUtils.createButton("Attack", 20, 20, 70, 8);
                     attackButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event -> {

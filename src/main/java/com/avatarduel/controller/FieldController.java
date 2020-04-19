@@ -65,6 +65,7 @@ abstract public class FieldController implements NotifyPhase {
         if (phaseNumber == 1 && playerTurn != -1) {
             draw();
             player.resetMonsterHasAttacked();
+            player.resetMonsterIsJustSummoned();
         }
     } 
 
