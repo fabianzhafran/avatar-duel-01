@@ -13,7 +13,7 @@ import com.avatarduel.controller.P1FieldController;
 import com.avatarduel.controller.P2FieldController;
 import com.avatarduel.controller.GameplayController;
 
-import javafx.fxml.FXML;
+// import javafx.fxml.FXML;
 
 public class Phase {
 

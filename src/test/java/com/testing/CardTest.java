@@ -1,7 +1,7 @@
 package com.testing;
 
 import static org.junit.Assert.assertEquals;
-import com.avatarduel.Player;
+// import com.avatarduel.Player;
 import com.avatarduel.card.*;
 import org.junit.Test;
 
