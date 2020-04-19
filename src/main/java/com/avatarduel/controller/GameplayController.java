@@ -117,15 +117,30 @@ public class GameplayController implements NotifyPhase {
     public void startAttack(int idx) {
         // Nanti di chek turn siapa, misalnya skarang turn P1 Yang nyerang
         System.out.println("Gameplay Start Attack");
-        int atkValue;
-        if (p1FieldController.handController.getTurn()) {
-            atkValue = p1FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
-            p2FieldController.receiveAttack(idx,atkValue);
-        } else {
-            atkValue = p2FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
-            p1FieldController.receiveAttack(idx,atkValue);
-        }
+//<<<<<<< HEAD
+//        int atkValue;
+//        if (p1FieldController.handController.getTurn()) {
+//            atkValue = p1FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
+//            p2FieldController.receiveAttack(idx,atkValue);
+//        } else {
+//            atkValue = p2FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
+//            p1FieldController.receiveAttack(idx,atkValue);
+//        }
 
+        if (playerTurn == 1) {
+            SummonedMonster p1AttackingMonster = p1FieldController.getPlayer().getMonsterOnField()[idx];
+            if (!p1AttackingMonster.getHasAttacked()) {
+                int atkValue = p1FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
+                p2FieldController.receiveAttack(idx,atkValue);
+            }
+        } else {
+            SummonedMonster p2AttackingMonster = p2FieldController.getPlayer().getMonsterOnField()[idx];
+            if (!p2AttackingMonster.getHasAttacked()) {
+                int atkValue = p2FieldController.getPlayer().getMonsterOnField()[idx].getAttackValue();
+                p1FieldController.receiveAttack(idx,atkValue);
+            }
+        }
+//>>>>>>> 65159324e878e116c308295e46a1b89117a3e454
     }
 
     public void startBattle(int idxAttacker, int idxReceiver) {
@@ -133,15 +148,20 @@ public class GameplayController implements NotifyPhase {
         System.out.println("Gameplay Start Battle");
         Player attackingPlayer;
         Player receivingPlayer;
-        if (p1FieldController.handController.getTurn()) {
+//<<<<<<< HEAD
+//        if (p1FieldController.handController.getTurn()) {
+//            attackingPlayer = p1FieldController.getPlayer();
+//            receivingPlayer = p2FieldController.getPlayer();
+//=======
+        if (playerTurn == 1) {
             attackingPlayer = p1FieldController.getPlayer();
             receivingPlayer = p2FieldController.getPlayer();
+            // Nanti dibikin if klo lagi giliran p2
+//>>>>>>> 65159324e878e116c308295e46a1b89117a3e454
         } else {
             attackingPlayer = p2FieldController.getPlayer();
             receivingPlayer = p1FieldController.getPlayer();
         }
-
-        // Nanti dibikin if klo lagi giliran p2
 
         System.out.println("Monster before battle: ");
         receivingPlayer.printMonsterCardsOnField();
@@ -149,11 +169,14 @@ public class GameplayController implements NotifyPhase {
         System.out.println("Monster after battle: ");
         receivingPlayer.printMonsterCardsOnField();
         System.out.println("Receiving Player HP is " + receivingPlayer.getHp());
-        if (p1FieldController.handController.getTurn()) {
+//<<<<<<< HEAD
+//        if (p1FieldController.handController.getTurn()) {
+//=======
+        if (playerTurn == 1) {
+//>>>>>>> 65159324e878e116c308295e46a1b89117a3e454
             p2FieldController.setHP(receivingPlayer.getHp());
         } else {
             p1FieldController.setHP(receivingPlayer.getHp());
         }
-
     }
 }

@@ -13,7 +13,7 @@ public class Player {
 
     private static final int maxMonstersOnField = 6;
     private static final int maxSkillsOnField = 6;
-    private static final int maxCardsOnHand = 7;
+    private static final int maxCardsOnHand = 8;
 
     protected int playerID;
     protected String namePlayer;
@@ -305,6 +305,15 @@ public class Player {
          }
 //        return putCardIsSuccessful;
 //        System.out.println("End of putToField");
+    }
+
+    // Reset all attacking condition before battle phase
+    public void resetMonsterHasAttacked() {
+        for (SummonedMonster monster : monsterOnField) {
+            if (monster != null) {
+                monster.setHasAttacked(false);
+            }
+        }
     }
 
     public void attack(int sourceMonsterOnFieldIndex, int targetMonsterOnFieldIndex, Player targetPlayer) {

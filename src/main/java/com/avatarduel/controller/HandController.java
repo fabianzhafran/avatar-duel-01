@@ -93,16 +93,17 @@ public class HandController {
                     }
 
                 } else {
-                    if ((hoveredCard.getType().equals("Skill") && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Skill) hoveredCard).getPowerValue() && player.getNumberOfSkillsOnField() < 6) && player.getNumberOfMonstersOnField() > 0 || hoveredCard.getType().equals("Land")) {
-                        Button actButton = CardUtils.createButton("Activate", 20, 20, 70, 8);
-                        actButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                                event -> {
-                                    System.out.println("Clicked activate");
-                                    fieldController.useCard(idx, false);
-                                });
-                        hoveredCardGroup.getChildren().add(actButton);
+                    if (phaseNumber == 2) {
+                        if ((hoveredCard.getType().equals("Skill") && player.getLandPowerByElement(hoveredCard.getElement()) >= ((Skill) hoveredCard).getPowerValue() && player.getNumberOfSkillsOnField() < 6) && player.getNumberOfMonstersOnField() > 0 || hoveredCard.getType().equals("Land")) {
+                            Button actButton = CardUtils.createButton("Activate", 20, 20, 70, 8);
+                            actButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                                    event -> {
+                                        System.out.println("Clicked activate");
+                                        fieldController.useCard(idx, false);
+                                    });
+                            hoveredCardGroup.getChildren().add(actButton);
+                        }
                     }
-
                 }
             }
         }
