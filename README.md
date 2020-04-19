@@ -1,18 +1,19 @@
-# IF2210 Project Template
+# AVATAR DUEL ALIAS YU GI OH KW
 
-Here is an example of project using gradle as the build tools.
-Try running these commands:
+Wow seru banget wawawaw
 
-`./gradlew run`
+### Prerequisites
+- Java 8, Javac 8, JavaJDK 8 - Building the project uses Java 8
+- Javafx 8 - The GUI framework uses Javafx 8
+- For Visual Studio Code users, install the Java Test Runner extension from the Marketplace to run Junit.
 
-You will notice that it will open a window that display 'Avatar Duel'.
-In the command line you can see the data that is being read by `CSVReader.java`
+### Install
+- Clone this repository : `todo`
+- Go to project folder, and run on your terminal `./gradlew run`
 
-What happen is when you use `./gradlew run`, it will start the main function in your app.
-For this app, the main function lives in `AvatarDuel.java`.
+## Credits
 
-You can explore more about gradle [here](https://guides.gradle.org/creating-new-gradle-builds/)
+All images and description are taken from : 
+- [Avatar Wikia](https://avatar.fandom.com/wiki/Avatar_Wiki)
+- Google Images
 
-## Credit
-
-All images and description are taken from [Avatar Wikia](https://avatar.fandom.com/wiki/Avatar_Wiki)
