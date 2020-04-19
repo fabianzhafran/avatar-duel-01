@@ -61,8 +61,10 @@ abstract public class FieldController implements NotifyPhase {
         this.phaseNumber = phaseNumber;
         this.playerTurn = playerTurn;
         this.handController.notifyPhaseToHand(phaseNumber, playerTurn);
-        if (phaseNumber == 1) {
+        this.arenaController.notifyPhaseToArena(phaseNumber, playerTurn);
+        if (phaseNumber == 1 && playerTurn != -1) {
             draw();
+            player.resetMonsterHasAttacked();
         }
     } 
 

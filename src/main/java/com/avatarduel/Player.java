@@ -307,6 +307,15 @@ public class Player {
 //        System.out.println("End of putToField");
     }
 
+    // Reset all attacking condition before battle phase
+    public void resetMonsterHasAttacked() {
+        for (SummonedMonster monster : monsterOnField) {
+            if (monster != null) {
+                monster.setHasAttacked(false);
+            }
+        }
+    }
+
     public void attack(int sourceMonsterOnFieldIndex, int targetMonsterOnFieldIndex, Player targetPlayer) {
         System.out.println("Masuk attack");
         SummonedMonster attackingMonster = this.monsterOnField[sourceMonsterOnFieldIndex];
