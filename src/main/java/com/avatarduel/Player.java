@@ -13,7 +13,7 @@ public class Player {
 
     private static final int maxMonstersOnField = 6;
     private static final int maxSkillsOnField = 6;
-    private static final int maxCardsOnHand = 7;
+    private static final int maxCardsOnHand = 9;
 
     protected int playerID;
     protected String namePlayer;
@@ -34,10 +34,13 @@ public class Player {
         deck = new Stack<Integer>();
         Random randomNumber = new Random();
         for (int i = 0; i < 50; i++) {
-            deck.push(randomNumber.nextInt(91) + 1);
+            int randomNum = randomNumber.nextInt(10);
+            if (randomNum == 1) {
+                deck.push(randomNumber.nextInt(7) + 101);
+            } else {
+                deck.push(randomNumber.nextInt(90) + 1);
+            }
         }
-        deck.pop();
-        deck.push(new Integer(1));
         hand = new ArrayList<Card>();
         monsterOnField = new SummonedMonster[maxMonstersOnField];
         numberOfMonstersOnField = 0;
@@ -50,10 +53,10 @@ public class Player {
         elementPower[3] = new ElementPower(AIR);
 
         // DEBUG
-        // addLandMaxPowerByElement(EARTH);
-        // addLandMaxPowerByElement(WATER);
-        // addLandMaxPowerByElement(FIRE);
-        // addLandMaxPowerByElement(AIR);
+        addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); addLandMaxPowerByElement(EARTH); 
+        addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER); addLandMaxPowerByElement(WATER);
+        addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); addLandMaxPowerByElement(FIRE); 
+        addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); addLandMaxPowerByElement(AIR); 
     }
 
     public int getPlayerID() {
@@ -89,7 +92,6 @@ public class Player {
             if (sm != null) {
                 System.out.println(sm.getMonster().getName());
             }
-
         }
     }
     
@@ -101,7 +103,7 @@ public class Player {
         return elementPower;
     }
 
-    public int getDeckCount() { 
+    public int getDeckCount() {
         return this.deck.size(); 
     }
 
@@ -147,6 +149,14 @@ public class Player {
             }
         }
     }
+
+    public void setLandPowerToMax() {
+        for (ElementPower elPow : elementPower) {
+            elPow.setCurrentPow(elPow.getMaxPow());
+            System.out.println(elPow.getElement());
+            System.out.println(elPow.getCurrentPow());
+        }
+    }
     
     public Card draw() {
         if (hand.size() < maxCardsOnHand) {
@@ -155,6 +165,7 @@ public class Player {
             ElementDictionary elementDictionary = new ElementDictionary();
             if (getDeckCount() > 0) {
                 int topCardId = deck.pop();
+                // Draw land
                 for (String[] landRow : listOfCards.listOfLandCards) {
                     if (topCardId == Integer.parseInt(landRow[0])) {
                             Land landCard = new Land(landRow[1],
@@ -168,6 +179,7 @@ public class Player {
                         return landCard;
                     }
                 }
+                // Draw monster
                 if (!found) {
                     for (String[] monsterRow : listOfCards.listOfMonsterCards) {
                         if (topCardId == Integer.parseInt(monsterRow[0])) {
@@ -186,6 +198,7 @@ public class Player {
                         }
                     }
                 }
+                // Draw skill aura
                 if (!found) {
                     for (String[] skillAuraRow : listOfCards.listOfSkillAuraCards) {
                         if (topCardId == Integer.parseInt(skillAuraRow[0])) {
@@ -200,6 +213,22 @@ public class Player {
                             this.hand.add(skillAuraCard);
     //                        System.out.println(skillAuraCard.getName());
                             return skillAuraCard;
+                        }
+                    }
+                }
+                // Draw skill power up
+                if (!found) {
+                    for (String[] skillPowerUpRow : listOfCards.listOfSkillPowerUpCards) {
+                        if (topCardId == Integer.parseInt(skillPowerUpRow[0])) {
+                            PowerUp skillPowerUpCard = new PowerUp(skillPowerUpRow[1],
+                                                          elementDictionary.getElement(skillPowerUpRow[2]),
+                                                          skillPowerUpRow[3],
+                                                          skillPowerUpRow[4],
+                                                          Integer.parseInt(skillPowerUpRow[5])
+                                                         );
+                            this.hand.add(skillPowerUpCard);
+    //                        System.out.println(skillAuraCard.getName());
+                            return skillPowerUpCard;
                         }
                     }
                 }
@@ -333,7 +362,7 @@ public class Player {
     public void attack(int sourceMonsterOnFieldIndex, int targetMonsterOnFieldIndex, Player targetPlayer) {
         System.out.println("Masuk attack");
         SummonedMonster attackingMonster = this.monsterOnField[sourceMonsterOnFieldIndex];
-        if (!attackingMonster.getHasAttacked() && attackingMonster.getIsJustSummoned()) {
+        if (!attackingMonster.getHasAttacked() && !attackingMonster.getIsJustSummoned()) {
             if (targetMonsterOnFieldIndex != -1) { // -1 kalau nggak ada monster di field lawan
                 SummonedMonster[] targetMonsterField = targetPlayer.getMonsterOnField();
                 SummonedMonster targetMonster = targetMonsterField[targetMonsterOnFieldIndex];
@@ -366,19 +395,20 @@ public class Player {
 //        System.out.println(sm.getMonster().getName());
         Aura aura = (Aura) skillOnField[sourceSkillOnFieldIndex];
         // if ((isCorrectPhase(PhaseEnum.MAIN_PHASE_1) || isCorrectPhase(PhaseEnum.MAIN_PHASE_2)) && aura.getIsUsed()) { 
-            System.out.println(aura.getName());
-            skillOnField[sourceSkillOnFieldIndex].setIsUsedToTrue();
-            monsterOnField[monsterOnFieldIndex].addBuff(
-                ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
-                ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
-            );
-            monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
+        System.out.println(aura.getName());
+        skillOnField[sourceSkillOnFieldIndex].setIsUsedToTrue();
+        monsterOnField[monsterOnFieldIndex].addBuff(
+            ((Aura)skillOnField[sourceSkillOnFieldIndex]).getAttackValue(),
+            ((Aura)skillOnField[sourceSkillOnFieldIndex]).getDefenseValue()
+        );
+        monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
         // }
     }
 
     public void activatePowerUpSkill(int sourceSkillOnFieldIndex, int monsterOnFieldIndex) {
         monsterOnField[monsterOnFieldIndex].setPierce();
-        removeSkillOnField(sourceSkillOnFieldIndex);
+        skillOnField[sourceSkillOnFieldIndex].setIsUsedToTrue();
+        monsterOnField[monsterOnFieldIndex].registerSkill(sourceSkillOnFieldIndex);
     }
 
     public void activateDestroySkill(boolean isTargetMonster, int sourceSkillOnFieldIndex, int targetOnFieldIndex, Player targetPlayer) {

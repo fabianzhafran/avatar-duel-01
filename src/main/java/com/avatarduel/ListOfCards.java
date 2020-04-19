@@ -13,12 +13,14 @@ public class ListOfCards {
     public ArrayList<String[]> listOfMonsterCards;
     public ArrayList<String[]> listOfSkillAuraCards;
     public ArrayList<String[]> listOfSkillDestroyCards;
+    public ArrayList<String[]> listOfSkillPowerUpCards;
 
     public ListOfCards() {
         listOfLandCards = this.loadCards("land");
         listOfMonsterCards = this.loadCards("character");
         listOfSkillAuraCards = this.loadCards("skill_aura");
         listOfSkillDestroyCards = this.loadCards("skill_destroy");
+        listOfSkillPowerUpCards = this.loadCards("skill_power_up");
     }
 
     public ArrayList<String[]> loadCards(String csvName) {

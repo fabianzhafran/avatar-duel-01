@@ -128,7 +128,17 @@ public class CardUtils {
                     Text attText = createText("Att:", 22, 91, 10);
                     Text defText = createText("Def:", 55, 91, 10);
                     newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, cardImg, backCardImg);
-                } 
+                } else if (skillCard.getSkillType().equals("Power Up")) {
+                    PowerUp castedCard = (PowerUp) skillCard;
+                    Label attLabel = createLabel("-", 45, 80, 10);
+                    Label powLabel = createLabel(String.valueOf(castedCard.getPowerValue()), 42, 92, 10);
+                    Label defLabel = createLabel("-", 78, 80, 10);
+                    Label elmtLabel = createLabel(castedCard.getElement().toString(), 60, 95, 8);
+                    Text powText = createText("Pow:", 22, 103, 10);
+                    Text attText = createText("Att:", 22, 91, 10);
+                    Text defText = createText("Def:", 55, 91, 10);
+                    newCard.getChildren().addAll(outer, nameRect, imgRect, descRect, nameLabel, powLabel, attLabel, defLabel, elmtLabel, powText, attText, defText, cardImg, backCardImg);
+                }
             }
 
             return newCard;

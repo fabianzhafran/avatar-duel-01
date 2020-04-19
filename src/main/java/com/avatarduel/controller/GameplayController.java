@@ -65,6 +65,11 @@ public class GameplayController implements NotifyPhase {
                 cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
                 cardDescController.setAtt("Atk: " + String.valueOf(castedCard.getAttackValue()));
                 cardDescController.setDef("Def: " + String.valueOf(castedCard.getDefenseValue()));
+            } else if (skillCard.getSkillType().equals("Power Up")) {
+                PowerUp castedCard = (PowerUp) skillCard;
+                cardDescController.setPwr("Pow: " + String.valueOf(castedCard.getPowerValue()));
+                cardDescController.setAtt(" ");
+                cardDescController.setDef(" "); 
             }
 
         } else {

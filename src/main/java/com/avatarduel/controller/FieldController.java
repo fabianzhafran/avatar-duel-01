@@ -1,6 +1,7 @@
 package com.avatarduel.controller;
 
 import com.avatarduel.Card.Card;
+import com.avatarduel.Card.Skill;
 import com.avatarduel.Card.Element;
 import com.avatarduel.Card.SummonedMonster;
 import com.avatarduel.Player;
@@ -62,10 +63,17 @@ abstract public class FieldController implements NotifyPhase {
         this.playerTurn = playerTurn;
         this.handController.notifyPhaseToHand(phaseNumber, playerTurn);
         this.arenaController.notifyPhaseToArena(phaseNumber, playerTurn);
-        if (phaseNumber == 1 && playerTurn != -1) {
-            draw();
-            player.resetMonsterHasAttacked();
-            player.resetMonsterIsJustSummoned();
+        if (phaseNumber == 1) {
+            if (playerTurn != -1) {
+                draw();
+                player.resetMonsterHasAttacked();
+                player.resetMonsterIsJustSummoned();
+            }
+            player.setLandPowerToMax();
+            waterElement.setText(String.valueOf(player.getLandPowerByElement(WATER)) + " / " + player.getMaxLandPowerByElement(WATER));
+            fireElement.setText(String.valueOf(player.getLandPowerByElement(FIRE)) + " / " + player.getMaxLandPowerByElement(FIRE));
+            airElement.setText(String.valueOf(player.getLandPowerByElement(AIR)) + " / " + player.getMaxLandPowerByElement(AIR));
+            earthElement.setText(String.valueOf(player.getLandPowerByElement(EARTH)) + " / " + player.getMaxLandPowerByElement(EARTH));
         }
     } 
 
@@ -97,6 +105,7 @@ abstract public class FieldController implements NotifyPhase {
 
     public void draw() {
         Card cardToPutOnHand = player.draw();
+        System.out.println("WOWOWOW");
         if (cardToPutOnHand != null) {
             Group newCard = CardUtils.createCard(cardToPutOnHand);
             handController.addCard(newCard);
