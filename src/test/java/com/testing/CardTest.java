@@ -54,7 +54,7 @@ public class CardTest {
     }
 
     @Test
-    public void testCreateSkill()) {
+    public void testCreateSkill() {
         Skill dummy = new Skill("Coding", Element.WATER, "Ini skill gan", "~", 5);
         assertEquals("Nama must be Coding", "Coding", dummy.getName());
         assertEquals("Type must be Skill", "Skill", dummy.getType());
