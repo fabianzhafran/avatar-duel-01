@@ -130,7 +130,9 @@ public class ArenaController {
                     boolean existLess = false;
                     if (enemy.getNumberOfMonstersOnField() > 0) {
                         for (SummonedMonster enemyMonster: enemy.getMonsterOnField()) {
-                            if (player.getMonsterOnField()[i].getPositionValue() > enemyMonster.getPositionValue()) {
+                            if (player.getMonsterOnField()[i].getPositionValue() > enemyMonster.getPositionValue() 
+                                || (player.getMonsterOnField()[i].getIsAttackPosition() && player.getMonsterOnField()[i].getAttackValue() > enemyMonster.getDefenseValue() && !enemyMonster.getIsAttackPosition()))
+                            {
                                 existLess = true;
                                 break;
                             }
