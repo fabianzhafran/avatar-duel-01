@@ -1,7 +1,5 @@
 # AVATAR DUEL ALIAS YU GI OH KW
 
-~~Wow seru banget wawawaw~~
-
 ### Prerequisites
 - Java 8, Javac 8, JavaJDK 8 - Building the project uses Java 8
 - Javafx 8 - The GUI framework uses Javafx 8
@@ -22,7 +20,7 @@
 
 ## Credits
 
-All images and description are taken from : 
+All images and descriptions are taken from : 
 - [Avatar Wikia](https://avatar.fandom.com/wiki/Avatar_Wiki)
 - Google Images
 
